@@ -1,0 +1,62 @@
+package org.alberto97.ouilookup
+
+import android.content.Context
+import androidx.room.Room
+import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
+import dagger.Binds
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import org.alberto97.ouilookup.datasource.IEEEApi
+import org.alberto97.ouilookup.db.AppDatabase
+import org.alberto97.ouilookup.repository.IOuiRepository
+import org.alberto97.ouilookup.repository.OuiRepository
+import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
+import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class AppModule {
+    @Binds
+    abstract fun provideOuiRepository(repository: OuiRepository): IOuiRepository
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+object DatabaseModule {
+    @Singleton
+    @Provides
+    fun provideAppDb(@ApplicationContext context: Context): AppDatabase =
+        Room.databaseBuilder(context, AppDatabase::class.java, "app-db")
+            .build()
+
+    @Singleton
+    @Provides
+    fun provideDao(db: AppDatabase) = db.ouiDao()
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+object NetworkModule {
+    @Provides
+    fun provideRetrofit(): Retrofit =
+        Retrofit.Builder()
+            .baseUrl("http://standards-oui.ieee.org/")
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .build()
+
+    @Provides
+    fun provideIEEEApi(retrofit: Retrofit): IEEEApi =
+        retrofit.create(IEEEApi::class.java)
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+object CsvReaderModule {
+    @Singleton
+    @Provides
+    fun provideCsvReader() = csvReader()
+}
