@@ -1,4 +1,4 @@
-package org.alberto97.ouilookup
+package org.alberto97.ouilookup.ui
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -14,11 +14,12 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.repository.IOuiRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class ViewModel @Inject constructor(
+class MainViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val repository: IOuiRepository
 ) : ViewModel() {

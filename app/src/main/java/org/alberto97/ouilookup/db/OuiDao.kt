@@ -8,10 +8,10 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface OuiDao {
-    @Query("SELECT * FROM oui WHERE oui = :oui")
+    @Query("SELECT * FROM oui WHERE oui LIKE :oui || '%' ORDER BY orgName, oui")
     fun getByOui(oui: String): Flow<List<Oui>>
 
-    @Query("SELECT * FROM oui WHERE orgName LIKE :org || '%'")
+    @Query("SELECT * FROM oui WHERE orgName LIKE :org || '%' ORDER BY orgName, oui")
     fun getByOrganization(org: String): Flow<List<Oui>>
 
     @Query("SELECT * FROM oui")

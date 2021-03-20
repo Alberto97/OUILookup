@@ -5,6 +5,7 @@ import androidx.preference.PreferenceManager
 import com.github.doyaaaaaken.kotlincsv.client.CsvReader
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import org.alberto97.ouilookup.Extensions.readRawTextFile
 import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.datasource.IEEEApi
@@ -18,6 +19,7 @@ import kotlin.time.ExperimentalTime
 import kotlin.time.toDuration
 
 interface IOuiRepository {
+    fun getData(text: String?, type: String?): Flow<List<Oui>>
     fun getByOui(oui: String): Flow<List<Oui>>
     fun getByOrganization(org: String): Flow<List<Oui>>
     fun getAll(): Flow<List<Oui>>
@@ -36,8 +38,19 @@ class OuiRepository @Inject constructor(
     private val dao: OuiDao,
 ) : IOuiRepository {
 
+    override fun getData(text: String?, type: String?): Flow<List<Oui>> {
+        if (text.isNullOrEmpty())
+            return flow { listOf<List<Oui>>() }
+
+        return if (type == "Organization")
+            getByOrganization(text)
+        else
+            getByOui(text)
+    }
+
     override fun getByOui(oui: String): Flow<List<Oui>> {
-        val param = oui.toUpperCase(Locale.ROOT)
+        val saneOui = oui.filterNot { c -> ":-".contains(c)}.take(6)
+        val param = saneOui.toUpperCase(Locale.ROOT)
         return dao.getByOui(param)
     }
 
@@ -56,6 +69,9 @@ class OuiRepository @Inject constructor(
         if (isEmpty && isOffline) {
             updateFromCsv()
         }
+
+        if (isOffline)
+            return
 
         if (!isEmpty) {
             // Don't update until at least two weeks has passed since the last data fetch
@@ -92,7 +108,7 @@ class OuiRepository @Inject constructor(
     private suspend fun saveData(csvData: String) {
         // Read CSV data and map it to entity
         val entities = reader.readAllWithHeader(csvData).map {
-            Oui(it["Assignment"]!!, it["Organization Name"]!!, it["Organization Address"]!!)
+            Oui(it["Assignment"]!!, it["Organization Name"]!!.trim(), it["Organization Address"]!!)
         }
 
         // There probably was a mistake, exit before clearing the db.
