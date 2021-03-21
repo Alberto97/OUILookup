@@ -6,16 +6,17 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.CorporateFare
+import androidx.compose.material.icons.outlined.DeveloperBoard
 import androidx.compose.material.icons.outlined.Search
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.alberto97.ouilookup.ui.theme.OUILookupTheme
-import org.alberto97.ouilookup.ui.theme.Purple500
 
 @ExperimentalMaterialApi
 @Composable
@@ -23,14 +24,14 @@ fun SearchScreen() {
     val viewModel: SearchViewModel = viewModel()
 
     val text: String by viewModel.text.observeAsState("")
-    val option: String by viewModel.option.observeAsState("Address")
+    val option: Int by viewModel.filter.observeAsState(0)
     val list: List<Pair<String, String>> by viewModel.list.observeAsState(listOf())
 
     SearchScreen(
         text = text,
         onTextChange = { value -> viewModel.onTextChange(value) },
-        option = option,
-        onOptionChange = { value -> viewModel.onTypeChange(value) },
+        tab = option,
+        onTabChange = { value -> viewModel.onFilterChange(value) },
         list = list
     )
 }
@@ -40,8 +41,8 @@ fun SearchScreen() {
 fun SearchScreen(
     text: String,
     onTextChange: (value: String) -> Unit,
-    option: String,
-    onOptionChange: (value: String) -> Unit,
+    tab: Int,
+    onTabChange: (value: Int) -> Unit,
     list: List<Pair<String, String>>
 ) {
     Scaffold(topBar = {
@@ -51,8 +52,8 @@ fun SearchScreen(
             SearchOptions(
                 text = text,
                 onTextChange = onTextChange,
-                option = option,
-                onOptionChange = onOptionChange
+                tab = tab,
+                onTabChange = onTabChange
             )
             Items(list = list)
         }
@@ -64,8 +65,8 @@ fun SearchScreen(
 fun SearchOptions(
     text: String,
     onTextChange: (value: String) -> Unit,
-    option: String,
-    onOptionChange: (value: String) -> Unit
+    tab: Int,
+    onTabChange: (value: Int) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -75,45 +76,42 @@ fun SearchOptions(
         TextField(
             value = text,
             onValueChange = onTextChange,
-            trailingIcon = { Icon(Icons.Outlined.Search, null) },
+            leadingIcon = { Icon(Icons.Outlined.Search, null) },
+            shape = MaterialTheme.shapes.small,
+            colors = TextFieldDefaults.textFieldColors(
+                textColor = Color.White,
+                unfocusedIndicatorColor = Color.Transparent,
+                focusedIndicatorColor = Color.Transparent
+            ),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         )
-        RadioGroup(
-            option = option,
-            onChange = onOptionChange,
-            options = listOf("Address", "Organization")
+        Tabs(
+            option = tab,
+            onChange = onTabChange
         )
     }
 }
 
 @Composable
-fun RadioGroup(option: String, onChange: (option: String) -> Unit, options: List<String>) {
-    Row(modifier = Modifier
-        .padding(16.dp)
-        .fillMaxWidth()) {
-        options.forEach {
-            Box(Modifier.weight(1f)) {
-                Radio(
-                    selected = option == it,
-                    onClick = { onChange(it) },
-                    it
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun Radio(
-    selected: Boolean,
-    onClick: (() -> Unit)?,
-    label: String
+fun Tabs(
+    option: Int,
+    onChange: (option: Int) -> Unit,
 ) {
-    Row {
-        RadioButton(selected = selected, onClick = onClick)
-        Text(label, modifier = Modifier.padding(horizontal = 4.dp))
+    TabRow(selectedTabIndex = option) {
+            Tab(
+                icon = { Icon(Icons.Outlined.DeveloperBoard, null)},
+                text = { Text("Address") },
+                selected = option == 0,
+                onClick = { onChange(0) },
+            )
+            Tab(
+                icon = { Icon(Icons.Outlined.CorporateFare, null)},
+                text = { Text("Organization") },
+                selected = option == 1,
+                onClick = { onChange(1) },
+            )
     }
 }
 
@@ -139,8 +137,8 @@ fun DefaultPreview() {
             SearchScreen(
                 text = "Test",
                 onTextChange = {  },
-                option = "Address",
-                onOptionChange = {  },
+                tab = 0,
+                onTabChange = {  },
                 list = listOf(Pair("Apple", "AA:AA:AA"), Pair("Google", "FF:FF:FF"))
             )
         }

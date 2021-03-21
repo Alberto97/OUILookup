@@ -19,7 +19,7 @@ import kotlin.time.ExperimentalTime
 import kotlin.time.toDuration
 
 interface IOuiRepository {
-    fun getData(text: String?, type: String?): Flow<List<Oui>>
+    fun getData(text: String?, type: SearchType?): Flow<List<Oui>>
     fun getByOui(oui: String): Flow<List<Oui>>
     fun getByOrganization(org: String): Flow<List<Oui>>
     fun getAll(): Flow<List<Oui>>
@@ -30,6 +30,11 @@ object SharedPreferenceConstants {
     const val LAST_DB_UPDATE = "last_db_update"
 }
 
+enum class SearchType {
+    Address,
+    Organization
+}
+
 @Singleton
 class OuiRepository @Inject constructor(
     @ApplicationContext private val context: Context,
@@ -38,11 +43,11 @@ class OuiRepository @Inject constructor(
     private val dao: OuiDao,
 ) : IOuiRepository {
 
-    override fun getData(text: String?, type: String?): Flow<List<Oui>> {
+    override fun getData(text: String?, type: SearchType?): Flow<List<Oui>> {
         if (text.isNullOrEmpty())
             return flow { listOf<List<Oui>>() }
 
-        return if (type == "Organization")
+        return if (type == SearchType.Organization)
             getByOrganization(text)
         else
             getByOui(text)
