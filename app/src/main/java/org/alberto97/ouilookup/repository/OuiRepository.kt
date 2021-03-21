@@ -5,7 +5,7 @@ import androidx.preference.PreferenceManager
 import com.github.doyaaaaaken.kotlincsv.client.CsvReader
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import org.alberto97.ouilookup.Extensions.readRawTextFile
 import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.datasource.IEEEApi
@@ -45,7 +45,7 @@ class OuiRepository @Inject constructor(
 
     override fun getData(text: String?, type: SearchType?): Flow<List<Oui>> {
         if (text.isNullOrEmpty())
-            return flow { listOf<List<Oui>>() }
+            return flowOf(emptyList())
 
         return if (type == SearchType.Organization)
             getByOrganization(text)
