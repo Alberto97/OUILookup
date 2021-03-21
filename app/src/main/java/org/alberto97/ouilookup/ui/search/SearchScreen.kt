@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import org.alberto97.ouilookup.db.Oui
 import org.alberto97.ouilookup.ui.theme.OUILookupTheme
 
 @ExperimentalMaterialApi
@@ -25,7 +26,7 @@ fun SearchScreen() {
 
     val text: String by viewModel.text.observeAsState("")
     val option: Int by viewModel.filter.observeAsState(0)
-    val list: List<Pair<String, String>> by viewModel.list.observeAsState(listOf())
+    val list: List<Oui> by viewModel.list.observeAsState(listOf())
 
     SearchScreen(
         text = text,
@@ -43,7 +44,7 @@ fun SearchScreen(
     onTextChange: (value: String) -> Unit,
     tab: Int,
     onTabChange: (value: Int) -> Unit,
-    list: List<Pair<String, String>>
+    list: List<Oui>
 ) {
     Scaffold(topBar = {
         TopAppBar({ Text("MAC Address Lookup") }, elevation = 0.dp)
@@ -117,12 +118,12 @@ fun Tabs(
 
 @ExperimentalMaterialApi
 @Composable
-fun Items(list: List<Pair<String, String>>) {
+fun Items(list: List<Oui>) {
     LazyColumn {
         items(list) { device ->
             ListItem(
-                text = { Text(device.first) },
-                secondaryText = { Text(device.second) }
+                text = { Text(device.orgName) },
+                secondaryText = { Text(device.oui) }
             )
         }
     }
@@ -139,7 +140,10 @@ fun DefaultPreview() {
                 onTextChange = {  },
                 tab = 0,
                 onTabChange = {  },
-                list = listOf(Pair("Apple", "AA:AA:AA"), Pair("Google", "FF:FF:FF"))
+                list = listOf(
+                    Oui("AA:AA:AA", "Apple", ""),
+                    Oui("FF:FF:FF", "Google", "")
+                )
             )
         }
     }
