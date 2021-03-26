@@ -1,6 +1,7 @@
 package org.alberto97.ouilookup.repository
 
 import android.content.Context
+import android.net.ConnectivityManager
 import androidx.preference.PreferenceManager
 import com.github.doyaaaaaken.kotlincsv.client.CsvReader
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -17,6 +18,11 @@ import javax.inject.Singleton
 import kotlin.time.DurationUnit
 import kotlin.time.ExperimentalTime
 import kotlin.time.toDuration
+import android.net.NetworkCapabilities
+
+import android.os.Build
+import androidx.annotation.RequiresApi
+
 
 interface IOuiRepository {
     fun getData(text: String?, type: SearchType?): Flow<List<Oui>>
@@ -65,10 +71,37 @@ class OuiRepository @Inject constructor(
 
     override fun getAll(): Flow<List<Oui>> = dao.getAll()
 
+    private fun isConnected(): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            isConnected(cm)
+        else
+            isConnectedLegacy(cm)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun isConnected(cm: ConnectivityManager): Boolean {
+        val cap = cm.getNetworkCapabilities(cm.activeNetwork) ?: return false
+        return cap.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
+
+    @Suppress("DEPRECATION")
+    private fun isConnectedLegacy(cm: ConnectivityManager): Boolean {
+        val networks = cm.allNetworks
+        for (n in networks) {
+            val nInfo = cm.getNetworkInfo(n)
+            if (nInfo != null && nInfo.isConnected) return true
+        }
+
+        return false
+    }
+
+    // TODO: In the future the db will be with bundled data (csv) seeded during the splash screen [if the db is empty]
+    //  and then in a later stage updated from IEEE in background if there is an active internet connection
     @ExperimentalTime
     override suspend fun updateIfOldOrEmpty() {
         val isEmpty = dao.isEmpty()
-        val isOffline = true // TODO: Actually check connectivity
+        val isOffline = !isConnected()
 
         // If offline at first boot use bundled data
         if (isEmpty && isOffline) {
@@ -77,14 +110,17 @@ class OuiRepository @Inject constructor(
 
         if (isOffline)
             return
-
-        if (!isEmpty) {
-            // Don't update until at least two weeks has passed since the last data fetch
-            val lastUpdateMillis = getLastDbUpdate()
-            val duration = (System.currentTimeMillis() - lastUpdateMillis).toDuration(DurationUnit.MILLISECONDS)
-            if (duration.inDays < 14) return
+        if (!isDbUpToDate() || isEmpty) {
+            updateFromIEEE()
         }
-        updateFromIEEE()
+    }
+
+    @ExperimentalTime
+    private fun isDbUpToDate() : Boolean {
+        // Don't update until at least two weeks has passed since the last data fetch
+        val lastUpdateMillis = getLastDbUpdate()
+        val duration = (System.currentTimeMillis() - lastUpdateMillis).toDuration(DurationUnit.MILLISECONDS)
+        return duration.inDays < 14
     }
 
     private fun getLastDbUpdate(): Long {
