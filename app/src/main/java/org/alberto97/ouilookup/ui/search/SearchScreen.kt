@@ -130,7 +130,7 @@ fun Items(list: List<Oui>) {
 }
 
 @ExperimentalMaterialApi
-@Preview()
+@Preview
 @Composable
 fun DefaultPreview() {
     OUILookupTheme {
