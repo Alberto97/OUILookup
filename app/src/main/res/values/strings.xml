@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">OUI Lookup</string>
+    <string name="about_author_fulfilling_ego" translatable="false">Alberto Pedron</string>
+
+    <!-- About -->
+    <string name="about_title">About</string>
+    <string name="about_app_info">App Info</string>
+    <string name="about_author">Author</string>
+    <string name="about_version">Version</string>
+    <string name="about_last_db_update">Last database update</string>
 </resources>

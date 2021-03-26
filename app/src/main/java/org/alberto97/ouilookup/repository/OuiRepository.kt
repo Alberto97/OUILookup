@@ -29,6 +29,7 @@ interface IOuiRepository {
     fun getByOui(oui: String): Flow<List<Oui>>
     fun getByOrganization(org: String): Flow<List<Oui>>
     fun getAll(): Flow<List<Oui>>
+    fun getLastDbUpdate(): Long
     suspend fun updateIfOldOrEmpty()
 }
 
@@ -123,7 +124,7 @@ class OuiRepository @Inject constructor(
         return duration.inDays < 14
     }
 
-    private fun getLastDbUpdate(): Long {
+    override fun getLastDbUpdate(): Long {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         return prefs.getLong(SharedPreferenceConstants.LAST_DB_UPDATE, 0)
     }
