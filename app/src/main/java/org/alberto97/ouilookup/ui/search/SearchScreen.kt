@@ -56,7 +56,8 @@ fun SearchScreen(
 ) {
     val (dropdownExpanded, setDropdownExpanded) = remember { mutableStateOf(false) }
 
-    Scaffold(topBar = {
+    Scaffold(
+        topBar = {
             TopAppBar(
                 title = { Text("MAC Address Lookup") },
                 elevation = 0.dp,
@@ -71,7 +72,8 @@ fun SearchScreen(
                     }
                 }
             )
-    }) {
+        }
+    ) {
         Column {
             SearchOptions(
                 text = text,
@@ -103,29 +105,31 @@ fun SearchOptions(
     tab: Int,
     onTabChange: (value: Int) -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .background(MaterialTheme.colors.primarySurface)
-            .fillMaxWidth()
-    ) {
-        TextField(
-            value = text,
-            onValueChange = onTextChange,
-            leadingIcon = { Icon(Icons.Outlined.Search, null) },
-            shape = MaterialTheme.shapes.small,
-            colors = TextFieldDefaults.textFieldColors(
-                textColor = Color.White,
-                unfocusedIndicatorColor = Color.Transparent,
-                focusedIndicatorColor = Color.Transparent
-            ),
+    Surface(elevation = AppBarDefaults.TopAppBarElevation) {
+        Column(
             modifier = Modifier
+                .background(MaterialTheme.colors.primarySurface)
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-        )
-        Tabs(
-            option = tab,
-            onChange = onTabChange
-        )
+        ) {
+            TextField(
+                value = text,
+                onValueChange = onTextChange,
+                leadingIcon = { Icon(Icons.Outlined.Search, null) },
+                shape = MaterialTheme.shapes.small,
+                colors = TextFieldDefaults.textFieldColors(
+                    textColor = Color.White,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    focusedIndicatorColor = Color.Transparent
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+            )
+            Tabs(
+                option = tab,
+                onChange = onTabChange
+            )
+        }
     }
 }
 
