@@ -6,7 +6,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.ExperimentalMaterialApi
 import dagger.hilt.android.AndroidEntryPoint
-import org.alberto97.ouilookup.ui.search.SearchScreen
 import org.alberto97.ouilookup.ui.theme.OUILookupTheme
 
 @AndroidEntryPoint
@@ -20,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.updateDb()
         setContent {
             OUILookupTheme {
-                SearchScreen()
+                NavGraph()
             }
         }
     }

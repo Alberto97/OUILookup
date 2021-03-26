@@ -69,6 +69,10 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
+    // Navigation
+    implementation "androidx.navigation:navigation-compose:1.0.0-alpha09"
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0-alpha01'
+
     // Retrofit
     def retrofit_version = "2.9.0"
     implementation "com.squareup.retrofit2:converter-scalars:$retrofit_version"
