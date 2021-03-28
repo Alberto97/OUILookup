@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.alberto97.ouilookup.repository.IOuiRepository
@@ -31,6 +32,7 @@ class SplashViewModel @Inject constructor(private val repository: IOuiRepository
                 withContext(Dispatchers.Main) { _isUpdating.value = true }
                 repository.updateIfOldOrEmpty()
             }
+            delay(1000L)
             withContext(Dispatchers.Main) { _navigate.value = true }
         }
     }
