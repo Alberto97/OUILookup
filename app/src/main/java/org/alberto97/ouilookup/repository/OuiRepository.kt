@@ -30,6 +30,7 @@ interface IOuiRepository {
     fun getByOrganization(org: String): Flow<List<Oui>>
     fun getAll(): Flow<List<Oui>>
     fun getLastDbUpdate(): Long
+    fun dbNeedsUpdate(): Boolean
     suspend fun updateIfOldOrEmpty()
 }
 
@@ -111,9 +112,14 @@ class OuiRepository @Inject constructor(
 
         if (isOffline)
             return
-        if (!isDbUpToDate() || isEmpty) {
+
+        if (dbNeedsUpdate())
             updateFromIEEE()
-        }
+    }
+
+    @ExperimentalTime
+    override fun dbNeedsUpdate(): Boolean {
+        return !isDbUpToDate() || dao.isEmpty()
     }
 
     @ExperimentalTime

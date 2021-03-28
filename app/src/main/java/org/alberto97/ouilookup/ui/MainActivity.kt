@@ -11,12 +11,9 @@ import org.alberto97.ouilookup.ui.theme.OUILookupTheme
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel: MainViewModel by viewModels()
-
     @ExperimentalMaterialApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.updateDb()
         setContent {
             OUILookupTheme {
                 NavGraph()

@@ -10,8 +10,11 @@ import org.alberto97.ouilookup.ui.about.AboutScreen
 import org.alberto97.ouilookup.ui.about.AboutViewModel
 import org.alberto97.ouilookup.ui.search.SearchScreen
 import org.alberto97.ouilookup.ui.search.SearchViewModel
+import org.alberto97.ouilookup.ui.splash.SplashScreen
+import org.alberto97.ouilookup.ui.splash.SplashViewModel
 
 object Destinations {
+    const val SPLASH_ROUTE = "splash"
     const val SEARCH_ROUTE = "search"
     const val ABOUT_ROUTE = "about"
 }
@@ -21,7 +24,11 @@ object Destinations {
 fun NavGraph() {
     val navController = rememberNavController()
 
-    NavHost(navController, startDestination = Destinations.SEARCH_ROUTE) {
+    NavHost(navController, startDestination = Destinations.SPLASH_ROUTE) {
+        composable(Destinations.SPLASH_ROUTE) {
+            val viewModel: SplashViewModel = hiltNavGraphViewModel(it)
+            SplashScreen(viewModel, navController)
+        }
         composable(Destinations.SEARCH_ROUTE) {
             val viewModel: SearchViewModel = hiltNavGraphViewModel(it)
             SearchScreen(viewModel, navController)
