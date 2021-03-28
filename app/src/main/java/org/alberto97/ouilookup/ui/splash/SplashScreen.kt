@@ -17,6 +17,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
 import org.alberto97.ouilookup.ui.Destinations
 import org.alberto97.ouilookup.ui.theme.OUILookupTheme
+import org.alberto97.ouilookup.ui.theme.Purple500
 
 @Composable
 fun SplashScreen(splashViewModel: SplashViewModel, navController: NavController) {
@@ -39,7 +40,7 @@ fun SplashScreen(isUpdating: Boolean) {
             verticalArrangement = Arrangement.Center,
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = MaterialTheme.colors.primary)
+                .background(color = Purple500)
         ) {
             Icon(
                 Icons.Outlined.SettingsEthernet,
