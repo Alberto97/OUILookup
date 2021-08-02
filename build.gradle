@@ -2,7 +2,7 @@
 buildscript {
     ext {
         hilt_version = '2.38.1'
-        kotlin_version = '1.4.31'
+        kotlin_version = '1.5.10'
         compose_version = '1.0.0-beta03'
     }
     repositories {

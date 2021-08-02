@@ -63,7 +63,7 @@ class OuiRepository @Inject constructor(
 
     override fun getByOui(oui: String): Flow<List<Oui>> {
         val saneOui = oui.filterNot { c -> ":-".contains(c)}.take(6)
-        val param = saneOui.toUpperCase(Locale.ROOT)
+        val param = saneOui.uppercase()
         return dao.getByOui(param)
     }
 
@@ -127,7 +127,7 @@ class OuiRepository @Inject constructor(
         // Don't update until at least two weeks has passed since the last data fetch
         val lastUpdateMillis = getLastDbUpdate()
         val duration = (System.currentTimeMillis() - lastUpdateMillis).toDuration(DurationUnit.MILLISECONDS)
-        return duration.inDays < 14
+        return duration.inWholeDays < 14
     }
 
     override fun getLastDbUpdate(): Long {
