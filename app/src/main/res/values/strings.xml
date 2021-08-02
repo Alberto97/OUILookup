@@ -2,6 +2,10 @@
     <string name="app_name">OUI Lookup</string>
     <string name="about_author_fulfilling_ego" translatable="false">Alberto Pedron</string>
 
+    <!-- Notifications -->
+    <string name="oui_update_notification_channel">Database updates</string>
+    <string name="oui_update_notification_title">Updating database…</string>
+
     <!-- About -->
     <string name="about_title">About</string>
     <string name="about_app_info">App Info</string>
