@@ -2,26 +2,30 @@ package org.alberto97.ouilookup.ui.search
 
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.*
 import org.alberto97.ouilookup.repository.IOuiRepository
 import org.alberto97.ouilookup.repository.SearchType
-import org.alberto97.ouilookup.tools.DoubleTrigger
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 @HiltViewModel
 class SearchViewModel @Inject constructor(private val repository: IOuiRepository) : ViewModel() {
 
-    private val _text = MutableLiveData("")
-    val text: LiveData<String> = _text
-    private val _filter = MutableLiveData(0)
-    val filter: LiveData<Int> = _filter
+    private val _text = MutableStateFlow("")
+    val text = _text.asStateFlow()
+    private val _filter = MutableStateFlow(0)
+    val filter = _filter.asStateFlow()
 
-    val list = Transformations.switchMap(DoubleTrigger(_text, _filter)) {
-        val param = if (it.second!! > 0)
+    val list = combine(_text, _filter) {text, filter ->
+        val param = if (filter > 0)
             SearchType.Organization
         else
             SearchType.Address
 
-        repository.getData(it.first, param).asLiveData()
+        Pair(text, param)
+    }.flatMapLatest {
+        repository.getData(it.first, it.second)
     }
 
     fun onTextChange(text: String) {

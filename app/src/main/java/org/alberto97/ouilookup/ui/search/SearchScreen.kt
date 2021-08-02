@@ -13,25 +13,26 @@ import androidx.compose.material.icons.outlined.CorporateFare
 import androidx.compose.material.icons.outlined.DeveloperBoard
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.alberto97.ouilookup.db.Oui
 import org.alberto97.ouilookup.ui.Destinations
 import org.alberto97.ouilookup.ui.theme.OUILookupTheme
 
+@ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @Composable
 fun SearchScreen(
     viewModel: SearchViewModel,
     navController: NavController
 ) {
-    val text: String by viewModel.text.observeAsState("")
-    val option: Int by viewModel.filter.observeAsState(0)
-    val list: List<Oui> by viewModel.list.observeAsState(listOf())
+    val text: String by viewModel.text.collectAsState("")
+    val option: Int by viewModel.filter.collectAsState(0)
+    val list: List<Oui> by viewModel.list.collectAsState(listOf())
 
     SearchScreen(
         onInfoClick = { navController.navigate(Destinations.ABOUT_ROUTE) },

@@ -6,6 +6,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.alberto97.ouilookup.ui.about.AboutScreen
 import org.alberto97.ouilookup.ui.about.AboutViewModel
 import org.alberto97.ouilookup.ui.search.SearchScreen
@@ -19,6 +20,7 @@ object Destinations {
     const val ABOUT_ROUTE = "about"
 }
 
+@ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @Composable
 fun NavGraph() {
