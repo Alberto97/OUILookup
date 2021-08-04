@@ -31,8 +31,7 @@ class DownloadWorker  @AssistedInject constructor(
 
     override suspend fun doWork(): Result {
         try {
-            if (repository.dbNeedsUpdate())
-                repository.updateIfOldOrEmpty()
+            repository.updateIfOldOrEmpty()
         } catch (e: Exception) {
             return Result.failure()
         }

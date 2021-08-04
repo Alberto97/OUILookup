@@ -21,6 +21,7 @@ import androidx.work.ExperimentalExpeditedWork
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.alberto97.ouilookup.db.Oui
 import org.alberto97.ouilookup.ui.Destinations
+import org.alberto97.ouilookup.ui.FullscreenPlaceholder
 import org.alberto97.ouilookup.ui.theme.OUILookupTheme
 
 @ExperimentalCoroutinesApi
@@ -33,12 +34,14 @@ fun SearchScreen(
 ) {
     val text: String by viewModel.text.collectAsState("")
     val list: List<Oui> by viewModel.list.collectAsState(listOf())
+    val updatingDb: Boolean by viewModel.updatingDb.collectAsState(false)
 
     SearchScreen(
         onInfoClick = { navController.navigate(Destinations.ABOUT_ROUTE) },
         text = text,
         onTextChange = { value -> viewModel.onTextChange(value) },
-        list = list
+        list = list,
+        updatingDb = updatingDb
     )
 }
 
@@ -48,28 +51,23 @@ fun SearchScreen(
     onInfoClick: () -> Unit,
     text: String,
     onTextChange: (value: String) -> Unit,
-    list: List<Oui>
+    list: List<Oui>,
+    updatingDb: Boolean
 ) {
 
     Scaffold {
         Column(
             modifier = Modifier.background(MaterialTheme.colors.primarySurface)
         ) {
-            SearchOptions(
+            SearchBar(
                 onInfoClick = onInfoClick,
                 text = text,
                 onTextChange = onTextChange
             )
-            Surface(
-                shape = RoundedCornerShape(
-                    topStart = 12.dp,
-                    topEnd = 12.dp
-                )
-            ) {
-                Items(
-                    list = list
-                )
-            }
+            Content(
+                list = list,
+                updatingDb = updatingDb
+            )
         }
     }
 }
@@ -105,72 +103,74 @@ fun Dropdown(
 }
 
 @Composable
-fun SearchOptions(
-    onInfoClick: () -> Unit,
-    text: String,
-    onTextChange: (value: String) -> Unit
-) {
-    Column(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        SearchBar(
-            onInfoClick  = onInfoClick,
-            text = text,
-            onTextChange = onTextChange
-        )
-    }
-}
-
-@Composable
 fun SearchBar(
     onInfoClick: () -> Unit,
     text: String,
     onTextChange: (value: String) -> Unit,
 ) {
-    TextField(
-        value = text,
-        placeholder = { Text("Search MAC or organization") },
-        onValueChange = onTextChange,
-        leadingIcon = { Icon(
-            Icons.Outlined.Search,
-            contentDescription = null
-        ) },
-        trailingIcon = { DropdownButton(onInfoClick) },
+    Column(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        TextField(
+            value = text,
+            placeholder = { Text("Search MAC or organization") },
+            onValueChange = onTextChange,
+            leadingIcon = { Icon(
+                Icons.Outlined.Search,
+                contentDescription = null
+            ) },
+            trailingIcon = { DropdownButton(onInfoClick) },
+            shape = RoundedCornerShape(
+                topStart = 8.dp,
+                topEnd = 8.dp
+            ),
+            colors = TextFieldDefaults.textFieldColors(
+                trailingIconColor = Color.White,
+                textColor = Color.White,
+                focusedIndicatorColor = Color.White,
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        )
+    }
+}
+
+@ExperimentalMaterialApi
+@Composable
+private fun Content(
+    list: List<Oui>,
+    updatingDb: Boolean
+) {
+    Surface(
         shape = RoundedCornerShape(
-            topStart = 8.dp,
-            topEnd = 8.dp
-        ),
-        colors = TextFieldDefaults.textFieldColors(
-            trailingIconColor = Color.White,
-            textColor = Color.White,
-            focusedIndicatorColor = Color.White,
-        ),
-        modifier = Modifier
-            .fillMaxWidth().padding(16.dp)
-    )
+            topStart = 12.dp,
+            topEnd = 12.dp
+        )
+    ) {
+        if (updatingDb)
+            FullscreenPlaceholder(
+                text = "Your database is being updated,\n you may see outdated results",
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(62.dp).padding(8.dp)
+                )
+            }
+        else
+            Items(
+                list = list
+            )
+    }
 }
 
 @ExperimentalMaterialApi
 @Composable
 fun Items(list: List<Oui>) {
     if (list.isEmpty())
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Icon(
-                imageVector = Icons.Outlined.SearchOff,
-                contentDescription = null,
-                tint = Color.LightGray,
-                modifier = Modifier.size(62.dp)
-            )
-            Text(
-                text = "No results found",
-                color = Color.LightGray,
-                style = MaterialTheme.typography.subtitle1,
-            )
-        }
+        FullscreenPlaceholder(
+            text = "No results found",
+            icon = Icons.Outlined.SearchOff
+        )
     else
         LazyColumn(
             modifier = Modifier.padding(
@@ -200,6 +200,7 @@ fun DefaultPreview() {
                 Oui("AA:AA:AA", "Apple", ""),
                 Oui("FF:FF:FF", "Google", "")
             ),
+            updatingDb = false
         )
     }
 }
@@ -214,6 +215,22 @@ fun EmptyPreview() {
             text = "",
             onTextChange = { },
             list = emptyList(),
+            updatingDb = false
+        )
+    }
+}
+
+@ExperimentalMaterialApi
+@Preview("Updating DB")
+@Composable
+fun UpdatingDbPreview() {
+    OUILookupTheme {
+        SearchScreen(
+            onInfoClick = { },
+            text = "",
+            onTextChange = { },
+            list = emptyList(),
+            updatingDb = true
         )
     }
 }
