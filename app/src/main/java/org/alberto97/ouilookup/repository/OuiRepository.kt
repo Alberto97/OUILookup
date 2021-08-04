@@ -108,10 +108,10 @@ class OuiRepository @Inject constructor(
 
     @ExperimentalTime
     private fun isDbUpToDate() : Boolean {
-        // Don't update until at least two weeks has passed since the last data fetch
+        // Don't update until at least a month has passed since the last data fetch
         val lastUpdateMillis = getLastDbUpdate()
         val duration = (System.currentTimeMillis() - lastUpdateMillis).toDuration(DurationUnit.MILLISECONDS)
-        return duration.inWholeDays < 14
+        return duration.inWholeDays < 30
     }
 
     override fun getLastDbUpdate(): Long {
