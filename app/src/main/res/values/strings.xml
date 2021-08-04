@@ -2,6 +2,11 @@
     <string name="app_name">OUI Lookup</string>
     <string name="about_author_fulfilling_ego" translatable="false">Alberto Pedron</string>
 
+    <!-- Search -->
+    <string name="search_text_field_placeholder">Search MAC or organization</string>
+    <string name="search_update_database">Your database is being updated,\nyou may see outdated results</string>
+    <string name="search_results_not_found">No results found</string>
+
     <!-- Notifications -->
     <string name="oui_update_notification_channel">Database updates</string>
     <string name="oui_update_notification_title">Updating database…</string>

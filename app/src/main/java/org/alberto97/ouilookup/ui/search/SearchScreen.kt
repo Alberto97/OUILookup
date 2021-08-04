@@ -14,11 +14,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.work.ExperimentalExpeditedWork
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.db.Oui
 import org.alberto97.ouilookup.ui.Destinations
 import org.alberto97.ouilookup.ui.FullscreenPlaceholder
@@ -113,7 +115,7 @@ fun SearchBar(
     ) {
         TextField(
             value = text,
-            placeholder = { Text("Search MAC or organization") },
+            placeholder = { Text(stringResource(R.string.search_text_field_placeholder)) },
             onValueChange = onTextChange,
             leadingIcon = { Icon(
                 Icons.Outlined.Search,
@@ -150,7 +152,7 @@ private fun Content(
     ) {
         if (updatingDb)
             FullscreenPlaceholder(
-                text = "Your database is being updated,\n you may see outdated results",
+                text = stringResource(R.string.search_update_database),
             ) {
                 CircularProgressIndicator(
                     modifier = Modifier.size(62.dp).padding(8.dp)
@@ -168,7 +170,7 @@ private fun Content(
 fun Items(list: List<Oui>) {
     if (list.isEmpty())
         FullscreenPlaceholder(
-            text = "No results found",
+            text = stringResource(R.string.search_results_not_found),
             icon = Icons.Outlined.SearchOff
         )
     else
