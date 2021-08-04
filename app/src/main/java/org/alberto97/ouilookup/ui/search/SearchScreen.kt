@@ -1,18 +1,17 @@
 package org.alberto97.ouilookup.ui.search
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.outlined.CorporateFare
-import androidx.compose.material.icons.outlined.DeveloperBoard
+import androidx.compose.material.icons.outlined.FindInPage
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,12 +31,14 @@ fun SearchScreen(
     viewModel: SearchViewModel,
     navController: NavController
 ) {
+    val searchPlaceholder: String by viewModel.searchPlaceholder.collectAsState("")
     val text: String by viewModel.text.collectAsState("")
     val option: Int by viewModel.filter.collectAsState(0)
     val list: List<Oui> by viewModel.list.collectAsState(listOf())
 
     SearchScreen(
         onInfoClick = { navController.navigate(Destinations.ABOUT_ROUTE) },
+        searchPlaceholder = searchPlaceholder,
         text = text,
         onTextChange = { value -> viewModel.onTextChange(value) },
         tab = option,
@@ -50,41 +51,42 @@ fun SearchScreen(
 @Composable
 fun SearchScreen(
     onInfoClick: () -> Unit,
+    searchPlaceholder: String,
     text: String,
     onTextChange: (value: String) -> Unit,
     tab: Int,
     onTabChange: (value: Int) -> Unit,
     list: List<Oui>
 ) {
-    val (dropdownExpanded, setDropdownExpanded) = remember { mutableStateOf(false) }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("MAC Address Lookup") },
-                elevation = 0.dp,
-                actions = {
-                    IconButton(onClick = { setDropdownExpanded(true) }) {
-                        Icon(Icons.Filled.MoreVert, contentDescription = "More")
-                        Dropdown(
-                            expanded = dropdownExpanded,
-                            onDismissRequest = { setDropdownExpanded(false) },
-                            onInfoClick = onInfoClick
-                        )
-                    }
-                }
-            )
-        }
-    ) {
+    Scaffold {
         Column {
             SearchOptions(
+                onInfoClick = onInfoClick,
+                placeholder = searchPlaceholder,
                 text = text,
                 onTextChange = onTextChange,
                 tab = tab,
                 onTabChange = onTabChange
             )
-            Items(list = list)
+            Items(
+                list = list
+            )
         }
+    }
+}
+
+@Composable
+fun DropdownButton(onInfoClick: () -> Unit) {
+    val (dropdownExpanded, setDropdownExpanded) = remember { mutableStateOf(false) }
+
+    IconButton(onClick = { setDropdownExpanded(true) }) {
+        Icon(Icons.Filled.MoreVert, contentDescription = "More")
+        Dropdown(
+            expanded = dropdownExpanded,
+            onDismissRequest = { setDropdownExpanded(false) },
+            onInfoClick = onInfoClick
+        )
     }
 }
 
@@ -102,6 +104,8 @@ fun Dropdown(expanded: Boolean, onDismissRequest: () -> Unit, onInfoClick: () ->
 
 @Composable
 fun SearchOptions(
+    onInfoClick: () -> Unit,
+    placeholder: String,
     text: String,
     onTextChange: (value: String) -> Unit,
     tab: Int,
@@ -113,19 +117,11 @@ fun SearchOptions(
                 .background(MaterialTheme.colors.primarySurface)
                 .fillMaxWidth()
         ) {
-            TextField(
-                value = text,
-                onValueChange = onTextChange,
-                leadingIcon = { Icon(Icons.Outlined.Search, null) },
-                shape = MaterialTheme.shapes.small,
-                colors = TextFieldDefaults.textFieldColors(
-                    textColor = Color.White,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    focusedIndicatorColor = Color.Transparent
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
+            SearchBar(
+                onInfoClick  = onInfoClick,
+                placeholder = placeholder,
+                text = text,
+                onTextChange = onTextChange
             )
             Tabs(
                 option = tab,
@@ -136,19 +132,42 @@ fun SearchOptions(
 }
 
 @Composable
+fun SearchBar(
+    onInfoClick: () -> Unit,
+    placeholder: String,
+    text: String,
+    onTextChange: (value: String) -> Unit,
+) {
+    TextField(
+        value = text,
+        placeholder = { Text(placeholder)},
+        onValueChange = onTextChange,
+        leadingIcon = { Icon(Icons.Outlined.Search, null) },
+        trailingIcon = { DropdownButton(onInfoClick) },
+        shape = CircleShape,
+        colors = TextFieldDefaults.textFieldColors(
+            textColor = Color.White,
+            unfocusedIndicatorColor = Color.Transparent,
+            focusedIndicatorColor = Color.Transparent
+        ),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    )
+}
+
+@Composable
 fun Tabs(
     option: Int,
     onChange: (option: Int) -> Unit,
 ) {
     TabRow(selectedTabIndex = option) {
             Tab(
-                icon = { Icon(Icons.Outlined.DeveloperBoard, null)},
                 text = { Text("Address") },
                 selected = option == 0,
                 onClick = { onChange(0) },
             )
             Tab(
-                icon = { Icon(Icons.Outlined.CorporateFare, null)},
                 text = { Text("Organization") },
                 selected = option == 1,
                 onClick = { onChange(1) },
@@ -159,14 +178,33 @@ fun Tabs(
 @ExperimentalMaterialApi
 @Composable
 fun Items(list: List<Oui>) {
-    LazyColumn {
-        items(list) { device ->
-            ListItem(
-                text = { Text(device.orgName) },
-                secondaryText = { Text(device.oui) }
+    if (list.isEmpty())
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Icon(
+                imageVector = Icons.Outlined.FindInPage,
+                contentDescription = null,
+                tint = Color.LightGray,
+                modifier = Modifier.size(62.dp)
+            )
+            Text(
+                text = "No results found",
+                color = Color.LightGray,
+                style = MaterialTheme.typography.subtitle1
             )
         }
-    }
+    else
+        LazyColumn {
+            items(list) { device ->
+                ListItem(
+                    text = { Text(device.orgName) },
+                    secondaryText = { Text(device.oui) }
+                )
+            }
+        }
 }
 
 @ExperimentalMaterialApi
@@ -177,6 +215,7 @@ fun DefaultPreview() {
         Surface {
             SearchScreen(
                 onInfoClick = { },
+                searchPlaceholder = "",
                 text = "Test",
                 onTextChange = { },
                 tab = 0,
@@ -184,7 +223,26 @@ fun DefaultPreview() {
                 list = listOf(
                     Oui("AA:AA:AA", "Apple", ""),
                     Oui("FF:FF:FF", "Google", "")
-                )
+                ),
+            )
+        }
+    }
+}
+
+@ExperimentalMaterialApi
+@Preview("Empty list")
+@Composable
+fun EmptyPreview() {
+    OUILookupTheme {
+        Surface {
+            SearchScreen(
+                onInfoClick = { },
+                searchPlaceholder = "",
+                text = "",
+                onTextChange = { },
+                tab = 0,
+                onTabChange = { },
+                list = emptyList(),
             )
         }
     }

@@ -38,6 +38,13 @@ class SearchViewModel @Inject constructor(
         repository.getData(it.first, it.second)
     }
 
+    val searchPlaceholder = _filter.map { filter ->
+        if (filter > 0)
+            "Search organization"
+        else
+            "Search MAC address"
+    }
+
     init {
         updateDb()
     }
