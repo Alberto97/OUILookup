@@ -12,7 +12,6 @@ import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.datasource.IEEEApi
 import org.alberto97.ouilookup.db.Oui
 import org.alberto97.ouilookup.db.OuiDao
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.time.DurationUnit
@@ -25,9 +24,7 @@ import androidx.annotation.RequiresApi
 
 
 interface IOuiRepository {
-    fun getData(text: String?, type: SearchType?): Flow<List<Oui>>
-    fun getByOui(oui: String): Flow<List<Oui>>
-    fun getByOrganization(org: String): Flow<List<Oui>>
+    fun get(text: String?): Flow<List<Oui>>
     fun getAll(): Flow<List<Oui>>
     fun getLastDbUpdate(): Long
     fun dbNeedsUpdate(): Boolean
@@ -38,11 +35,6 @@ object SharedPreferenceConstants {
     const val LAST_DB_UPDATE = "last_db_update"
 }
 
-enum class SearchType {
-    Address,
-    Organization
-}
-
 @Singleton
 class OuiRepository @Inject constructor(
     @ApplicationContext private val context: Context,
@@ -51,24 +43,16 @@ class OuiRepository @Inject constructor(
     private val dao: OuiDao,
 ) : IOuiRepository {
 
-    override fun getData(text: String?, type: SearchType?): Flow<List<Oui>> {
+    private fun sanitizeOui(oui: String): String {
+        return oui.filterNot { c -> ":-".contains(c)}.take(6)
+    }
+
+    override fun get(text: String?): Flow<List<Oui>> {
         if (text.isNullOrEmpty())
             return flowOf(emptyList())
 
-        return if (type == SearchType.Organization)
-            getByOrganization(text)
-        else
-            getByOui(text)
-    }
-
-    override fun getByOui(oui: String): Flow<List<Oui>> {
-        val saneOui = oui.filterNot { c -> ":-".contains(c)}.take(6)
-        val param = saneOui.uppercase()
-        return dao.getByOui(param)
-    }
-
-    override fun getByOrganization(org: String): Flow<List<Oui>> {
-        return dao.getByOrganization(org)
+        val ouiText = sanitizeOui(text)
+        return dao.get(ouiText, text)
     }
 
     override fun getAll(): Flow<List<Oui>> = dao.getAll()
