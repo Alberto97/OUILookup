@@ -38,7 +38,7 @@ fun AboutScreen(
 ) {
     Scaffold(topBar = {
         TopAppBar(
-            title = { Text("Info") },
+            title = { Text(stringResource(R.string.about_title)) },
             navigationIcon = {
                 IconButton(onClick = { onBackClick() }) {
                     Icon(Icons.Filled.ArrowBack, contentDescription = null)

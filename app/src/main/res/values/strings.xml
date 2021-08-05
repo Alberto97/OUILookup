@@ -3,6 +3,7 @@
     <string name="about_author_fulfilling_ego" translatable="false">Alberto Pedron</string>
 
     <!-- Search -->
+    <string name="search_action_about">@string/about_title</string>
     <string name="search_text_field_placeholder">Search MAC or organization</string>
     <string name="search_update_database">Your database is being updated,\nyou may see outdated results</string>
     <string name="search_results_not_found">No results found</string>
@@ -13,7 +14,6 @@
 
     <!-- About -->
     <string name="about_title">About</string>
-    <string name="about_app_info">App Info</string>
     <string name="about_author">Author</string>
     <string name="about_version">Version</string>
     <string name="about_last_db_update">Last database update</string>

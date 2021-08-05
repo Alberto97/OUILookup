@@ -1,7 +1,10 @@
 package org.alberto97.ouilookup.ui.search
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,7 +14,6 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -99,7 +101,7 @@ fun Dropdown(
         onDismissRequest = { onDismissRequest() }
     ) {
         DropdownMenuItem(onClick = { onInfoClick() }) {
-            Text("Info")
+            Text(stringResource(R.string.search_action_about))
         }
     }
 }
@@ -155,7 +157,9 @@ private fun Content(
                 text = stringResource(R.string.search_update_database),
             ) {
                 CircularProgressIndicator(
-                    modifier = Modifier.size(62.dp).padding(8.dp)
+                    modifier = Modifier
+                        .size(62.dp)
+                        .padding(8.dp)
                 )
             }
         else
