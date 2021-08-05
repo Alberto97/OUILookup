@@ -4,9 +4,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
@@ -61,6 +63,18 @@ fun AboutScreen(
                 icon = { },
                 text = { Text(stringResource(R.string.about_last_db_update)) },
                 secondaryText = { Text(lastDbUpdate) },
+            )
+            Divider(color = Color.LightGray)
+            ListItem(
+                icon = {
+                    Icon(
+                        imageVector = Icons.Outlined.Info,
+                        contentDescription = null,
+                        tint = Color.LightGray
+                    )
+                },
+                text = {},
+                secondaryText = { Text(stringResource(R.string.about_db_updates_description))}
             )
         }
     }

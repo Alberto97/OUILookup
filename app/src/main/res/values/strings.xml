@@ -17,4 +17,5 @@
     <string name="about_author">Author</string>
     <string name="about_version">Version</string>
     <string name="about_last_db_update">Last database update</string>
+    <string name="about_db_updates_description">The database gets updated once a month to ensure the data is always relevant</string>
 </resources>
