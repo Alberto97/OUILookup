@@ -2,11 +2,20 @@ package org.alberto97.ouilookup.repository
 
 import android.content.Context
 import android.net.ConnectivityManager
-import androidx.preference.PreferenceManager
+import android.net.NetworkCapabilities
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.longPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import com.github.doyaaaaaken.kotlincsv.client.CsvReader
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import org.alberto97.ouilookup.Extensions.readRawTextFile
 import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.datasource.IEEEApi
@@ -17,22 +26,13 @@ import javax.inject.Singleton
 import kotlin.time.DurationUnit
 import kotlin.time.ExperimentalTime
 import kotlin.time.toDuration
-import android.net.NetworkCapabilities
-
-import android.os.Build
-import androidx.annotation.RequiresApi
-
 
 interface IOuiRepository {
     fun get(text: String?): Flow<List<Oui>>
     fun getAll(): Flow<List<Oui>>
-    fun getLastDbUpdate(): Long
-    fun dbNeedsUpdate(): Boolean
+    fun getLastDbUpdate(): Flow<Long>
+    suspend fun dbNeedsUpdate(): Boolean
     suspend fun updateIfOldOrEmpty()
-}
-
-object SharedPreferenceConstants {
-    const val LAST_DB_UPDATE = "last_db_update"
 }
 
 @Singleton
@@ -42,6 +42,9 @@ class OuiRepository @Inject constructor(
     private val api: IEEEApi,
     private val dao: OuiDao,
 ) : IOuiRepository {
+
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "oui_settings")
+    private val lastDbUpdateKey = longPreferencesKey("last_db_update")
 
     private fun sanitizeOui(oui: String): String {
         return oui.filterNot { c -> ":-".contains(c)}.take(6)
@@ -102,34 +105,33 @@ class OuiRepository @Inject constructor(
     }
 
     @ExperimentalTime
-    override fun dbNeedsUpdate(): Boolean {
+    override suspend fun dbNeedsUpdate(): Boolean {
         return !isDbUpToDate() || dao.isEmpty()
     }
 
     @ExperimentalTime
-    private fun isDbUpToDate() : Boolean {
+    private suspend fun isDbUpToDate() : Boolean {
         // Don't update until at least a month has passed since the last data fetch
-        val lastUpdateMillis = getLastDbUpdate()
+        val lastUpdateMillis = getLastDbUpdate().first()
         val duration = (System.currentTimeMillis() - lastUpdateMillis).toDuration(DurationUnit.MILLISECONDS)
         return duration.inWholeDays < 30
     }
 
-    override fun getLastDbUpdate(): Long {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        return prefs.getLong(SharedPreferenceConstants.LAST_DB_UPDATE, 0)
+    override fun getLastDbUpdate(): Flow<Long> {
+        return context.dataStore.data
+            .map { settings -> settings[lastDbUpdateKey] ?: 0 }
+    }
+
+    private suspend fun setLastDbUpdate() {
+        context.dataStore.edit { settings ->
+            settings[lastDbUpdateKey] = System.currentTimeMillis()
+        }
     }
 
     private suspend fun updateFromIEEE() {
         val csvData = api.fetchOui()
-
         saveData(csvData)
-
-        // Save last db update
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        with (prefs.edit()) {
-            putLong(SharedPreferenceConstants.LAST_DB_UPDATE, System.currentTimeMillis())
-            commit()
-        }
+        setLastDbUpdate()
     }
 
     private suspend fun updateFromCsv() {
