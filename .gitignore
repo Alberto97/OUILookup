@@ -37,19 +37,12 @@ proguard/
 # Android Studio captures folder
 captures/
 
-# IntelliJ
+# IDEA/Android Studio project files, because
+# the project can be imported from settings.gradle
 *.iml
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/gradle.xml
-.idea/assetWizardSettings.xml
-.idea/dictionaries
-.idea/libraries
-# Android Studio 3 in .gitignore file.
-.idea/caches
-.idea/modules.xml
-# Comment next line if keeping position of elements in Navigation Editor is relevant for you
-.idea/navEditor.xml
+.idea/*
+!.idea/copyright
+!.idea/codeStyles/codeStyleConfig.xml
 
 # Keystore files
 # Uncomment the following lines if you do not want to check your keystore files in.
