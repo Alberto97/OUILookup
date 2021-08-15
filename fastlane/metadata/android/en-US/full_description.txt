@@ -1,0 +1,8 @@
+With OUI Lookup you can figure out who manufactured a device simply by inserting its MAC address in the search bar.
+You can also search for a manufacturer and see its assigned OUIs.
+
+<b>Features:</b>
+
+• <b>Trusted source<b/> - The database is sourced from the IEEE to be as correct and updated as possible.
+• <b>Works Offline</b> - OUI Lookup works completely offline, an internet connection is only needed to update the database.
+• Dark theme is supported

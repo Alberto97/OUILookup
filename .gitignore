@@ -55,6 +55,7 @@ captures/
 
 # Google Services (e.g. APIs or Firebase)
 # google-services.json
+api-project-*.json
 
 # Freeline
 freeline.py
@@ -66,7 +67,7 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
-fastlane/readme.md
+fastlane/README.md
 
 # Version control
 vcs.xml
