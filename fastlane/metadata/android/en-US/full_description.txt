@@ -5,4 +5,5 @@ You can also search for a manufacturer and see its assigned OUIs.
 
 • <b>Trusted source<b/> - The database is sourced from the IEEE to be as correct and updated as possible.
 • <b>Works Offline</b> - OUI Lookup works completely offline, an internet connection is only needed to update the database.
+• <b>Open Source</b> @ https://github.com/Alberto97/OUILookup
 • Dark theme is supported
