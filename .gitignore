@@ -63,6 +63,7 @@ freeline/
 freeline_project_description.json
 
 # fastlane
+.env*
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
