@@ -1,0 +1,2 @@
+* Now open source!
+* Shrunk app bundle size
