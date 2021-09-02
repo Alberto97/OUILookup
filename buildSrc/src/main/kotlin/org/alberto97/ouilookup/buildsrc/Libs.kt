@@ -1,7 +1,7 @@
 package org.alberto97.ouilookup.buildsrc
 
 object Libs {
-    const val androidGradlePlugin = "com.android.tools.build:gradle:7.0.0"
+    const val androidGradlePlugin = "com.android.tools.build:gradle:7.0.2"
 
     object Kotlin {
         private const val version = "1.5.21"
