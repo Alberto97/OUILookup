@@ -35,7 +35,7 @@ object Libs {
         }
 
         object Navigation {
-            const val compose = "androidx.navigation:navigation-compose:2.4.0-alpha06"
+            const val compose = "androidx.navigation:navigation-compose:2.4.0-alpha09"
         }
 
         object Room {
