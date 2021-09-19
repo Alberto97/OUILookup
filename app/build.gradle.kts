@@ -1,6 +1,7 @@
 import org.alberto97.ouilookup.buildsrc.Libs
 
 plugins {
+    id("com.github.ben-manes.versions") version "0.39.0"
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-kapt")
