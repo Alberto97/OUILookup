@@ -15,7 +15,7 @@ import androidx.navigation.NavController
 import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.ui.theme.OUILookupTheme
 
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AboutScreen(
     viewModel: AboutViewModel,

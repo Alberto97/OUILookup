@@ -20,15 +20,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.db.Oui
 import org.alberto97.ouilookup.ui.Destinations
 import org.alberto97.ouilookup.ui.FullscreenPlaceholder
 import org.alberto97.ouilookup.ui.theme.OUILookupTheme
 
-@ExperimentalCoroutinesApi
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SearchScreen(
     viewModel: SearchViewModel,

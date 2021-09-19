@@ -87,7 +87,7 @@ class OuiRepository @Inject constructor(
 
     // TODO: In the future the db will be with bundled data (csv) seeded during the splash screen [if the db is empty]
     //  and then in a later stage updated from IEEE in background if there is an active internet connection
-    @ExperimentalTime
+    @OptIn(ExperimentalTime::class)
     override suspend fun updateIfOldOrEmpty() {
         val isEmpty = dao.isEmpty()
         val isOffline = !isConnected()
@@ -104,7 +104,7 @@ class OuiRepository @Inject constructor(
             updateFromIEEE()
     }
 
-    @ExperimentalTime
+    @OptIn(ExperimentalTime::class)
     override suspend fun dbNeedsUpdate(): Boolean {
         return !isDbUpToDate() || dao.isEmpty()
     }

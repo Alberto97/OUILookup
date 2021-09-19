@@ -18,7 +18,7 @@ import org.alberto97.ouilookup.repository.IOuiRepository
 import org.alberto97.ouilookup.workers.DownloadWorker
 import javax.inject.Inject
 
-@ExperimentalCoroutinesApi
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val app: Application,
