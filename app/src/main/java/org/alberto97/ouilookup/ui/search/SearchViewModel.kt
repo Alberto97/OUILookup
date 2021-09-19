@@ -19,7 +19,6 @@ import org.alberto97.ouilookup.workers.DownloadWorker
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-@ExperimentalExpeditedWork
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val app: Application,

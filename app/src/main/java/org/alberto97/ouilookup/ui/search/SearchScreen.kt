@@ -20,7 +20,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.work.ExperimentalExpeditedWork
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.db.Oui
@@ -29,7 +28,6 @@ import org.alberto97.ouilookup.ui.FullscreenPlaceholder
 import org.alberto97.ouilookup.ui.theme.OUILookupTheme
 
 @ExperimentalCoroutinesApi
-@ExperimentalExpeditedWork
 @ExperimentalMaterialApi
 @Composable
 fun SearchScreen(

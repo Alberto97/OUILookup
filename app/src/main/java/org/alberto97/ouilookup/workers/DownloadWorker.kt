@@ -10,7 +10,6 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
-import androidx.work.ExperimentalExpeditedWork
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
@@ -19,7 +18,6 @@ import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.repository.IOuiRepository
 
 @HiltWorker
-@ExperimentalExpeditedWork
 class DownloadWorker  @AssistedInject constructor(
     @Assisted private val appContext: Context,
     @Assisted workerParams: WorkerParameters,

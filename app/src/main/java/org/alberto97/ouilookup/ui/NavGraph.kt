@@ -6,7 +6,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.work.ExperimentalExpeditedWork
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.alberto97.ouilookup.ui.about.AboutScreen
 import org.alberto97.ouilookup.ui.about.AboutViewModel
@@ -19,7 +18,6 @@ object Destinations {
 }
 
 @ExperimentalCoroutinesApi
-@ExperimentalExpeditedWork
 @ExperimentalMaterialApi
 @Composable
 fun NavGraph() {
