@@ -16,7 +16,7 @@ object Libs {
         const val appcompat = "androidx.appcompat:appcompat:1.3.1"
 
         object Compose {
-            const val version = "1.0.1"
+            const val version = "1.0.2"
 
             const val material = "androidx.compose.material:material:$version"
             const val materialIconsExtended = "androidx.compose.material:material-icons-extended:$version"
