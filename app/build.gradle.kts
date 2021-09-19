@@ -82,3 +82,23 @@ dependencies {
     androidTestImplementation(Libs.AndroidX.Test.Ext.junit)
     androidTestImplementation(Libs.AndroidX.Test.espressoCore)
 }
+
+tasks.withType<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask> {
+    rejectVersionIf {
+        isAndroidX(candidate) && worseAndroidXChannel(candidate, currentVersion)
+    }
+}
+
+fun isAndroidX(candidate: ModuleComponentIdentifier): Boolean {
+    return candidate.group.startsWith("androidx")
+}
+
+fun worseAndroidXChannel(candidate: ModuleComponentIdentifier, currentVersion: String): Boolean {
+    val channel = mapOf("alpha" to 0, "beta" to 1, "rc" to 3, "" to 4)
+    val candidateExtra = candidate.version.filter { char -> char.isLetter() }
+    val currentExtra = currentVersion.filter { char -> char.isLetter() }
+    val candidateChannel = channel.getValue(candidateExtra)
+    val currentChannel = channel.getValue(currentExtra)
+
+    return candidateChannel < currentChannel
+}
