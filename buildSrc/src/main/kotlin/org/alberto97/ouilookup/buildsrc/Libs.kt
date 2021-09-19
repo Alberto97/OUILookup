@@ -80,5 +80,5 @@ object Libs {
         const val retrofit = "com.squareup.retrofit2:retrofit:$version"
     }
 
-    const val kotlinCsv = "com.github.doyaaaaaken:kotlin-csv-jvm:0.15.2"
+    const val kotlinCsv = "com.github.doyaaaaaken:kotlin-csv-jvm:1.0.0"
 }
