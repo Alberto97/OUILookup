@@ -1,5 +1,3 @@
-import org.alberto97.ouilookup.buildsrc.Libs
-
 plugins {
     id("com.github.ben-manes.versions") version "0.39.0"
     id("com.android.application")
@@ -39,48 +37,48 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Libs.AndroidX.Compose.version
+        kotlinCompilerExtensionVersion = libs.versions.compose.get()
     }
 }
 
 dependencies {
 
-    implementation(Libs.AndroidX.appcompat)
-    implementation(Libs.AndroidX.Datastore.preferences)
-    implementation(Libs.kotlinCsv)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.doyaaaaaken.kotlinCsv)
 
     // Compose
-    implementation(Libs.AndroidX.Compose.ui)
-    implementation(Libs.AndroidX.Compose.material)
-    implementation(Libs.AndroidX.Compose.materialIconsExtended)
-    implementation(Libs.AndroidX.Compose.tooling)
-    implementation(Libs.AndroidX.Activity.activityCompose)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.materialIconsExt)
+    implementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.compose.ui.ui)
+    implementation(libs.androidx.activity.activityCompose)
 
     // Hilt
-    implementation(Libs.Hilt.android)
-    kapt(Libs.Hilt.androidCompiler)
-    kapt(Libs.AndroidX.Hilt.compiler)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.androidCompiler)
+    kapt(libs.androidx.hilt.compiler)
 
     // Navigation
-    implementation(Libs.AndroidX.Navigation.compose)
-    implementation(Libs.AndroidX.Hilt.navigationCompose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.hilt.navigationCompose)
 
     // Retrofit
-    implementation(Libs.Retrofit.converterScalars)
-    implementation(Libs.Retrofit.retrofit)
+    implementation(libs.retrofit.converterScalars)
+    implementation(libs.retrofit.retrofit)
 
     // Room
-    kapt(Libs.AndroidX.Room.compiler)
-    implementation(Libs.AndroidX.Room.ktx)
+    kapt(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
 
     // Work
-    implementation(Libs.AndroidX.Work.runtime)
-    implementation(Libs.AndroidX.Hilt.work)
+    implementation(libs.androidx.work.runtime)
+    implementation(libs.androidx.hilt.work)
 
     // Test
-    testImplementation(Libs.JUnit.junit)
-    androidTestImplementation(Libs.AndroidX.Test.Ext.junit)
-    androidTestImplementation(Libs.AndroidX.Test.espressoCore)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.espressoCore)
 }
 
 tasks.withType<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask> {
