@@ -6,7 +6,7 @@
 OUI browser and MAC Address lookup Android application
 
 ## Screenshots
-<img width="30%" vspace="20" src="https://github.com/Alberto97/OUILookup/blob/master/fastlane/metadata/android/en-US/images/phoneScreenshots/1_en-US.png?raw=true" /> <img width="30%" vspace="20" src="https://github.com/Alberto97/OUILookup/blob/master/fastlane/metadata/android/en-US/images/phoneScreenshots/2_en-US.png?raw=true" />
+<img width="30%" vspace="20" src="fastlane/metadata/android/en-US/images/phoneScreenshots/1_en-US.png" /> <img width="30%" vspace="20" src="fastlane/metadata/android/en-US/images/phoneScreenshots/2_en-US.png" />
 
 ## Download
 Available on the Google Play Store
