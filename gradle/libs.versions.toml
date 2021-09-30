@@ -29,7 +29,7 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-test-ext-junit = "androidx.test.ext:junit-ktx:1.1.3"
 androidx-test-espressoCore = "androidx.test.espresso:espresso-core:3.4.0"
 
-doyaaaaaken-kotlinCsv = "com.github.doyaaaaaken:kotlin-csv-jvm:1.0.0"
+doyaaaaaken-kotlinCsv = "com.github.doyaaaaaken:kotlin-csv-jvm:1.1.0"
 
 hilt-gradlePlugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
