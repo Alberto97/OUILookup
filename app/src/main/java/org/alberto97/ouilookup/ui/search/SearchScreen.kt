@@ -15,6 +15,7 @@ import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -115,23 +116,20 @@ fun SearchBar(
             value = text,
             placeholder = { Text(stringResource(R.string.search_text_field_placeholder)) },
             onValueChange = onTextChange,
-            leadingIcon = { Icon(
-                Icons.Outlined.Search,
-                contentDescription = null
-            ) },
+            leadingIcon = {
+                Icon(Icons.Outlined.Search, null)
+            },
             trailingIcon = { DropdownButton(onInfoClick) },
-            shape = RoundedCornerShape(
-                topStart = 8.dp,
-                topEnd = 8.dp
-            ),
+            shape = RoundedCornerShape(12.dp),
             colors = TextFieldDefaults.textFieldColors(
-                trailingIconColor = Color.White,
-                textColor = Color.White,
-                focusedIndicatorColor = Color.White,
+                focusedIndicatorColor = Color.Transparent,
+                backgroundColor = MaterialTheme.colors.surface,
+                unfocusedIndicatorColor = Color.Transparent,
             ),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(14.dp)
+                .shadow(8.dp)
         )
     }
 }
@@ -175,10 +173,7 @@ fun Items(list: List<Oui>) {
         )
     else
         LazyColumn(
-            modifier = Modifier.padding(
-                horizontal = 16.dp,
-                vertical = 12.dp
-            )
+            modifier = Modifier.padding(12.dp)
         ) {
             items(list) { device ->
                 ListItem(
