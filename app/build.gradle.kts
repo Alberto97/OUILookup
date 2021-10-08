@@ -1,9 +1,20 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.github.ben-manes.versions") version "0.39.0"
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+}
+
+val secureProperties = Properties().apply {
+    try {
+        load(FileInputStream("privateConfig/secure.properties"))
+    } catch (ex: Exception) {
+        put("KEYSTORE_FILE", "")
+    }
 }
 
 android {
@@ -19,11 +30,26 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+
+    signingConfigs {
+        register("release") {
+            if (secureProperties.getProperty("KEYSTORE_FILE").isNotEmpty()) {
+                storeFile = file("$rootDir/privateConfig/${secureProperties["KEYSTORE_FILE"]}")
+                storePassword = "${secureProperties["KEYSTORE_PASSWORD"]}"
+                keyAlias = "${secureProperties["KEY_ALIAS"]}"
+                keyPassword = "${secureProperties["KEY_PASSWORD"]}"
+            }
+        }
+    }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            if (secureProperties.getProperty("KEYSTORE_FILE").isNotEmpty()) {
+                signingConfig = signingConfigs["release"]
+            }
         }
     }
     compileOptions {
