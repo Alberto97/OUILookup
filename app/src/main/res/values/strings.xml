@@ -14,6 +14,9 @@
 
     <!-- About -->
     <string name="about_title">About</string>
+    <string name="about_category_info">Info</string>
+    <string name="about_repository_title">Check out the source code!</string>
+    <string name="about_repository_summary">Github</string>
     <string name="about_author">Author</string>
     <string name="about_version">Version</string>
     <string name="about_last_db_update">Last database update</string>

@@ -1,6 +1,8 @@
 package org.alberto97.ouilookup.ui.about
 
 import android.app.Application
+import android.content.Intent
+import android.net.Uri
 import android.text.format.DateUtils
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,5 +20,13 @@ class AboutViewModel @Inject constructor(private val app: Application, ouiRepo: 
     private fun formatLastDbUpdateDate(millis: Long): String {
         val options = DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_YEAR
         return DateUtils.formatDateTime(app, millis, options)
+    }
+
+    fun openRepository() {
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse("https://github.com/Alberto97/OUILookup")
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        }
+        app.startActivity(intent)
     }
 }
