@@ -1,21 +1,11 @@
 package org.alberto97.ouilookup.repository
 
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.longPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
 import com.github.doyaaaaaken.kotlincsv.client.CsvReader
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
 import org.alberto97.ouilookup.Extensions.readRawTextFile
 import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.datasource.IEEEApi
@@ -42,11 +32,10 @@ class OuiRepository @Inject constructor(
     private val reader: CsvReader,
     private val api: IEEEApi,
     private val dao: OuiDao,
-    private val connManager: IAppConnectivityManager
+    private val connManager: IAppConnectivityManager,
+    private val settings: ISettingsRepository
 ) : IOuiRepository {
 
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "oui_settings")
-    private val lastDbUpdateKey = longPreferencesKey("last_db_update")
 
     private fun sanitizeOui(oui: String): String {
         return oui.filterNot { c -> ":-".contains(c)}.take(6)
@@ -85,7 +74,7 @@ class OuiRepository @Inject constructor(
     }
 
     @ExperimentalTime
-    private suspend fun isDbUpToDate() : Boolean {
+    suspend fun isDbUpToDate() : Boolean {
         // Don't update until at least a month has passed since the last data fetch
         val lastUpdateMillis = getLastDbUpdate().first()
         val duration = (System.currentTimeMillis() - lastUpdateMillis).toDuration(DurationUnit.MILLISECONDS)
@@ -93,14 +82,11 @@ class OuiRepository @Inject constructor(
     }
 
     override fun getLastDbUpdate(): Flow<Long> {
-        return context.dataStore.data
-            .map { settings -> settings[lastDbUpdateKey] ?: 0 }
+        return settings.getLastDbUpdate()
     }
 
     private suspend fun setLastDbUpdate() {
-        context.dataStore.edit { settings ->
-            settings[lastDbUpdateKey] = System.currentTimeMillis()
-        }
+        settings.setLastDbUpdate(System.currentTimeMillis())
     }
 
     private suspend fun updateFromIEEE() {
