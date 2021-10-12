@@ -105,6 +105,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espressoCore)
+    androidTestImplementation(libs.dexmaker.mockito.inline)
+    androidTestImplementation(libs.mockito.core)
 }
 
 tasks.withType<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask> {
