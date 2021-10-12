@@ -19,7 +19,7 @@
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.OUILookup.NoActionBar">
+            android:theme="@style/Theme.OUILookup.Splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
