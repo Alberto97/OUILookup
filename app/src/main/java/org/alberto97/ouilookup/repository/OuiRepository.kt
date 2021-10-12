@@ -21,6 +21,7 @@ import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.datasource.IEEEApi
 import org.alberto97.ouilookup.db.Oui
 import org.alberto97.ouilookup.db.OuiDao
+import org.alberto97.ouilookup.tools.IAppConnectivityManager
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.time.DurationUnit
@@ -41,6 +42,7 @@ class OuiRepository @Inject constructor(
     private val reader: CsvReader,
     private val api: IEEEApi,
     private val dao: OuiDao,
+    private val connManager: IAppConnectivityManager
 ) : IOuiRepository {
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "oui_settings")
@@ -60,35 +62,10 @@ class OuiRepository @Inject constructor(
 
     override fun getAll(): Flow<List<Oui>> = dao.getAll()
 
-    private fun isConnected(): Boolean {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            isConnected(cm)
-        else
-            isConnectedLegacy(cm)
-    }
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    private fun isConnected(cm: ConnectivityManager): Boolean {
-        val cap = cm.getNetworkCapabilities(cm.activeNetwork) ?: return false
-        return cap.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-    }
-
-    @Suppress("DEPRECATION")
-    private fun isConnectedLegacy(cm: ConnectivityManager): Boolean {
-        val networks = cm.allNetworks
-        for (n in networks) {
-            val nInfo = cm.getNetworkInfo(n)
-            if (nInfo != null && nInfo.isConnected) return true
-        }
-
-        return false
-    }
-
     @OptIn(ExperimentalTime::class)
     override suspend fun updateIfOldOrEmpty() {
         val isEmpty = dao.isEmpty()
-        val isOffline = !isConnected()
+        val isOffline = !connManager.isConnected()
 
         // If offline at first boot use bundled data
         if (isEmpty && isOffline) {

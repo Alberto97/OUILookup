@@ -13,6 +13,8 @@ import org.alberto97.ouilookup.datasource.IEEEApi
 import org.alberto97.ouilookup.db.AppDatabase
 import org.alberto97.ouilookup.repository.IOuiRepository
 import org.alberto97.ouilookup.repository.OuiRepository
+import org.alberto97.ouilookup.tools.AppConnectivityManager
+import org.alberto97.ouilookup.tools.IAppConnectivityManager
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Singleton
@@ -22,6 +24,9 @@ import javax.inject.Singleton
 abstract class AppModule {
     @Binds
     abstract fun provideOuiRepository(repository: OuiRepository): IOuiRepository
+
+    @Binds
+    abstract fun provideConnManager(connManager: AppConnectivityManager): IAppConnectivityManager
 }
 
 @Module
