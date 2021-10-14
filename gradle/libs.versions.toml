@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.5.30"
+kotlin = "1.5.31"
 compose = "1.0.3"
 hilt = "2.39.1"
 retrofit = "2.9.0"
