@@ -1,6 +1,6 @@
 [versions]
 kotlin = "1.5.31"
-compose = "1.0.3"
+compose = "1.0.4"
 hilt = "2.39.1"
 retrofit = "2.9.0"
 room = "2.3.0"
