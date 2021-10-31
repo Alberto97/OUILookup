@@ -1,7 +1,7 @@
 [versions]
 kotlin = "1.5.31"
 compose = "1.0.4"
-hilt = "2.39.1"
+hilt = "2.40"
 retrofit = "2.9.0"
 room = "2.3.0"
 
