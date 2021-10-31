@@ -24,8 +24,8 @@ android {
         applicationId = "org.alberto97.ouilookup"
         minSdk = 21
         targetSdk = 31
-        versionCode = 2
-        versionName = "1.0.1"
+        versionCode = 3
+        versionName = "1.0.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

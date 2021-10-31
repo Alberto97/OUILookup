@@ -1,0 +1,3 @@
+* Increased search bar contrast
+* Animated splash screen for Android 12
+* Link to the Github app repository now available in the about page
