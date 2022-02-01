@@ -17,6 +17,8 @@ val secureProperties = Properties().apply {
     }
 }
 
+val composeVersion = "1.0.4"
+
 android {
     compileSdk = 31
 
@@ -63,50 +65,53 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.get()
+        kotlinCompilerExtensionVersion = composeVersion
     }
 }
 
 dependencies {
 
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.datastore.preferences)
-    implementation(libs.doyaaaaaken.kotlinCsv)
+    implementation("androidx.appcompat:appcompat:1.3.1")
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.1.0")
 
     // Compose
-    implementation(libs.androidx.compose.material)
-    implementation(libs.androidx.compose.materialIconsExt)
-    implementation(libs.androidx.compose.ui.tooling)
-    implementation(libs.androidx.compose.ui.ui)
-    implementation(libs.androidx.activity.activityCompose)
+    implementation("androidx.compose.material:material:$composeVersion")
+    implementation("androidx.compose.material:material-icons-extended:$composeVersion")
+    implementation("androidx.compose.ui:ui-tooling:$composeVersion")
+    implementation("androidx.compose.ui:ui:$composeVersion")
+    implementation("androidx.activity:activity-compose:1.3.1")
 
     // Hilt
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.androidCompiler)
-    kapt(libs.androidx.hilt.compiler)
+    val hiltVersion = "2.40"
+    implementation("com.google.dagger:hilt-android:$hiltVersion")
+    kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
 
     // Navigation
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.hilt.navigationCompose)
+    implementation("androidx.navigation:navigation-compose:2.4.0-beta01")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
 
     // Retrofit
-    implementation(libs.retrofit.converterScalars)
-    implementation(libs.retrofit.retrofit)
+    val retrofitVersion = "2.9.0"
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-scalars:$retrofitVersion")
 
     // Room
-    kapt(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.ktx)
+    val roomVersion = "2.3.0"
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
 
     // Work
-    implementation(libs.androidx.work.runtime)
-    implementation(libs.androidx.hilt.work)
+    implementation("androidx.work:work-runtime-ktx:2.7.0")
+    implementation("androidx.hilt:hilt-work:1.0.0")
 
     // Test
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.androidx.test.espressoCore)
-    androidTestImplementation(libs.dexmaker.mockito.inline)
-    androidTestImplementation(libs.mockito.core)
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.3")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation("com.linkedin.dexmaker:dexmaker-mockito-inline:2.28.1")
+    androidTestImplementation("org.mockito:mockito-core:3.11.2")
 }
 
 tasks.withType<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask> {
