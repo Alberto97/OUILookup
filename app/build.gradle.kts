@@ -71,7 +71,7 @@ android {
 
 dependencies {
 
-    implementation("androidx.appcompat:appcompat:1.3.1")
+    implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.1.0")
 
@@ -111,7 +111,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     androidTestImplementation("com.linkedin.dexmaker:dexmaker-mockito-inline:2.28.1")
-    androidTestImplementation("org.mockito:mockito-core:3.11.2")
+    androidTestImplementation("org.mockito:mockito-core:4.3.1")
 }
 
 tasks.withType<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask> {
