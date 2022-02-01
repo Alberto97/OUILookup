@@ -71,7 +71,7 @@ android {
 
 dependencies {
 
-    implementation("androidx.appcompat:appcompat:1.3.1")
+    implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.1.0")
 
