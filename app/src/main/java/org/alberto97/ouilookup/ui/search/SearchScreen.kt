@@ -3,15 +3,12 @@ package org.alberto97.ouilookup.ui.search
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -114,36 +111,6 @@ fun SearchScreen(
                     .offset { IntOffset(x = 0, y = toolbarOffsetHeightPx.value.roundToInt()) },
             )
         }
-    }
-}
-
-@Composable
-fun SearchBar(
-    text: String,
-    onTextChange: (value: String) -> Unit,
-    searchbarTopPadding: Dp,
-) {
-    Surface(
-        color = MaterialTheme.colors.primarySurface,
-        elevation = AppBarDefaults.TopAppBarElevation,
-        modifier = Modifier.padding(top = searchbarTopPadding)
-    ) {
-        TextField(
-            value = text,
-            placeholder = { Text(stringResource(R.string.search_text_field_placeholder)) },
-            onValueChange = onTextChange,
-            leadingIcon = { Icon(Icons.Outlined.Search, null) },
-            shape = RoundedCornerShape(12.dp),
-            colors = TextFieldDefaults.textFieldColors(
-                textColor = MaterialTheme.colors.contentColorFor(MaterialTheme.colors.surface),
-                backgroundColor = MaterialTheme.colors.surface,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-            ),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(14.dp)
-        )
     }
 }
 
