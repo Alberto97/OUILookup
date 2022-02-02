@@ -3,6 +3,7 @@
     <string name="about_author_fulfilling_ego" translatable="false">Alberto Pedron</string>
 
     <!-- Search -->
+    <string name="search_toolbar_title">OUI_Lookup</string>
     <string name="search_action_about">@string/about_title</string>
     <string name="search_text_field_placeholder">Search MAC or organization</string>
     <string name="search_update_database">Your database is being updated,\nyou may see outdated results</string>

@@ -6,10 +6,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DeveloperBoard
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -28,6 +30,7 @@ import org.alberto97.ouilookup.db.Oui
 import org.alberto97.ouilookup.ui.Destinations
 import org.alberto97.ouilookup.ui.FullscreenPlaceholder
 import org.alberto97.ouilookup.ui.theme.OUILookupTheme
+import org.alberto97.ouilookup.ui.theme.whiteRabbitFamily
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -105,7 +108,21 @@ fun SearchScreen(
                 searchbarTopPadding = with(LocalDensity.current) { searchbarTopPaddingPx.value.toDp() }
             )
             TopAppBar(
-                title = { Text(stringResource(R.string.app_name)) },
+                title = {
+                    Row(
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Icon(Icons.Default.DeveloperBoard, null)
+                        Box(modifier = Modifier.width(8.dp))
+                        Text(
+                            stringResource(R.string.search_toolbar_title),
+                            fontFamily = whiteRabbitFamily,
+                            style = MaterialTheme.typography.h5
+                        )
+                    }
+                },
                 elevation = 0.dp,
                 actions = { DropdownButton(onInfoClick) },
                 modifier = Modifier
