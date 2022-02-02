@@ -135,8 +135,9 @@ fun SearchBar(
             leadingIcon = { Icon(Icons.Outlined.Search, null) },
             shape = RoundedCornerShape(12.dp),
             colors = TextFieldDefaults.textFieldColors(
-                focusedIndicatorColor = Color.Transparent,
+                textColor = MaterialTheme.colors.contentColorFor(MaterialTheme.colors.surface),
                 backgroundColor = MaterialTheme.colors.surface,
+                focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
             ),
             modifier = Modifier
