@@ -95,7 +95,7 @@ fun SearchScreen(
                 updatingDb = updatingDb,
                 listContentTopPadding = toolbarHeight + searchbarHeight,
             )
-            SearchBar(
+            Searchbar(
                 text = text,
                 onTextChange = onTextChange,
                 searchbarTopPadding = with(LocalDensity.current) { searchbarTopPaddingPx.value.toDp() }
