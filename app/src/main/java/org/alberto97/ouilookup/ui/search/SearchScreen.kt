@@ -126,7 +126,7 @@ private fun Content(
     else
         LazyColumn(
             contentPadding = PaddingValues(top = listContentTopPadding),
-            modifier = Modifier.padding(12.dp)
+            modifier = Modifier.padding(horizontal = 4.dp).padding(top = 14.dp)
         ) {
             items(list) { device ->
                 ListItem(

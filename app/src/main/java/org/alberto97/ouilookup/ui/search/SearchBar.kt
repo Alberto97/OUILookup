@@ -79,7 +79,7 @@ fun Searchbar(
                 backgroundColor = MaterialTheme.colors.surface,
             ),
             shape = RoundedCornerShape(10.dp),
-            modifier = Modifier.padding(vertical = 14.dp, horizontal = 20.dp)
+            modifier = Modifier.padding(16.dp)
         )
     }
 }
