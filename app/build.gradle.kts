@@ -1,5 +1,7 @@
 import java.io.FileInputStream
 import java.util.Properties
+import org.alberto97.ouilookup.buildsrc.DependencyUpdates
+import org.alberto97.ouilookup.buildsrc.ReleaseType
 
 plugins {
     id("com.github.ben-manes.versions") version "0.41.0"
@@ -116,22 +118,14 @@ dependencies {
 
 tasks.withType<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask> {
     rejectVersionIf {
-        isAndroidX(candidate) && worseAndroidXChannel(candidate, currentVersion)
+        val current = DependencyUpdates.versionToRelease(currentVersion)
+        // If we're using a SNAPSHOT, ignore since we must be doing so for a reason.
+        if (current == ReleaseType.SNAPSHOT) return@rejectVersionIf true
+
+        // Otherwise we reject if the candidate is more 'unstable' than our version
+        val candidate = DependencyUpdates.versionToRelease(candidate.version)
+        return@rejectVersionIf candidate.isLessStableThan(current)
     }
-}
-
-fun isAndroidX(candidate: ModuleComponentIdentifier): Boolean {
-    return candidate.group.startsWith("androidx")
-}
-
-fun worseAndroidXChannel(candidate: ModuleComponentIdentifier, currentVersion: String): Boolean {
-    val channel = mapOf("alpha" to 0, "beta" to 1, "rc" to 3, "" to 4)
-    val candidateExtra = candidate.version.filter { char -> char.isLetter() }
-    val currentExtra = currentVersion.filter { char -> char.isLetter() }
-    val candidateChannel = channel.getValue(candidateExtra)
-    val currentChannel = channel.getValue(currentExtra)
-
-    return candidateChannel < currentChannel
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
