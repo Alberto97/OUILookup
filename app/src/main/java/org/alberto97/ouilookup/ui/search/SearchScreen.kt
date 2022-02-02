@@ -154,31 +154,8 @@ private fun Content(
     updatingDb: Boolean,
     listContentTopPadding: Dp
 ) {
-    if (updatingDb)
-        FullscreenPlaceholder(
-            text = stringResource(R.string.search_update_database),
-        ) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .size(62.dp)
-                    .padding(8.dp)
-            )
-        }
-    else
-        Items(
-            list = list,
-            listContentTopPadding
-        )
-}
-
-@ExperimentalMaterialApi
-@Composable
-fun Items(list: List<Oui>, listContentTopPadding: Dp) {
     if (list.isEmpty())
-        FullscreenPlaceholder(
-            text = stringResource(R.string.search_results_not_found),
-            icon = Icons.Outlined.SearchOff
-        )
+        if (updatingDb) UpdatingPlaceholder() else EmptyPlaceholder()
     else
         LazyColumn(
             contentPadding = PaddingValues(top = listContentTopPadding),
@@ -191,6 +168,27 @@ fun Items(list: List<Oui>, listContentTopPadding: Dp) {
                 )
             }
         }
+}
+
+@Composable
+private fun UpdatingPlaceholder() {
+    FullscreenPlaceholder(
+        text = stringResource(R.string.search_update_database),
+    ) {
+        CircularProgressIndicator(
+            modifier = Modifier
+                .size(62.dp)
+                .padding(8.dp)
+        )
+    }
+}
+
+@Composable
+private fun EmptyPlaceholder() {
+    FullscreenPlaceholder(
+        text = stringResource(R.string.search_results_not_found),
+        icon = Icons.Outlined.SearchOff
+    )
 }
 
 @ExperimentalMaterialApi
