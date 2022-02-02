@@ -1,5 +1,6 @@
 package org.alberto97.ouilookup.ui.search
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -11,7 +12,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.ui.theme.whiteRabbitFamily
@@ -19,13 +19,13 @@ import org.alberto97.ouilookup.ui.theme.whiteRabbitFamily
 @Composable
 fun SearchToolbar(
     dropdownMenuItems: @Composable ColumnScope.() -> Unit,
-    modifier: Modifier = Modifier,
-    elevation: Dp = AppBarDefaults.TopAppBarElevation
+    modifier: Modifier = Modifier
 ) {
     TopAppBar(
+        // In light mode set elevation to 0 to avoid drawing a shadow over the searchbar
+        elevation = if (isSystemInDarkTheme()) AppBarDefaults.TopAppBarElevation else 0.dp,
         title = { Title() },
         actions = { ActionsDropdown(dropdownMenuItems) },
-        elevation = elevation,
         modifier = modifier,
     )
 }

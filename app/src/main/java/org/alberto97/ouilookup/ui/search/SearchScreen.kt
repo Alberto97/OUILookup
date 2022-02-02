@@ -109,7 +109,6 @@ fun SearchScreen(
                         Text(stringResource(R.string.search_action_about))
                     }
                 },
-                elevation = 0.dp,
                 modifier = Modifier
                     .height(toolbarHeight)
                     .offset { IntOffset(x = 0, y = toolbarOffsetHeightPx.value.roundToInt()) },
