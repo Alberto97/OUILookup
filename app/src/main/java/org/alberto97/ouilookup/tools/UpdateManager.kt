@@ -8,7 +8,6 @@ import org.alberto97.ouilookup.workers.UpdateWorker
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.time.DurationUnit
-import kotlin.time.ExperimentalTime
 import kotlin.time.toDuration
 
 interface IUpdateManager {
@@ -64,7 +63,6 @@ object UpdatePolicyManager {
         return !emptyDb && needsUpdate(lastUpdateMillis)
     }
 
-    @OptIn(ExperimentalTime::class)
     fun needsUpdate(lastUpdateMillis: Long): Boolean {
         // Don't update until at least a month has passed since the last data fetch
         val duration = (System.currentTimeMillis() - lastUpdateMillis).toDuration(DurationUnit.MILLISECONDS)
