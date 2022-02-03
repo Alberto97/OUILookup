@@ -22,7 +22,7 @@ import org.mockito.junit.MockitoJUnitRunner
 
 
 @RunWith(MockitoJUnitRunner::class)
-class ExampleInstrumentedTest {
+class OuiInstrumentedTest {
 
     private lateinit var ouiRepository: OuiRepository
 
