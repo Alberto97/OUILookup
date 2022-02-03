@@ -48,7 +48,7 @@ private fun Title() {
 }
 
 @Composable
-private fun ActionsDropdown(dropdownMenuItems: @Composable ColumnScope.() -> Unit,) {
+private fun ActionsDropdown(dropdownMenuItems: @Composable ColumnScope.() -> Unit) {
     val (dropdownExpanded, setDropdownExpanded) = remember { mutableStateOf(false) }
 
     IconButton(onClick = { setDropdownExpanded(true) }) {
