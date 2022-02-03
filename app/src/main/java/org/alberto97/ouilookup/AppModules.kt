@@ -17,6 +17,8 @@ import org.alberto97.ouilookup.repository.OuiRepository
 import org.alberto97.ouilookup.repository.SettingsRepository
 import org.alberto97.ouilookup.tools.AppConnectivityManager
 import org.alberto97.ouilookup.tools.IAppConnectivityManager
+import org.alberto97.ouilookup.tools.IOuiCsvParser
+import org.alberto97.ouilookup.tools.OuiCsvParser
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Singleton
@@ -33,6 +35,9 @@ abstract class AppModule {
 
     @Binds
     abstract fun provideSettings(settings: SettingsRepository): ISettingsRepository
+
+    @Binds
+    abstract fun provideParser(parser: OuiCsvParser): IOuiCsvParser
 }
 
 @Module

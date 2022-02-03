@@ -13,6 +13,7 @@ import org.alberto97.ouilookup.db.OuiDao
 import org.alberto97.ouilookup.repository.ISettingsRepository
 import org.alberto97.ouilookup.repository.OuiRepository
 import org.alberto97.ouilookup.tools.IAppConnectivityManager
+import org.alberto97.ouilookup.tools.OuiCsvParser
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -45,7 +46,8 @@ class ExampleInstrumentedTest {
     fun createDb() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         val ouiDao = setupDao(context)
-        ouiRepository = OuiRepository(context, csvReader(), ApiMock(), ouiDao, connManager, settings)
+        val csvParser = OuiCsvParser(csvReader())
+        ouiRepository = OuiRepository(context, csvParser, ApiMock(), ouiDao, connManager, settings)
     }
 
     private fun setupDao(context: Context): OuiDao {

@@ -1,7 +1,6 @@
 package org.alberto97.ouilookup.repository
 
 import android.content.Context
-import com.github.doyaaaaaken.kotlincsv.client.CsvReader
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -11,6 +10,7 @@ import org.alberto97.ouilookup.datasource.IEEEApi
 import org.alberto97.ouilookup.db.Oui
 import org.alberto97.ouilookup.db.OuiDao
 import org.alberto97.ouilookup.tools.IAppConnectivityManager
+import org.alberto97.ouilookup.tools.IOuiCsvParser
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.time.DurationUnit
@@ -27,7 +27,7 @@ interface IOuiRepository {
 @Singleton
 class OuiRepository @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val reader: CsvReader,
+    private val ouiCsvParser: IOuiCsvParser,
     private val api: IEEEApi,
     private val dao: OuiDao,
     private val connManager: IAppConnectivityManager,
@@ -98,9 +98,7 @@ class OuiRepository @Inject constructor(
 
     private suspend fun saveData(csvData: String) {
         // Read CSV data and map it to entity
-        val entities = reader.readAllWithHeader(csvData).map {
-            Oui(it["Assignment"]!!, it["Organization Name"]!!.trim(), it["Organization Address"]!!)
-        }
+        val entities = ouiCsvParser.parse(csvData)
 
         // There probably was a mistake, exit before clearing the db.
         // It should not happen but you never know...
