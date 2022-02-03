@@ -21,12 +21,6 @@ import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
 
-class ApiMock : IEEEApi {
-    override suspend fun fetchOui(): String {
-        return ""
-    }
-}
-
 @RunWith(MockitoJUnitRunner::class)
 class ExampleInstrumentedTest {
 
@@ -36,6 +30,9 @@ class ExampleInstrumentedTest {
     private lateinit var connManager: IAppConnectivityManager
 
     @Mock
+    private lateinit var ieeeMock: IEEEApi
+
+    @Mock
     private lateinit var settings: ISettingsRepository
 
     @Before
@@ -43,7 +40,7 @@ class ExampleInstrumentedTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
         val ouiDao = setupDao(context)
         val csvParser = OuiCsvParser(csvReader())
-        ouiRepository = OuiRepository(context, csvParser, ApiMock(), ouiDao, connManager, settings)
+        ouiRepository = OuiRepository(context, csvParser, ieeeMock, ouiDao, connManager, settings)
     }
 
     private fun setupDao(context: Context): OuiDao {
