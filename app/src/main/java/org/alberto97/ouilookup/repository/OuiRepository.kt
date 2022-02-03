@@ -5,7 +5,6 @@ import com.github.doyaaaaaken.kotlincsv.client.CsvReader
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flowOf
 import org.alberto97.ouilookup.Extensions.readRawTextFile
 import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.datasource.IEEEApi
@@ -19,8 +18,7 @@ import kotlin.time.ExperimentalTime
 import kotlin.time.toDuration
 
 interface IOuiRepository {
-    fun get(text: String?): Flow<List<Oui>>
-    fun getAll(): Flow<List<Oui>>
+    suspend fun get(text: String?): List<Oui>
     fun getLastDbUpdate(): Flow<Long>
     suspend fun dbNeedsUpdate(): Boolean
     suspend fun updateIfOldOrEmpty()
@@ -41,15 +39,13 @@ class OuiRepository @Inject constructor(
         return oui.filterNot { c -> ":-".contains(c)}.take(6)
     }
 
-    override fun get(text: String?): Flow<List<Oui>> {
+    override suspend fun get(text: String?): List<Oui> {
         if (text.isNullOrEmpty())
-            return flowOf(emptyList())
+            return dao.getAll()
 
         val ouiText = sanitizeOui(text)
         return dao.get(ouiText, text)
     }
-
-    override fun getAll(): Flow<List<Oui>> = dao.getAll()
 
     @OptIn(ExperimentalTime::class)
     override suspend fun updateIfOldOrEmpty() {

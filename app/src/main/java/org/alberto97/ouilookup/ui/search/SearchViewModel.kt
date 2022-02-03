@@ -7,18 +7,16 @@ import androidx.lifecycle.viewModelScope
 import androidx.work.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.alberto97.ouilookup.repository.IOuiRepository
 import org.alberto97.ouilookup.workers.DownloadWorker
 import javax.inject.Inject
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val app: Application,
@@ -30,12 +28,7 @@ class SearchViewModel @Inject constructor(
     private val _text = MutableStateFlow("")
     val text = _text.asStateFlow()
 
-    val list = _text.flatMapLatest { text ->
-        if (text.isEmpty())
-            repository.getAll()
-        else
-            repository.get(text)
-    }
+    val list = _text.map { text -> repository.get(text) }
 
     val updatingDb = combine(downloadWorkRunning, _text) { workRunning, text ->
         text.isEmpty() && workRunning

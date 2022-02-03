@@ -85,19 +85,10 @@ class ExampleInstrumentedTest {
     }
 
     @Test
-    fun testUpdateNotEmpty() = runBlocking {
-        fillDb()
-
-        val list = ouiRepository.getAll().first()
-
-        assert(list.isNotEmpty())
-    }
-
-    @Test
     fun testSearchOuiLong() = runBlocking {
         fillDb()
 
-        val result = ouiRepository.get("000C4264").first()
+        val result = ouiRepository.get("000C4264")
         assert(result.isNotEmpty())
     }
 
@@ -105,7 +96,7 @@ class ExampleInstrumentedTest {
     fun testSearchOuiColon() = runBlocking {
         fillDb()
 
-        val result = ouiRepository.get("00:0C:42").first()
+        val result = ouiRepository.get("00:0C:42")
         assert(result.isNotEmpty())
     }
 
@@ -113,7 +104,7 @@ class ExampleInstrumentedTest {
     fun testSearchOuiHyphen() = runBlocking {
         fillDb()
 
-        val result = ouiRepository.get("00-0C-42").first()
+        val result = ouiRepository.get("00-0C-42")
         assert(result.isNotEmpty())
     }
 }

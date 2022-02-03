@@ -4,15 +4,14 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface OuiDao {
     @Query("SELECT * FROM oui WHERE oui LIKE :ouiText || '%' OR orgName LIKE :text || '%' ORDER BY orgName, oui")
-    fun get(ouiText: String, text: String): Flow<List<Oui>>
+    suspend fun get(ouiText: String, text: String): List<Oui>
 
     @Query("SELECT * FROM oui ORDER BY orgName, oui")
-    fun getAll(): Flow<List<Oui>>
+    suspend fun getAll(): List<Oui>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(bts: List<Oui>)
