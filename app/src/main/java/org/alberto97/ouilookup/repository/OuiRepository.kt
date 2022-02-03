@@ -11,11 +11,11 @@ import org.alberto97.ouilookup.db.Oui
 import org.alberto97.ouilookup.db.OuiDao
 import org.alberto97.ouilookup.tools.IAppConnectivityManager
 import org.alberto97.ouilookup.tools.IOuiCsvParser
+import org.alberto97.ouilookup.tools.UpdatePolicy
+import org.alberto97.ouilookup.tools.UpdatePolicyManager
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.time.DurationUnit
-import kotlin.time.ExperimentalTime
-import kotlin.time.toDuration
+
 
 interface IOuiRepository {
     suspend fun get(text: String?): List<Oui>
@@ -47,34 +47,22 @@ class OuiRepository @Inject constructor(
         return dao.get(ouiText, text)
     }
 
-    @OptIn(ExperimentalTime::class)
     override suspend fun updateIfOldOrEmpty() {
         val isEmpty = dao.isEmpty()
         val isOffline = !connManager.isConnected()
-
-        // If offline at first boot use bundled data
-        if (isEmpty && isOffline) {
-            updateFromCsv()
-        }
-
-        if (isOffline)
-            return
-
-        if (dbNeedsUpdate())
-            updateFromIEEE()
-    }
-
-    @OptIn(ExperimentalTime::class)
-    override suspend fun dbNeedsUpdate(): Boolean {
-        return !isDbUpToDate() || dao.isEmpty()
-    }
-
-    @ExperimentalTime
-    suspend fun isDbUpToDate() : Boolean {
-        // Don't update until at least a month has passed since the last data fetch
         val lastUpdateMillis = getLastDbUpdate().first()
-        val duration = (System.currentTimeMillis() - lastUpdateMillis).toDuration(DurationUnit.MILLISECONDS)
-        return duration.inWholeDays < 30
+
+        when(UpdatePolicyManager.getUpdatePolicy(isOffline, isEmpty, lastUpdateMillis)) {
+            UpdatePolicy.REMOTE -> updateFromIEEE()
+            UpdatePolicy.LOCAL -> updateFromCsv()
+            else -> {}
+        }
+    }
+
+    override suspend fun dbNeedsUpdate(): Boolean {
+        val isEmpty = dao.isEmpty()
+        val lastUpdateMillis = getLastDbUpdate().first()
+        return UpdatePolicyManager.needsUpdate(isEmpty, lastUpdateMillis)
     }
 
     override fun getLastDbUpdate(): Flow<Long> {

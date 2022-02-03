@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.alberto97.ouilookup.datasource.IEEEApi
@@ -20,9 +19,6 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
-import java.time.LocalDateTime
-import java.time.ZoneOffset
-import kotlin.time.ExperimentalTime
 
 
 class ApiMock : IEEEApi {
@@ -58,32 +54,9 @@ class ExampleInstrumentedTest {
     private suspend fun fillDb() {
         // Make sure we use the bundled data
         `when`(connManager.isConnected()).thenReturn(false)
+        `when`(settings.getLastDbUpdate()).thenReturn(flowOf(0L))
 
         ouiRepository.updateIfOldOrEmpty()
-    }
-
-    @ExperimentalTime
-    @Test
-    fun testNeedsUpdate() {
-        val time = LocalDateTime.now().minusDays(31).toInstant(ZoneOffset.UTC).toEpochMilli()
-        `when`(settings.getLastDbUpdate()).thenReturn(flowOf(time))
-
-        runBlocking {
-            val result = ouiRepository.isDbUpToDate()
-            assert(!result)
-        }
-    }
-
-    @ExperimentalTime
-    @Test
-    fun testUpToDate() {
-        val time = LocalDateTime.now().minusDays(29).toInstant(ZoneOffset.UTC).toEpochMilli()
-        `when`(settings.getLastDbUpdate()).thenReturn(flowOf(time))
-
-        runBlocking {
-            val result = ouiRepository.isDbUpToDate()
-            assert(result)
-        }
     }
 
     @Test
