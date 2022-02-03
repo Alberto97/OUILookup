@@ -9,10 +9,7 @@ import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.datasource.IEEEApi
 import org.alberto97.ouilookup.db.Oui
 import org.alberto97.ouilookup.db.OuiDao
-import org.alberto97.ouilookup.tools.IAppConnectivityManager
-import org.alberto97.ouilookup.tools.IOuiCsvParser
-import org.alberto97.ouilookup.tools.UpdatePolicy
-import org.alberto97.ouilookup.tools.UpdatePolicyManager
+import org.alberto97.ouilookup.tools.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -34,16 +31,11 @@ class OuiRepository @Inject constructor(
     private val settings: ISettingsRepository
 ) : IOuiRepository {
 
-
-    private fun sanitizeOui(oui: String): String {
-        return oui.filterNot { c -> ":-".contains(c)}.take(6)
-    }
-
     override suspend fun get(text: String?): List<Oui> {
         if (text.isNullOrEmpty())
             return dao.getAll()
 
-        val ouiText = sanitizeOui(text)
+        val ouiText = OuiSanitizer.sanitize(text)
         return dao.get(ouiText, text)
     }
 
