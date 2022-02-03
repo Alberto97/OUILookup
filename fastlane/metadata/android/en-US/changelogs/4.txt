@@ -1,0 +1,3 @@
+* Added collapsing toolbar
+* Updated bundled OUI list at 2022-02-03
+* Various dependencies update
