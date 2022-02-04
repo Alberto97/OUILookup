@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="Theme.OUILookup.Splashscreen" parent="Theme.OUILookup.NoActionBar">
-        <item name="android:windowSplashScreenAnimatedIcon">@drawable/avd_splash_animated</item>
-        <item name="android:windowSplashScreenAnimationDuration">800</item>
-    </style>
-</resources>

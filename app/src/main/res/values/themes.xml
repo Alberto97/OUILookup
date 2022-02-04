@@ -10,5 +10,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.OUILookup.Splashscreen" parent="Theme.OUILookup.NoActionBar" />
+    <style name="Theme.OUILookup.Splashscreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_screen</item>
+        <item name="windowSplashScreenAnimationDuration">800</item>
+        <item name="postSplashScreenTheme">@style/Theme.OUILookup.NoActionBar</item>
+    </style>
 </resources>
