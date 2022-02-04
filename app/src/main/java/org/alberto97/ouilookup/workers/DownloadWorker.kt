@@ -61,8 +61,7 @@ class DownloadWorker  @AssistedInject constructor(
         val title = appContext.getString(R.string.oui_update_notification_title)
         val builder = NotificationCompat.Builder(appContext, channelId)
             .setContentTitle(title)
-            .setTicker(title)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.ic_stat_developer_board)
             .setOngoing(true)
             .setProgress(100, 0, true)
 
