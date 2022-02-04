@@ -1,0 +1,130 @@
+{
+  "version": 1,
+  "layers": {
+    "vectorLayer": {
+      "id": "94",
+      "name": "splash_animated",
+      "type": "vector",
+      "width": 24,
+      "height": 24,
+      "children": [
+        {
+          "id": "98",
+          "name": "background",
+          "type": "path",
+          "pathData": "M 0 0 L 24 0 L 24 24 L 0 24 Z",
+          "fillColor": "#2196f3"
+        },
+        {
+          "id": "108",
+          "name": "group",
+          "type": "group",
+          "scaleX": 0.4,
+          "scaleY": 0.4,
+          "pivotX": 12.5,
+          "pivotY": 12,
+          "children": [
+            {
+              "id": "1639",
+              "name": "board",
+              "type": "path",
+              "pathData": "M 4 3 C 2.9 3 2 3.9 2 5 L 2 19 C 2 20.1 2.9 21 4 21 L 18 21 C 19.1 21 20 20.1 20 19 L 20 17 L 21 17 C 21.55 17 22 16.55 22 16 C 22 15.45 21.55 15 21 15 L 20 15 L 20 13 L 21 13 C 21.55 13 22 12.55 22 12 C 22 11.45 21.55 11 21 11 L 20 11 L 20 9 L 21 9 C 21.55 9 22 8.55 22 8 C 22 7.45 21.55 7 21 7 L 20 7 L 20 5 C 20 3.9 19.1 3 18 3 Z M 5 5 L 17 5 C 17.55 5 18 5.45 18 6 L 18 18 C 18 18.55 17.55 19 17 19 L 5 19 C 4.45 19 4 18.55 4 18 L 4 6 C 4 5.45 4.45 5 5 5 Z",
+              "fillColor": "#ffffff",
+              "strokeWidth": 1
+            },
+            {
+              "id": "1691",
+              "name": "chip_1",
+              "type": "path",
+              "pathData": "M 6.5 7 L 10.5 7 C 10.78 7 11 7.22 11 7.5 L 11 11.5 C 11 11.78 10.78 12 10.5 12 L 6.5 12 C 6.22 12 6 11.78 6 11.5 L 6 7.5 C 6 7.22 6.22 7 6.5 7 Z",
+              "fillColor": "#ffffff",
+              "fillAlpha": 0,
+              "strokeWidth": 1
+            },
+            {
+              "id": "1717",
+              "name": "chip_2",
+              "type": "path",
+              "pathData": "M 12.5 7 L 15.5 7 C 15.78 7 16 7.22 16 7.5 L 16 9.5 C 16 9.78 15.78 10 15.5 10 L 12.5 10 C 12.22 10 12 9.78 12 9.5 L 12 7.5 C 12 7.22 12.22 7 12.5 7 Z",
+              "fillColor": "#ffffff",
+              "fillAlpha": 0,
+              "strokeWidth": 1
+            },
+            {
+              "id": "1743",
+              "name": "chip_3",
+              "type": "path",
+              "pathData": "M 6.5 13 L 10.5 13 C 10.78 13 11 13.22 11 13.5 L 11 16.5 C 11 16.78 10.78 17 10.5 17 L 6.5 17 C 6.22 17 6 16.78 6 16.5 L 6 13.5 C 6 13.22 6.22 13 6.5 13 Z",
+              "fillColor": "#ffffff",
+              "fillAlpha": 0,
+              "strokeWidth": 1
+            },
+            {
+              "id": "1665",
+              "name": "chip_4",
+              "type": "path",
+              "pathData": "M 12.5 11 L 15.5 11 C 15.78 11 16 11.22 16 11.5 L 16 16.5 C 16 16.78 15.78 17 15.5 17 L 12.5 17 C 12.22 17 12 16.78 12 16.5 L 12 11.5 C 12 11.22 12.22 11 12.5 11 Z",
+              "fillColor": "#ffffff",
+              "fillAlpha": 0,
+              "strokeWidth": 1
+            }
+          ]
+        }
+      ]
+    },
+    "hiddenLayerIds": []
+  },
+  "timeline": {
+    "animation": {
+      "id": "4",
+      "name": "anim",
+      "duration": 800,
+      "blocks": [
+        {
+          "id": "1763",
+          "layerId": "1665",
+          "propertyName": "fillAlpha",
+          "startTime": 600,
+          "endTime": 800,
+          "interpolator": "ACCELERATE",
+          "type": "number",
+          "fromValue": 0,
+          "toValue": 1
+        },
+        {
+          "id": "1765",
+          "layerId": "1691",
+          "propertyName": "fillAlpha",
+          "startTime": 0,
+          "endTime": 200,
+          "interpolator": "ACCELERATE",
+          "type": "number",
+          "fromValue": 0,
+          "toValue": 1
+        },
+        {
+          "id": "1767",
+          "layerId": "1717",
+          "propertyName": "fillAlpha",
+          "startTime": 200,
+          "endTime": 400,
+          "interpolator": "ACCELERATE",
+          "type": "number",
+          "fromValue": 0,
+          "toValue": 1
+        },
+        {
+          "id": "1768",
+          "layerId": "1743",
+          "propertyName": "fillAlpha",
+          "startTime": 400,
+          "endTime": 600,
+          "interpolator": "ACCELERATE",
+          "type": "number",
+          "fromValue": 0,
+          "toValue": 1
+        }
+      ]
+    }
+  }
+}

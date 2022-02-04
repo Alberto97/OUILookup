@@ -9,54 +9,48 @@
             android:viewportWidth="24"
             android:viewportHeight="24">
             <path
-                android:name="path"
+                android:name="background"
                 android:pathData="M 0 0 L 24 0 L 24 24 L 0 24 Z"
-                android:fillColor="#2196f3"
-                android:strokeWidth="1"/>
+                android:fillColor="#2196f3"/>
             <group
                 android:name="group"
-                android:pivotX="13"
-                android:pivotY="13"
-                android:scaleX="0.8"
-                android:scaleY="0.8">
+                android:pivotX="12.5"
+                android:pivotY="12"
+                android:scaleX="0.4"
+                android:scaleY="0.4">
                 <path
-                    android:name="path_1"
-                    android:pathData="M 17 10.5 L 17 9.5 L 16 9.5 L 16 8.5 C 16 7.95 15.55 7.5 15 7.5 L 8 7.5 C 7.45 7.5 7 7.95 7 8.5 L 7 15.5 C 7 16.05 7.45 16.5 8 16.5 L 15 16.5 C 15.55 16.5 16 16.05 16 15.5 L 16 14.5 L 17 14.5 L 17 13.5 L 16 13.5 L 16 12.5 L 17 12.5 L 17 11.5 L 16 11.5 L 16 10.5 Z"
+                    android:name="board"
+                    android:pathData="M 4 3 C 2.9 3 2 3.9 2 5 L 2 19 C 2 20.1 2.9 21 4 21 L 18 21 C 19.1 21 20 20.1 20 19 L 20 17 L 21 17 C 21.55 17 22 16.55 22 16 C 22 15.45 21.55 15 21 15 L 20 15 L 20 13 L 21 13 C 21.55 13 22 12.55 22 12 C 22 11.45 21.55 11 21 11 L 20 11 L 20 9 L 21 9 C 21.55 9 22 8.55 22 8 C 22 7.45 21.55 7 21 7 L 20 7 L 20 5 C 20 3.9 19.1 3 18 3 Z M 5 5 L 17 5 C 17.55 5 18 5.45 18 6 L 18 18 C 18 18.55 17.55 19 17 19 L 5 19 C 4.45 19 4 18.55 4 18 L 4 6 C 4 5.45 4.45 5 5 5 Z"
                     android:fillColor="#ffffff"
                     android:strokeWidth="1"/>
                 <path
-                    android:name="path_2"
-                    android:pathData="M 15.04 15.472 L 8.04 15.472 L 8.04 8.472 L 15.04 8.472 Z"
-                    android:fillColor="#2196f3"
-                    android:strokeWidth="1"/>
-                <path
-                    android:name="path_3"
-                    android:pathData="M 12 11.5 L 14 11.5 L 14 14.5 L 12 14.5 Z"
+                    android:name="chip_1"
+                    android:pathData="M 6.5 7 L 10.5 7 C 10.78 7 11 7.22 11 7.5 L 11 11.5 C 11 11.78 10.78 12 10.5 12 L 6.5 12 C 6.22 12 6 11.78 6 11.5 L 6 7.5 C 6 7.22 6.22 7 6.5 7 Z"
                     android:fillColor="#ffffff"
                     android:fillAlpha="0"
                     android:strokeWidth="1"/>
                 <path
-                    android:name="path_4"
-                    android:pathData="M 9 9.5 L 11.5 9.5 L 11.5 12 L 9 12 Z"
+                    android:name="chip_2"
+                    android:pathData="M 12.5 7 L 15.5 7 C 15.78 7 16 7.22 16 7.5 L 16 9.5 C 16 9.78 15.78 10 15.5 10 L 12.5 10 C 12.22 10 12 9.78 12 9.5 L 12 7.5 C 12 7.22 12.22 7 12.5 7 Z"
                     android:fillColor="#ffffff"
                     android:fillAlpha="0"
                     android:strokeWidth="1"/>
                 <path
-                    android:name="path_5"
-                    android:pathData="M 12 9.5 L 14 9.5 L 14 11 L 12 11 Z"
+                    android:name="chip_3"
+                    android:pathData="M 6.5 13 L 10.5 13 C 10.78 13 11 13.22 11 13.5 L 11 16.5 C 11 16.78 10.78 17 10.5 17 L 6.5 17 C 6.22 17 6 16.78 6 16.5 L 6 13.5 C 6 13.22 6.22 13 6.5 13 Z"
                     android:fillColor="#ffffff"
                     android:fillAlpha="0"
                     android:strokeWidth="1"/>
                 <path
-                    android:name="path_6"
-                    android:pathData="M 9 12.5 L 11.5 12.5 L 11.5 14.5 L 9 14.5 Z"
+                    android:name="chip_4"
+                    android:pathData="M 12.5 11 L 15.5 11 C 15.78 11 16 11.22 16 11.5 L 16 16.5 C 16 16.78 15.78 17 15.5 17 L 12.5 17 C 12.22 17 12 16.78 12 16.5 L 12 11.5 C 12 11.22 12.22 11 12.5 11 Z"
                     android:fillColor="#ffffff"
                     android:fillAlpha="0"
                     android:strokeWidth="1"/>
             </group>
         </vector>
     </aapt:attr>
-    <target android:name="path_4">
+    <target android:name="chip_1">
         <aapt:attr name="android:animation">
             <objectAnimator
                 android:propertyName="fillAlpha"
@@ -67,7 +61,7 @@
                 android:interpolator="@android:anim/accelerate_interpolator"/>
         </aapt:attr>
     </target>
-    <target android:name="path_5">
+    <target android:name="chip_2">
         <aapt:attr name="android:animation">
             <objectAnimator
                 android:propertyName="fillAlpha"
@@ -79,7 +73,7 @@
                 android:interpolator="@android:anim/accelerate_interpolator"/>
         </aapt:attr>
     </target>
-    <target android:name="path_6">
+    <target android:name="chip_3">
         <aapt:attr name="android:animation">
             <objectAnimator
                 android:propertyName="fillAlpha"
@@ -91,7 +85,7 @@
                 android:interpolator="@android:anim/accelerate_interpolator"/>
         </aapt:attr>
     </target>
-    <target android:name="path_3">
+    <target android:name="chip_4">
         <aapt:attr name="android:animation">
             <objectAnimator
                 android:propertyName="fillAlpha"
