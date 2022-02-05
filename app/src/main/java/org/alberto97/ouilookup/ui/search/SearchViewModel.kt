@@ -1,6 +1,8 @@
 package org.alberto97.ouilookup.ui.search
 
 import android.app.Application
+import android.content.ClipboardManager
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,6 +16,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.alberto97.ouilookup.repository.IOuiRepository
+import org.alberto97.ouilookup.tools.OctetTool
 import org.alberto97.ouilookup.workers.DownloadWorker
 import javax.inject.Inject
 
@@ -35,7 +38,22 @@ class SearchViewModel @Inject constructor(
     }
 
     init {
+        checkClipboard()
         shouldUpdateDb()
+    }
+
+    private fun checkClipboard() {
+        val clip = getClipboard()?.toString() ?: return
+        val isSearchable = OctetTool.isOui(clip) || OctetTool.isMacAddress(clip)
+        if (isSearchable) {
+            _text.value = clip
+        }
+    }
+
+    private fun getClipboard(): CharSequence? {
+        val clipboardManager = ContextCompat.getSystemService(app, ClipboardManager::class.java)
+        val data = clipboardManager?.primaryClip?.getItemAt(0)
+        return data?.text
     }
 
     private fun shouldUpdateDb() {

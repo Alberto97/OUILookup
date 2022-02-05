@@ -35,7 +35,7 @@ class OuiRepository @Inject constructor(
         if (text.isNullOrEmpty())
             return dao.getAll()
 
-        val ouiText = OuiSanitizer.sanitize(text)
+        val ouiText = OctetTool.sanitizeOui(text)
         return dao.get(ouiText, text)
     }
 
