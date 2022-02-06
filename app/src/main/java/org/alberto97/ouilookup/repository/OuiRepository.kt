@@ -61,19 +61,17 @@ class OuiRepository @Inject constructor(
         return settings.getLastDbUpdate()
     }
 
-    private suspend fun setLastDbUpdate() {
-        settings.setLastDbUpdate(System.currentTimeMillis())
-    }
-
     private suspend fun updateFromIEEE() {
         val csvData = api.fetchOui()
         saveData(csvData)
-        setLastDbUpdate()
+        settings.setLastDbUpdate(System.currentTimeMillis())
     }
 
     private suspend fun updateFromCsv() {
         val csvData = context.resources.readRawTextFile(R.raw.oui)
+        val csvMillis = context.resources.readRawTextFile(R.raw.oui_date_millis).toLong()
         saveData(csvData)
+        settings.setLastDbUpdate(csvMillis)
     }
 
     private suspend fun saveData(csvData: String) {
