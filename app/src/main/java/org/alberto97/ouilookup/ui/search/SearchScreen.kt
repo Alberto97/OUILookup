@@ -98,6 +98,7 @@ fun SearchScreen(
             Searchbar(
                 text = text,
                 onTextChange = onTextChange,
+                onTrailingIconClick = { onTextChange("") },
                 searchbarTopPadding = with(LocalDensity.current) { searchbarTopPaddingPx.value.toDp() }
             )
             SearchToolbar(
