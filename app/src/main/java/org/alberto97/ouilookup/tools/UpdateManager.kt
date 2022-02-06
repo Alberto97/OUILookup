@@ -1,8 +1,6 @@
 package org.alberto97.ouilookup.tools
 
-import android.content.Context
 import androidx.work.*
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.first
 import org.alberto97.ouilookup.db.OuiDao
 import org.alberto97.ouilookup.repository.ISettingsRepository
@@ -19,9 +17,9 @@ interface IUpdateManager {
 
 @Singleton
 class UpdateManager @Inject constructor(
-    @ApplicationContext private val context: Context,
     private val dao: OuiDao,
-    private val settings: ISettingsRepository
+    private val settings: ISettingsRepository,
+    private val workManager: WorkManager
 ) : IUpdateManager {
     companion object {
         const val WORK_NAME = "updateDb"
@@ -44,8 +42,7 @@ class UpdateManager @Inject constructor(
     private fun enqueueUpdate(): OneTimeWorkRequest {
         val workRequest = buildUpdateWorkRequest()
 
-        WorkManager.getInstance(context)
-            .enqueueUniqueWork(WORK_NAME, ExistingWorkPolicy.REPLACE, workRequest)
+        workManager.enqueueUniqueWork(WORK_NAME, ExistingWorkPolicy.REPLACE, workRequest)
 
         return workRequest
     }

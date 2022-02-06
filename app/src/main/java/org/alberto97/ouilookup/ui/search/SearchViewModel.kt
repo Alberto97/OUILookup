@@ -24,7 +24,8 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val app: Application,
     private val repository: IOuiRepository,
-    private val updateManager: IUpdateManager
+    private val updateManager: IUpdateManager,
+    private val workManager: WorkManager
 ) : ViewModel() {
 
     private val updateWorkRunning = MutableStateFlow(false)
@@ -66,7 +67,7 @@ class SearchViewModel @Inject constructor(
     private suspend fun scheduleUpdate() {
         val workRequest = updateManager.shouldEnqueueUpdate() ?: return
 
-        WorkManager.getInstance(app)
+        workManager
             .getWorkInfoByIdLiveData(workRequest.id)
             .notifyUpdateWorkStateChange()
     }

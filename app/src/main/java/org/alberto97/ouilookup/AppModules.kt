@@ -2,6 +2,7 @@ package org.alberto97.ouilookup
 
 import android.content.Context
 import androidx.room.Room
+import androidx.work.WorkManager
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import dagger.Binds
 import dagger.Lazy
@@ -82,4 +83,12 @@ object CsvReaderModule {
     @Singleton
     @Provides
     fun provideCsvReader() = csvReader()
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+object WorkModule {
+    @Singleton
+    @Provides
+    fun provideWorkManager(@ApplicationContext context: Context) = WorkManager.getInstance(context)
 }
