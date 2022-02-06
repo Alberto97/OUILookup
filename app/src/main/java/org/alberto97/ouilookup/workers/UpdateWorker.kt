@@ -19,20 +19,23 @@ import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.repository.IOuiRepository
 
 @HiltWorker
-class DownloadWorker  @AssistedInject constructor(
+class UpdateWorker @AssistedInject constructor(
     @Assisted private val appContext: Context,
     @Assisted workerParams: WorkerParameters,
     private val repository: IOuiRepository
 ) : CoroutineWorker(appContext, workerParams) {
+    companion object {
+        const val LOG_TAG = "UpdateWorker"
+    }
 
     private val notificationManager = NotificationManagerCompat.from(appContext)
     private val channelId = "oui_updates"
 
     override suspend fun doWork(): Result {
         try {
-            repository.updateIfOldOrEmpty()
+            repository.updateFromIEEE()
         } catch (e: Exception) {
-            Log.e("OUILookup", e.stackTraceToString())
+            Log.e(LOG_TAG, e.stackTraceToString())
             return Result.failure()
         }
 

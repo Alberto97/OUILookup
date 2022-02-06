@@ -3,6 +3,7 @@ package org.alberto97.ouilookup.ui.search
 import android.app.Application
 import android.content.ClipboardManager
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,26 +15,26 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.alberto97.ouilookup.repository.IOuiRepository
+import org.alberto97.ouilookup.tools.IUpdateManager
 import org.alberto97.ouilookup.tools.OctetTool
-import org.alberto97.ouilookup.workers.DownloadWorker
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val app: Application,
-    private val repository: IOuiRepository
+    private val repository: IOuiRepository,
+    private val updateManager: IUpdateManager
 ) : ViewModel() {
 
-    private val downloadWorkRunning = MutableStateFlow(false)
+    private val updateWorkRunning = MutableStateFlow(false)
 
     private val _text = MutableStateFlow("")
     val text = _text.asStateFlow()
 
     val list = _text.map { text -> repository.get(text) }
 
-    val updatingDb = combine(downloadWorkRunning, _text) { workRunning, text ->
+    val updatingDb = combine(updateWorkRunning, _text) { workRunning, text ->
         text.isEmpty() && workRunning
     }
 
@@ -57,36 +58,31 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun shouldUpdateDb() {
-        viewModelScope.launch {
-            val needsUpdate = withContext(Dispatchers.IO) {
-                repository.dbNeedsUpdate()
-            }
-            if (needsUpdate)
-                updateDb()
+        viewModelScope.launch(Dispatchers.IO) {
+            scheduleUpdate()
         }
     }
 
-    private fun updateDb() {
-        val downloadWork = OneTimeWorkRequestBuilder<DownloadWorker>().apply {
-            setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
-        }.build()
+    private suspend fun scheduleUpdate() {
+        val workRequest = updateManager.shouldEnqueueUpdate() ?: return
 
-        WorkManager.getInstance(app).also {
-            it.enqueue(downloadWork)
-            it.getWorkInfoByIdLiveData(downloadWork.id)
-                .observeForever(object : Observer<WorkInfo> {
-                    override fun onChanged(workInfo : WorkInfo) {
-                        if (workInfo.state == WorkInfo.State.RUNNING)
-                            downloadWorkRunning.value = true
+        WorkManager.getInstance(app)
+            .getWorkInfoByIdLiveData(workRequest.id)
+            .notifyUpdateWorkStateChange()
+    }
 
-                        if (workInfo.state.isFinished) {
-                            downloadWorkRunning.value = false
-                            it.getWorkInfoByIdLiveData(downloadWork.id)
-                                .removeObserver(this)
-                        }
-                    }
-                })
-        }
+    private fun LiveData<WorkInfo>.notifyUpdateWorkStateChange() {
+        observeForever(object : Observer<WorkInfo> {
+            override fun onChanged(workInfo: WorkInfo) {
+                if (workInfo.state == WorkInfo.State.RUNNING)
+                    updateWorkRunning.value = true
+
+                if (workInfo.state.isFinished) {
+                    updateWorkRunning.value = false
+                    removeObserver(this)
+                }
+            }
+        })
     }
 
     fun onTextChange(text: String) {

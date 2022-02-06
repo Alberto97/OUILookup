@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import dagger.Binds
+import dagger.Lazy
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,14 +12,12 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import org.alberto97.ouilookup.datasource.IEEEApi
 import org.alberto97.ouilookup.db.AppDatabase
+import org.alberto97.ouilookup.db.RoomCallback
 import org.alberto97.ouilookup.repository.IOuiRepository
 import org.alberto97.ouilookup.repository.ISettingsRepository
 import org.alberto97.ouilookup.repository.OuiRepository
 import org.alberto97.ouilookup.repository.SettingsRepository
-import org.alberto97.ouilookup.tools.AppConnectivityManager
-import org.alberto97.ouilookup.tools.IAppConnectivityManager
-import org.alberto97.ouilookup.tools.IOuiCsvParser
-import org.alberto97.ouilookup.tools.OuiCsvParser
+import org.alberto97.ouilookup.tools.*
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Singleton
@@ -38,6 +37,9 @@ abstract class AppModule {
 
     @Binds
     abstract fun provideParser(parser: OuiCsvParser): IOuiCsvParser
+
+    @Binds
+    abstract fun provideWorkUpdateManager(updateManager: UpdateManager): IUpdateManager
 }
 
 @Module
@@ -45,8 +47,13 @@ abstract class AppModule {
 object DatabaseModule {
     @Singleton
     @Provides
-    fun provideAppDb(@ApplicationContext context: Context): AppDatabase =
+    fun provideAppDb(
+        @ApplicationContext context: Context,
+        repository: Lazy<IOuiRepository>,
+        updateManager: Lazy<IUpdateManager>
+    ): AppDatabase =
         Room.databaseBuilder(context, AppDatabase::class.java, "app-db")
+            .addCallback(RoomCallback(repository, updateManager))
             .build()
 
     @Singleton
