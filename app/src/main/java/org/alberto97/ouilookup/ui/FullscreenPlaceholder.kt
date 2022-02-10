@@ -1,16 +1,11 @@
 package org.alberto97.ouilookup.ui
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -21,7 +16,6 @@ fun FullscreenPlaceholder(text: String, icon: ImageVector) {
         Icon(
             imageVector = icon,
             contentDescription = null,
-            tint = Color.LightGray,
             modifier = Modifier.size(62.dp)
         )
     }
@@ -29,17 +23,20 @@ fun FullscreenPlaceholder(text: String, icon: ImageVector) {
 
 @Composable
 fun FullscreenPlaceholder(text: String, content: @Composable () -> Unit) {
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        content()
-        Text(
-            text = text,
-            textAlign = TextAlign.Center,
-            color = Color.LightGray,
-            style = MaterialTheme.typography.subtitle1,
-        )
+    CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Box(modifier = Modifier.padding(8.dp)) {
+                content()
+            }
+            Text(
+                text = text,
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.subtitle1,
+            )
+        }
     }
 }
