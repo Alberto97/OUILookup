@@ -7,13 +7,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.work.*
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.alberto97.ouilookup.repository.IOuiRepository
 import org.alberto97.ouilookup.tools.IUpdateManager
@@ -35,8 +33,13 @@ class SearchViewModel @Inject constructor(
 
     val list = _text.map { text -> repository.get(text) }
 
-    val updatingDb = combine(updateWorkRunning, _text) { workRunning, text ->
-        text.isEmpty() && workRunning
+    val placeholder = combine(updateWorkRunning, _text) { workRunning, text ->
+        when {
+            text.isEmpty() && workRunning -> UiSearchPlaceholder.Updating
+            text.isEmpty() -> UiSearchPlaceholder.Instructions
+            list.first().isEmpty() -> UiSearchPlaceholder.NoResults
+            else -> null
+        }
     }
 
     init {

@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -22,7 +20,6 @@ import androidx.navigation.NavController
 import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.db.Oui
 import org.alberto97.ouilookup.ui.Destinations
-import org.alberto97.ouilookup.ui.FullscreenPlaceholder
 import org.alberto97.ouilookup.ui.theme.OUILookupTheme
 import kotlin.math.roundToInt
 
@@ -34,14 +31,14 @@ fun SearchScreen(
 ) {
     val text: String by viewModel.text.collectAsState("")
     val list: List<Oui> by viewModel.list.collectAsState(listOf())
-    val updatingDb: Boolean by viewModel.updatingDb.collectAsState(false)
+    val placeholder by viewModel.placeholder.collectAsState(UiSearchPlaceholder.Instructions)
 
     SearchScreen(
         onInfoClick = { navController.navigate(Destinations.ABOUT_ROUTE) },
         text = text,
         onTextChange = { value -> viewModel.onTextChange(value) },
         list = list,
-        updatingDb = updatingDb
+        placeholder = placeholder
     )
 }
 
@@ -52,7 +49,7 @@ fun SearchScreen(
     text: String,
     onTextChange: (value: String) -> Unit,
     list: List<Oui>,
-    updatingDb: Boolean
+    placeholder: UiSearchPlaceholder?
 ) {
     val toolbarHeight = 48.dp
     val toolbarHeightPx = with(LocalDensity.current) { toolbarHeight.roundToPx().toFloat() }
@@ -92,7 +89,7 @@ fun SearchScreen(
         ) {
             Content(
                 list = list,
-                updatingDb = updatingDb,
+                placeholder = placeholder,
                 listContentTopPadding = toolbarHeight + searchbarHeight,
             )
             Searchbar(
@@ -119,15 +116,17 @@ fun SearchScreen(
 @Composable
 private fun Content(
     list: List<Oui>,
-    updatingDb: Boolean,
+    placeholder: UiSearchPlaceholder?,
     listContentTopPadding: Dp
 ) {
-    if (list.isEmpty())
-        if (updatingDb) UpdatingPlaceholder() else EmptyPlaceholder()
+    if (placeholder != null)
+        SearchPlaceholder(placeholder = placeholder)
     else
         LazyColumn(
             contentPadding = PaddingValues(top = listContentTopPadding),
-            modifier = Modifier.padding(horizontal = 4.dp).padding(top = 14.dp)
+            modifier = Modifier
+                .padding(horizontal = 4.dp)
+                .padding(top = 14.dp)
         ) {
             items(list) { device ->
                 ListItem(
@@ -136,27 +135,6 @@ private fun Content(
                 )
             }
         }
-}
-
-@Composable
-private fun UpdatingPlaceholder() {
-    FullscreenPlaceholder(
-        text = stringResource(R.string.search_update_database),
-    ) {
-        CircularProgressIndicator(
-            modifier = Modifier
-                .size(62.dp)
-                .padding(8.dp)
-        )
-    }
-}
-
-@Composable
-private fun EmptyPlaceholder() {
-    FullscreenPlaceholder(
-        text = stringResource(R.string.search_results_not_found),
-        icon = Icons.Outlined.SearchOff
-    )
 }
 
 @ExperimentalMaterialApi
@@ -172,7 +150,7 @@ fun DefaultPreview() {
                 Oui("AA:AA:AA", "Apple", ""),
                 Oui("FF:FF:FF", "Google", "")
             ),
-            updatingDb = false
+            placeholder = null
         )
     }
 }
@@ -187,22 +165,7 @@ fun EmptyPreview() {
             text = "",
             onTextChange = { },
             list = emptyList(),
-            updatingDb = false
-        )
-    }
-}
-
-@ExperimentalMaterialApi
-@Preview("Updating DB")
-@Composable
-fun UpdatingDbPreview() {
-    OUILookupTheme {
-        SearchScreen(
-            onInfoClick = { },
-            text = "",
-            onTextChange = { },
-            list = emptyList(),
-            updatingDb = true
+            placeholder = UiSearchPlaceholder.NoResults
         )
     }
 }

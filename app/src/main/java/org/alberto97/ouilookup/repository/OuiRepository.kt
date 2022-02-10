@@ -15,7 +15,7 @@ import javax.inject.Singleton
 
 
 interface IOuiRepository {
-    suspend fun get(text: String?): List<Oui>
+    suspend fun get(text: String): List<Oui>
     fun getLastDbUpdate(): Flow<Long>
     suspend fun updateFromIEEE()
     suspend fun updateFromCsv()
@@ -30,10 +30,7 @@ class OuiRepository @Inject constructor(
     private val settings: ISettingsRepository
 ) : IOuiRepository {
 
-    override suspend fun get(text: String?): List<Oui> {
-        if (text.isNullOrEmpty())
-            return dao.getAll()
-
+    override suspend fun get(text: String): List<Oui> {
         val ouiText = OctetTool.sanitizeOui(text)
         return dao.get(ouiText, text)
     }

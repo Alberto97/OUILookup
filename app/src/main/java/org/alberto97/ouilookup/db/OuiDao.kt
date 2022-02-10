@@ -10,6 +10,7 @@ interface OuiDao {
     @Query("SELECT * FROM oui WHERE oui LIKE :ouiText || '%' OR orgName LIKE :text || '%' ORDER BY orgName, oui")
     suspend fun get(ouiText: String, text: String): List<Oui>
 
+    @Suppress("unused")
     @Query("SELECT * FROM oui ORDER BY orgName, oui")
     suspend fun getAll(): List<Oui>
 

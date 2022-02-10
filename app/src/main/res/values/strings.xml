@@ -6,8 +6,9 @@
     <string name="search_toolbar_title">OUI_Lookup</string>
     <string name="search_action_about">@string/about_title</string>
     <string name="search_text_field_placeholder">Search MAC or organization</string>
-    <string name="search_update_database">Your database is being updated,\nyou may see outdated results</string>
-    <string name="search_results_not_found">No results found</string>
+    <string name="search_placeholder_instructions">Search for MAC address or organization\nby using the search bar above</string>
+    <string name="search_placeholder_no_results">No results found</string>
+    <string name="search_placeholder_updating">Your database is being updated,\nyou may see outdated results</string>
 
     <!-- Notifications -->
     <string name="oui_update_notification_channel">Database updates</string>
