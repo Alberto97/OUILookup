@@ -3,6 +3,7 @@ package org.alberto97.ouilookup.repository
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
+import okhttp3.Headers
 import org.alberto97.ouilookup.Extensions.readRawTextFile
 import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.datasource.IEEEApi
@@ -10,6 +11,7 @@ import org.alberto97.ouilookup.db.Oui
 import org.alberto97.ouilookup.db.OuiDao
 import org.alberto97.ouilookup.tools.IOuiCsvParser
 import org.alberto97.ouilookup.tools.OctetTool
+import org.alberto97.ouilookup.tools.Rfc1123DateTime
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -39,10 +41,17 @@ class OuiRepository @Inject constructor(
         return settings.getLastDbUpdate()
     }
 
+    private fun getLastModifiedMillis(headers: Headers): Long? {
+        val lastModified = headers["Last-Modified"] ?: return null
+        return Rfc1123DateTime.parseMillis(lastModified)
+    }
+
     override suspend fun updateFromIEEE() {
         val csvData = api.fetchOui()
-        saveData(csvData)
-        settings.setLastDbUpdate(System.currentTimeMillis())
+        val body = csvData.body() ?: return
+        val lastModified = getLastModifiedMillis(csvData.headers()) ?: System.currentTimeMillis()
+        saveData(body)
+        settings.setLastDbUpdate(lastModified)
     }
 
     override suspend fun updateFromCsv() {
