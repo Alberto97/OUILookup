@@ -13,6 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.alberto97.ouilookup.repository.IOuiRepository
 import org.alberto97.ouilookup.tools.IUpdateManager
 import org.alberto97.ouilookup.tools.OctetTool
@@ -62,17 +63,17 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun shouldUpdateDb() {
-        viewModelScope.launch(Dispatchers.IO) {
-            scheduleUpdate()
+        viewModelScope.launch {
+            val workRequest = withContext(Dispatchers.IO) {
+                updateManager.shouldEnqueueUpdate()
+            } ?: return@launch
+
+            withContext(Dispatchers.Main) {
+                workManager
+                    .getWorkInfoByIdLiveData(workRequest.id)
+                    .notifyUpdateWorkStateChange()
+            }
         }
-    }
-
-    private suspend fun scheduleUpdate() {
-        val workRequest = updateManager.shouldEnqueueUpdate() ?: return
-
-        workManager
-            .getWorkInfoByIdLiveData(workRequest.id)
-            .notifyUpdateWorkStateChange()
     }
 
     private fun LiveData<WorkInfo>.notifyUpdateWorkStateChange() {
