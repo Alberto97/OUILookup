@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -89,13 +90,7 @@ fun AboutScreen(
             )
             Divider(color = Color.LightGray)
             ListItem(
-                icon = {
-                    Icon(
-                        imageVector = Icons.Outlined.Info,
-                        contentDescription = null,
-                        tint = Color.LightGray
-                    )
-                },
+                icon = { UpdateInfoIcon() },
                 text = {},
                 secondaryText = { Text(stringResource(R.string.about_db_updates_description))}
             )
@@ -103,10 +98,20 @@ fun AboutScreen(
     }
 }
 
+@Composable
+private fun UpdateInfoIcon() {
+    CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
+        Icon(
+            imageVector = Icons.Outlined.Info,
+            contentDescription = null
+        )
+    }
+}
+
 @ExperimentalMaterialApi
 @Preview
 @Composable
-fun Preview() {
+private fun Preview() {
     OUILookupTheme {
         Surface {
             AboutScreen({ }, { }, "1.0", "Today")
