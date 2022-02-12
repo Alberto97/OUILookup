@@ -44,11 +44,10 @@ class SearchViewModel @Inject constructor(
     }
 
     init {
-        checkClipboard()
         shouldUpdateDb()
     }
 
-    private fun checkClipboard() {
+    fun checkClipboard() {
         val clip = getClipboard()?.toString() ?: return
         val isSearchable = OctetTool.isOui(clip) || OctetTool.isMacAddress(clip)
         if (isSearchable) {

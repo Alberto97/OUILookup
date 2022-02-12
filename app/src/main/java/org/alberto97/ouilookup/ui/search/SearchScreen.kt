@@ -11,15 +11,20 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.db.Oui
 import org.alberto97.ouilookup.ui.Destinations
+import org.alberto97.ouilookup.ui.common.OnResumeEffect
 import org.alberto97.ouilookup.ui.theme.OUILookupTheme
 import kotlin.math.roundToInt
 
@@ -27,11 +32,21 @@ import kotlin.math.roundToInt
 @Composable
 fun SearchScreen(
     viewModel: SearchViewModel,
-    navController: NavController
+    navController: NavController,
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
 ) {
     val text: String by viewModel.text.collectAsState("")
     val list: List<Oui> by viewModel.list.collectAsState(listOf())
     val placeholder by viewModel.placeholder.collectAsState(UiSearchPlaceholder.Instructions)
+
+    val clipboardPasteScope = rememberCoroutineScope()
+    OnResumeEffect(lifecycleOwner) {
+        clipboardPasteScope.launch {
+            // Wait for the app to get focus
+            delay(500L)
+            viewModel.checkClipboard()
+        }
+    }
 
     SearchScreen(
         onInfoClick = { navController.navigate(Destinations.ABOUT_ROUTE) },
