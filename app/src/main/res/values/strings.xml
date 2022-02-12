@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OUI Lookup</string>
+    <string name="app_name">Oui Lookup</string>
     <string name="about_author_fulfilling_ego" translatable="false">Alberto Pedron</string>
 
     <!-- Search -->
