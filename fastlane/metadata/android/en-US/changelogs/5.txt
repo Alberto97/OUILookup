@@ -1,0 +1,6 @@
+* Auto-paste implemented when there is a MAC address in the clipboard
+* Added a clear button in the search bar
+* Splash screen added for Android 11 and lower devices as well
+* Refactored update logic for faster app opening at the first boot
+* Many graphical fixes
+* Updated bundled OUI list at 2022-02-12
