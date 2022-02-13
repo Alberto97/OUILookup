@@ -7,6 +7,7 @@ import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import kotlinx.coroutines.runBlocking
 import org.alberto97.ouilookup.datasource.IEEEApi
 import org.alberto97.ouilookup.db.AppDatabase
+import org.alberto97.ouilookup.db.Oui
 import org.alberto97.ouilookup.db.OuiDao
 import org.alberto97.ouilookup.tools.OuiCsvParser
 import org.junit.Before
@@ -33,6 +34,7 @@ class OuiInstrumentedTest {
         val ouiDao = setupDao(context)
         val csvParser = OuiCsvParser(csvReader())
         ouiRepository = OuiRepository(context, csvParser, ieeeMock, ouiDao, settings)
+        runBlocking { fillDb(ouiDao) }
     }
 
     private fun setupDao(context: Context): OuiDao {
@@ -40,30 +42,27 @@ class OuiInstrumentedTest {
         return db.ouiDao()
     }
 
-    private suspend fun fillDb() {
-        ouiRepository.updateFromCsv()
+    private suspend fun fillDb(dao: OuiDao) {
+        val list = listOf(
+            Oui("000C42", "Routerboard.com", "Pernavas 46 Riga  LV LV-1009 ")
+        )
+        dao.insert(list)
     }
 
     @Test
     fun testSearchOuiLong() = runBlocking {
-        fillDb()
-
         val result = ouiRepository.get("000C4264")
         assert(result.isNotEmpty())
     }
 
     @Test
     fun testSearchOuiColon() = runBlocking {
-        fillDb()
-
         val result = ouiRepository.get("00:0C:42")
         assert(result.isNotEmpty())
     }
 
     @Test
     fun testSearchOuiHyphen() = runBlocking {
-        fillDb()
-
         val result = ouiRepository.get("00-0C-42")
         assert(result.isNotEmpty())
     }
