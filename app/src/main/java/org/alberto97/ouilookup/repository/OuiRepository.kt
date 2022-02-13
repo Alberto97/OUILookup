@@ -2,7 +2,9 @@ package org.alberto97.ouilookup.repository
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 import okhttp3.Headers
 import org.alberto97.ouilookup.Extensions.readRawTextFile
 import org.alberto97.ouilookup.R
@@ -46,9 +48,9 @@ class OuiRepository @Inject constructor(
         return Rfc1123DateTime.parseMillis(lastModified)
     }
 
-    override suspend fun updateFromIEEE() {
+    override suspend fun updateFromIEEE() = withContext(Dispatchers.IO) {
         val csvData = api.fetchOui()
-        val body = csvData.body() ?: return
+        val body = csvData.body() ?: return@withContext
         val lastModified = getLastModifiedMillis(csvData.headers()) ?: System.currentTimeMillis()
         saveData(body)
         settings.setLastDbUpdate(lastModified)
@@ -61,14 +63,14 @@ class OuiRepository @Inject constructor(
         settings.setLastDbUpdate(csvMillis)
     }
 
-    private suspend fun saveData(csvData: String) {
+    private suspend fun saveData(csvData: String) = withContext(Dispatchers.Default) {
         // Read CSV data and map it to entity
         val entities = ouiCsvParser.parse(csvData)
 
         // There probably was a mistake, exit before clearing the db.
         // It should not happen but you never know...
         if (entities.count() < 1)
-            return
+            return@withContext
 
         // Clear OUI table
         dao.deleteAll()

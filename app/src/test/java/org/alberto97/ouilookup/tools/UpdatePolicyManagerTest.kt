@@ -1,5 +1,6 @@
 package org.alberto97.ouilookup.tools
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.LocalDateTime
 import java.time.ZoneOffset
@@ -7,36 +8,56 @@ import java.time.ZoneOffset
 class UpdatePolicyManagerTest {
 
     @Test
+    fun testLocalUpdate() {
+        val bundledMillis = LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli()
+        val lastMillis = LocalDateTime.now().minusDays(7).toInstant(ZoneOffset.UTC).toEpochMilli()
+
+        val result = UpdatePolicyManager.getUpdatePolicy(bundledMillis, lastMillis)
+
+        assertEquals(UpdatePolicy.Local, result)
+    }
+
+    @Test
+    fun testRemoteUpdate() {
+        val bundledMillis = LocalDateTime.now().minusDays(40).toInstant(ZoneOffset.UTC).toEpochMilli()
+        val lastMillis = LocalDateTime.now().minusDays(31).toInstant(ZoneOffset.UTC).toEpochMilli()
+
+        val result = UpdatePolicyManager.getUpdatePolicy(bundledMillis, lastMillis)
+
+        assertEquals(UpdatePolicy.Remote, result)
+    }
+
+    @Test
+    fun testBothUpdates() {
+        val bundledMillis = LocalDateTime.now().minusDays(31).toInstant(ZoneOffset.UTC).toEpochMilli()
+        val lastMillis = LocalDateTime.now().minusDays(40).toInstant(ZoneOffset.UTC).toEpochMilli()
+
+        val result = UpdatePolicyManager.getUpdatePolicy(bundledMillis, lastMillis)
+
+        assertEquals(UpdatePolicy.Both, result)
+    }
+
+    @Test
+    fun testNoUpdateRequired() {
+        val bundledMillis = LocalDateTime.now().minusDays(31).toInstant(ZoneOffset.UTC).toEpochMilli()
+        val lastMillis = LocalDateTime.now().minusDays(7).toInstant(ZoneOffset.UTC).toEpochMilli()
+
+        val result = UpdatePolicyManager.getUpdatePolicy(bundledMillis, lastMillis)
+
+        assertEquals(null, result)
+    }
+
+    @Test
     fun testOutdated() {
-        val emptyDb = false
         val time = LocalDateTime.now().minusDays(31).toInstant(ZoneOffset.UTC).toEpochMilli()
-
-        val result = UpdatePolicyManager.isOutdated(emptyDb, time)
-
-        assert(result)
-    }
-
-    @Test
-    fun testSeeding() {
-        val emptyDb = true
-        val time: Long = 0
-
-        val result = UpdatePolicyManager.isOutdated(emptyDb, time)
-
-        assert(!result)
-    }
-
-    @Test
-    fun testNeedsUpdate() {
-        val time = LocalDateTime.now().minusDays(31).toInstant(ZoneOffset.UTC).toEpochMilli()
-        val result = UpdatePolicyManager.needsUpdate(time)
+        val result = UpdatePolicyManager.isOutdated(time)
         assert(result)
     }
 
     @Test
     fun testUpToDate() {
         val time = LocalDateTime.now().minusDays(29).toInstant(ZoneOffset.UTC).toEpochMilli()
-        val result = UpdatePolicyManager.needsUpdate(time)
+        val result = UpdatePolicyManager.isOutdated(time)
         assert(!result)
     }
 }

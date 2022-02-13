@@ -3,17 +3,11 @@ package org.alberto97.ouilookup.ui.search
 import android.app.Application
 import android.content.ClipboardManager
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.work.WorkInfo
-import androidx.work.WorkManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.alberto97.ouilookup.repository.IOuiRepository
 import org.alberto97.ouilookup.tools.IUpdateManager
 import org.alberto97.ouilookup.tools.OctetTool
@@ -63,30 +57,8 @@ class SearchViewModel @Inject constructor(
 
     private fun shouldUpdateDb() {
         viewModelScope.launch {
-            val workRequest = withContext(Dispatchers.IO) {
-                updateManager.shouldEnqueueUpdate()
-            } ?: return@launch
-
-            withContext(Dispatchers.Main) {
-                workManager
-                    .getWorkInfoByIdLiveData(workRequest.id)
-                    .notifyUpdateWorkStateChange()
-            }
+            updateManager.shouldUpdate()
         }
-    }
-
-    private fun LiveData<WorkInfo>.notifyUpdateWorkStateChange() {
-        observeForever(object : Observer<WorkInfo> {
-            override fun onChanged(workInfo: WorkInfo) {
-                if (workInfo.state == WorkInfo.State.RUNNING)
-                    updateWorkRunning.value = true
-
-                if (workInfo.state.isFinished) {
-                    updateWorkRunning.value = false
-                    removeObserver(this)
-                }
-            }
-        })
     }
 
     fun onTextChange(text: String) {

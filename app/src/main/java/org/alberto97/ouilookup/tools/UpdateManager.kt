@@ -1,8 +1,13 @@
 package org.alberto97.ouilookup.tools
 
+import android.content.Context
+import android.util.Log
 import androidx.work.*
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.first
-import org.alberto97.ouilookup.db.OuiDao
+import org.alberto97.ouilookup.Extensions.readRawTextFile
+import org.alberto97.ouilookup.R
+import org.alberto97.ouilookup.repository.IOuiRepository
 import org.alberto97.ouilookup.repository.ISettingsRepository
 import org.alberto97.ouilookup.workers.UpdateWorker
 import javax.inject.Inject
@@ -11,12 +16,13 @@ import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
 interface IUpdateManager {
-    suspend fun shouldEnqueueUpdate(): OneTimeWorkRequest?
+    suspend fun shouldUpdate()
 }
 
 @Singleton
 class UpdateManager @Inject constructor(
-    private val dao: OuiDao,
+    @ApplicationContext private val context: Context,
+    private val repository: IOuiRepository,
     private val settings: ISettingsRepository,
     private val workManager: WorkManager
 ) : IUpdateManager {
@@ -36,9 +42,10 @@ class UpdateManager @Inject constructor(
     }
 
     /**
-     * Enqueue an update from the IEEE
+     * Start an update from the IEEE
      */
-    private fun enqueueUpdate(): OneTimeWorkRequest {
+    private fun remoteUpdate(): OneTimeWorkRequest {
+        Log.d("UpdateManager", "Start remote update")
         val workRequest = buildUpdateWorkRequest()
 
         workManager.enqueueUniqueWork(WORK_NAME, ExistingWorkPolicy.REPLACE, workRequest)
@@ -46,24 +53,58 @@ class UpdateManager @Inject constructor(
         return workRequest
     }
 
-    override suspend fun shouldEnqueueUpdate(): OneTimeWorkRequest? {
-        // If db is empty it means it is still being seeded and must not be scheduled another update
-        val isEmpty = dao.isEmpty()
-        val lastUpdateMillis = settings.getLastDbUpdate().first()
-        if (UpdatePolicyManager.isOutdated(isEmpty, lastUpdateMillis))
-            return enqueueUpdate()
+    /**
+     * Start an update from the bundled CSV
+     */
+    private suspend fun localUpdate() {
+        Log.d("UpdateManager", "Start local update")
+        repository.updateFromCsv()
+    }
 
-        return null
+    /**
+     * Update from both the CSV and IEEE
+     */
+    private suspend fun bothUpdates() {
+        Log.d("UpdateManager", "Both updates")
+        localUpdate()
+        remoteUpdate()
+    }
+
+    override suspend fun shouldUpdate() {
+        val bundledUpdateMillis = context.resources.readRawTextFile(R.raw.oui_date_millis).toLong()
+        val lastUpdateMillis = settings.getLastDbUpdate().first()
+        when(UpdatePolicyManager.getUpdatePolicy(bundledUpdateMillis, lastUpdateMillis)) {
+            UpdatePolicy.Local -> localUpdate()
+            UpdatePolicy.Remote -> remoteUpdate()
+            UpdatePolicy.Both -> bothUpdates()
+            else -> {}
+        }
     }
 
 }
 
+enum class UpdatePolicy {
+    Local,
+    Remote,
+    Both
+}
+
 object UpdatePolicyManager {
-    fun isOutdated(emptyDb: Boolean, lastUpdateMillis: Long): Boolean {
-        return !emptyDb && needsUpdate(lastUpdateMillis)
+    fun getUpdatePolicy(bundledUpdateMillis: Long, lastUpdateMillis: Long): UpdatePolicy? {
+        if (bundledUpdateMillis > lastUpdateMillis) {
+            return if (isOutdated(bundledUpdateMillis))
+                UpdatePolicy.Both
+            else
+                UpdatePolicy.Local
+        }
+
+        if (isOutdated(lastUpdateMillis))
+            return UpdatePolicy.Remote
+
+        return null
     }
 
-    fun needsUpdate(lastUpdateMillis: Long): Boolean {
+    fun isOutdated(lastUpdateMillis: Long): Boolean {
         // Don't update until at least a month has passed since the last data fetch
         val duration = (System.currentTimeMillis() - lastUpdateMillis).toDuration(DurationUnit.MILLISECONDS)
         return duration.inWholeDays >= 30

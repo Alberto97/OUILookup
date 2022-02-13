@@ -5,7 +5,6 @@ import androidx.room.Room
 import androidx.work.WorkManager
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import dagger.Binds
-import dagger.Lazy
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +12,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import org.alberto97.ouilookup.datasource.IEEEApi
 import org.alberto97.ouilookup.db.AppDatabase
-import org.alberto97.ouilookup.db.RoomCallback
 import org.alberto97.ouilookup.repository.IOuiRepository
 import org.alberto97.ouilookup.repository.ISettingsRepository
 import org.alberto97.ouilookup.repository.OuiRepository
@@ -48,13 +46,8 @@ abstract class AppModule {
 object DatabaseModule {
     @Singleton
     @Provides
-    fun provideAppDb(
-        @ApplicationContext context: Context,
-        repository: Lazy<IOuiRepository>,
-        updateManager: Lazy<IUpdateManager>
-    ): AppDatabase =
+    fun provideAppDb(@ApplicationContext context: Context): AppDatabase =
         Room.databaseBuilder(context, AppDatabase::class.java, "app-db")
-            .addCallback(RoomCallback(repository, updateManager))
             .build()
 
     @Singleton
