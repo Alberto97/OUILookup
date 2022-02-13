@@ -2,9 +2,13 @@ package org.alberto97.ouilookup.tools
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.work.*
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.withContext
 import org.alberto97.ouilookup.Extensions.readRawTextFile
 import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.repository.IOuiRepository
@@ -16,6 +20,7 @@ import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
 interface IUpdateManager {
+    val pendingUpdate: StateFlow<Boolean>
     suspend fun shouldUpdate()
 }
 
@@ -29,6 +34,9 @@ class UpdateManager @Inject constructor(
     companion object {
         const val WORK_NAME = "updateDb"
     }
+
+    private val _pendingUpdate = MutableStateFlow(false)
+    override val pendingUpdate = _pendingUpdate.asStateFlow()
 
     private fun buildUpdateWorkRequest(): OneTimeWorkRequest {
         val constraints = Constraints.Builder()
@@ -44,13 +52,26 @@ class UpdateManager @Inject constructor(
     /**
      * Start an update from the IEEE
      */
-    private fun remoteUpdate(): OneTimeWorkRequest {
+    private suspend fun remoteUpdate() = withContext(Dispatchers.Main) {
         Log.d("UpdateManager", "Start remote update")
         val workRequest = buildUpdateWorkRequest()
 
         workManager.enqueueUniqueWork(WORK_NAME, ExistingWorkPolicy.REPLACE, workRequest)
+        workManager.getWorkInfoByIdLiveData(workRequest.id).notifyUpdateWorkStateChange()
+    }
 
-        return workRequest
+    private fun LiveData<WorkInfo>.notifyUpdateWorkStateChange() {
+        observeForever(object : Observer<WorkInfo> {
+            override fun onChanged(workInfo: WorkInfo) {
+                if (workInfo.state == WorkInfo.State.RUNNING)
+                    _pendingUpdate.value = true
+
+                if (workInfo.state.isFinished) {
+                    _pendingUpdate.value = false
+                    removeObserver(this)
+                }
+            }
+        })
     }
 
     /**
@@ -58,7 +79,9 @@ class UpdateManager @Inject constructor(
      */
     private suspend fun localUpdate() {
         Log.d("UpdateManager", "Start local update")
+        _pendingUpdate.value = true
         repository.updateFromCsv()
+        _pendingUpdate.value = false
     }
 
     /**

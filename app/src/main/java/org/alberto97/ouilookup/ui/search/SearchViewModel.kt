@@ -17,18 +17,15 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val app: Application,
     private val repository: IOuiRepository,
-    private val updateManager: IUpdateManager,
-    private val workManager: WorkManager
+    private val updateManager: IUpdateManager
 ) : ViewModel() {
-
-    private val updateWorkRunning = MutableStateFlow(false)
 
     private val _text = MutableStateFlow("")
     val text = _text.asStateFlow()
 
     val list = _text.map { text -> repository.get(text) }
 
-    val placeholder = combine(updateWorkRunning, _text) { workRunning, text ->
+    val placeholder = combine(updateManager.pendingUpdate, _text) { workRunning, text ->
         when {
             text.isEmpty() && workRunning -> UiSearchPlaceholder.Updating
             text.isEmpty() -> UiSearchPlaceholder.Instructions
