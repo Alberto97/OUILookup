@@ -6,9 +6,9 @@ import org.alberto97.ouilookup.buildsrc.ReleaseType
 plugins {
     id("com.github.ben-manes.versions") version "0.42.0"
     id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 val secureProperties = Properties().apply {
