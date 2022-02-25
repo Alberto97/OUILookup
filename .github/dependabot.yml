@@ -3,5 +3,4 @@ updates:
 - package-ecosystem: gradle
   directory: "/"
   schedule:
-    interval: weekly
-    day: friday
+    interval: daily
