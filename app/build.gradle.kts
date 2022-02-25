@@ -19,7 +19,7 @@ val secureProperties = Properties().apply {
     }
 }
 
-val composeVersion = "1.1.0"
+val composeVersion = "1.1.1"
 
 android {
     compileSdk = 31
