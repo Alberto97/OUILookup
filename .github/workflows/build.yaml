@@ -2,7 +2,9 @@ name: Build
 
 on:
   push:
-    branches-ignore: "dependabot/**"
+    branches-ignore:
+      - create-pull-request/update-oui
+      - "dependabot/**"
   pull_request:
 
 jobs:
