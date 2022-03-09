@@ -119,7 +119,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     androidTestImplementation("com.linkedin.dexmaker:dexmaker-mockito-inline:2.28.1")
-    androidTestImplementation("org.mockito:mockito-core:4.3.1")
+    androidTestImplementation("org.mockito:mockito-core:4.4.0")
 }
 
 tasks.withType<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask> {
