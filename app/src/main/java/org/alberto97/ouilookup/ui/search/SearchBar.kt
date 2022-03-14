@@ -80,7 +80,7 @@ fun Searchbar(
                 textColor = MaterialTheme.colors.contentColorFor(MaterialTheme.colors.surface),
                 backgroundColor = MaterialTheme.colors.surface,
             ),
-            shape = RoundedCornerShape(10.dp),
+            shape = RoundedCornerShape(8.dp),
             modifier = Modifier.padding(16.dp)
         )
     }
