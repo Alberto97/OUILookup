@@ -44,7 +44,8 @@ class OuiInstrumentedTest {
 
     private suspend fun fillDb(dao: OuiDao) {
         val list = listOf(
-            Oui("000C42", "Routerboard.com", "Pernavas 46 Riga  LV LV-1009 ")
+            Oui("000C42", "Routerboard.com", "Pernavas 46 Riga  LV LV-1009 "),
+            Oui("00156D", "Ubiquiti Networks Inc.", "495 Montague Expwy. Milpitas CA US 95035 ")
         )
         dao.insert(list)
     }
@@ -65,5 +66,11 @@ class OuiInstrumentedTest {
     fun testSearchOuiHyphen() = runBlocking {
         val result = ouiRepository.get("00-0C-42")
         assert(result.isNotEmpty())
+    }
+
+    @Test
+    fun testSearchMultiple() = runBlocking {
+        val result = ouiRepository.getMany(listOf("00-0C-42", "00156D"))
+        assert(result.count() == 2)
     }
 }
