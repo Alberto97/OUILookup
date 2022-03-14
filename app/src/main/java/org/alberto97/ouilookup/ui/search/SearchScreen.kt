@@ -70,7 +70,7 @@ fun SearchScreen(
     val toolbarHeightPx = with(LocalDensity.current) { toolbarHeight.roundToPx().toFloat() }
     val toolbarOffsetHeightPx = remember { mutableStateOf(0f) }
 
-    val searchbarHeight = 72.dp
+    val searchbarHeight = 80.dp
     val searchbarTopPaddingPx = remember { mutableStateOf(toolbarHeightPx) }
 
     // Create connection to the nested scroll system and listen to the scroll
@@ -143,7 +143,6 @@ private fun Content(
             contentPadding = PaddingValues(top = listContentTopPadding),
             modifier = Modifier
                 .padding(horizontal = 4.dp)
-                .padding(top = 14.dp)
         ) {
             items(list) { device ->
                 ListItem(
