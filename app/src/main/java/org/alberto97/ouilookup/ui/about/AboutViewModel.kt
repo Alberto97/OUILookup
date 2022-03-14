@@ -9,11 +9,22 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
 import org.alberto97.ouilookup.BuildConfig
 import org.alberto97.ouilookup.repository.IOuiRepository
+import org.alberto97.ouilookup.tools.AppStoreUtils
 import javax.inject.Inject
 
-@HiltViewModel
-class AboutViewModel @Inject constructor(private val app: Application, ouiRepo: IOuiRepository) : ViewModel() {
+enum class AppStore {
+    Oss,
+    PlayStore
+}
 
+@HiltViewModel
+class AboutViewModel @Inject constructor(
+    private val app: Application,
+    ouiRepo: IOuiRepository,
+    private val appStoreUtils: AppStoreUtils
+) : ViewModel() {
+
+    val availableAppStore = if (appStoreUtils.isPlayStoreAvailable()) AppStore.PlayStore else AppStore.Oss
     val appVersion = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
     val dbVersion = ouiRepo.getLastDbUpdate().map { millis -> formatLastDbUpdateDate(millis) }
 
@@ -28,5 +39,9 @@ class AboutViewModel @Inject constructor(private val app: Application, ouiRepo: 
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
         app.startActivity(intent)
+    }
+
+    fun openOtherApps() {
+        appStoreUtils.openOtherApps()
     }
 }
