@@ -111,7 +111,9 @@ fun SearchScreen(
                 text = text,
                 onTextChange = onTextChange,
                 onTrailingIconClick = { onTextChange("") },
-                searchbarTopPadding = with(LocalDensity.current) { searchbarTopPaddingPx.value.toDp() }
+                modifier = Modifier.padding(
+                    top = with(LocalDensity.current) { searchbarTopPaddingPx.value.toDp() }
+                )
             )
             SearchToolbar(
                 dropdownMenuItems = {

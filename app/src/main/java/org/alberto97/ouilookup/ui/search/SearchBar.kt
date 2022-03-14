@@ -60,14 +60,14 @@ fun SearchBar(
 fun Searchbar(
     text: String,
     onTextChange: (value: String) -> Unit,
-    searchbarTopPadding: Dp = 0.dp,
+    modifier: Modifier = Modifier,
     onTrailingIconClick: (() -> Unit)? = null,
 ) {
     val trailingIcon = if (text.isNotEmpty()) Icons.Rounded.Clear else null
     Surface(
         color = MaterialTheme.colors.primarySurface,
         elevation = AppBarDefaults.TopAppBarElevation,
-        modifier = Modifier.padding(top = searchbarTopPadding)
+        modifier = modifier
     ) {
         MaterialCustomTextField(
             value = text,
