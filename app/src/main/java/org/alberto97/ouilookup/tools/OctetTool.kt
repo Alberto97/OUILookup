@@ -8,7 +8,7 @@ object OctetTool {
     private val delimitersStr = delimiters.joinToString("")
 
     fun sanitizeOui(oui: String): String {
-        return oui.removeDelimiters().takeOui()
+        return oui.removeDelimiters().takeOui().uppercase()
     }
 
     private fun String.removeDelimiters(): String {
