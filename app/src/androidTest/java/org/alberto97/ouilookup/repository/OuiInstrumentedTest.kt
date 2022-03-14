@@ -52,19 +52,19 @@ class OuiInstrumentedTest {
 
     @Test
     fun testSearchOuiLong() = runBlocking {
-        val result = ouiRepository.get("000C4264")
+        val result = ouiRepository.search("000C4264")
         assert(result.isNotEmpty())
     }
 
     @Test
     fun testSearchOuiColon() = runBlocking {
-        val result = ouiRepository.get("00:0C:42")
+        val result = ouiRepository.search("00:0C:42")
         assert(result.isNotEmpty())
     }
 
     @Test
     fun testSearchOuiHyphen() = runBlocking {
-        val result = ouiRepository.get("00-0C-42")
+        val result = ouiRepository.search("00-0C-42")
         assert(result.isNotEmpty())
     }
 

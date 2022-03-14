@@ -28,7 +28,7 @@ class SearchViewModel @Inject constructor(
 
     val list = combine(_text, _bulkLookupList) { text, list ->
         if (text.isNotEmpty())
-            repository.get(text)
+            repository.search(text)
         else
             repository.getMany(list)
     }

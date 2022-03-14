@@ -8,7 +8,7 @@ import androidx.room.Query
 @Dao
 interface OuiDao {
     @Query("SELECT * FROM oui WHERE oui LIKE :ouiText || '%' OR orgName LIKE :text || '%' ORDER BY orgName, oui")
-    suspend fun get(ouiText: String, text: String): List<Oui>
+    suspend fun search(ouiText: String, text: String): List<Oui>
 
     @Query("SELECT * FROM oui WHERE oui IN (:list) ORDER BY orgName, oui")
     suspend fun getMany(list: List<String>): List<Oui>

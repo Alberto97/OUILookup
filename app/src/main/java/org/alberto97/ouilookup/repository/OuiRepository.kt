@@ -19,7 +19,7 @@ import javax.inject.Singleton
 
 
 interface IOuiRepository {
-    suspend fun get(text: String): List<Oui>
+    suspend fun search(text: String): List<Oui>
     suspend fun getMany(list: List<String>): List<Oui>
     fun getLastDbUpdate(): Flow<Long>
     suspend fun updateFromIEEE()
@@ -35,9 +35,9 @@ class OuiRepository @Inject constructor(
     private val settings: ISettingsRepository
 ) : IOuiRepository {
 
-    override suspend fun get(text: String): List<Oui> {
+    override suspend fun search(text: String): List<Oui> {
         val ouiText = OctetTool.sanitizeOui(text)
-        return dao.get(ouiText, text)
+        return dao.search(ouiText, text)
     }
 
     override suspend fun getMany(list: List<String>): List<Oui> {
