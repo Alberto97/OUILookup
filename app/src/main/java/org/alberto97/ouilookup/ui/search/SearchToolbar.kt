@@ -1,6 +1,5 @@
 package org.alberto97.ouilookup.ui.search
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -22,8 +21,6 @@ fun SearchToolbar(
     modifier: Modifier = Modifier
 ) {
     TopAppBar(
-        // In light mode set elevation to 0 to avoid drawing a shadow over the searchbar
-        elevation = if (isSystemInDarkTheme()) AppBarDefaults.TopAppBarElevation else 0.dp,
         title = { Title() },
         actions = { ActionsDropdown(dropdownMenuItems) },
         modifier = modifier,

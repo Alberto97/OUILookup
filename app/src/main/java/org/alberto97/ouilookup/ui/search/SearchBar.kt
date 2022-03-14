@@ -1,6 +1,7 @@
 package org.alberto97.ouilookup.ui.search
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -57,16 +58,49 @@ fun SearchBar(
 }
 
 @Composable
-fun Searchbar(
+fun SearchbarWithShadow(
     text: String,
     onTextChange: (value: String) -> Unit,
     modifier: Modifier = Modifier,
     onTrailingIconClick: (() -> Unit)? = null,
 ) {
+    // In light mode set elevation to 0 to avoid drawing a shadow over the toolbar
+    val elevation = if (isSystemInDarkTheme()) AppBarDefaults.TopAppBarElevation else 0.dp
+
+    Column {
+        Searchbar(
+            text = text,
+            onTextChange = onTextChange,
+            modifier = modifier,
+            elevation = elevation,
+            onTrailingIconClick = onTrailingIconClick
+        )
+
+        // Add a shadow in light mode due to the missing elevation of the Surface
+        if (!isSystemInDarkTheme()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .background(MaterialTheme.colors.primarySurface)
+                    .shadow(AppBarDefaults.TopAppBarElevation)
+            ) { }
+        }
+    }
+}
+
+@Composable
+fun Searchbar(
+    text: String,
+    onTextChange: (value: String) -> Unit,
+    modifier: Modifier = Modifier,
+    elevation: Dp = 0.dp,
+    onTrailingIconClick: (() -> Unit)? = null,
+) {
     val trailingIcon = if (text.isNotEmpty()) Icons.Rounded.Clear else null
     Surface(
         color = MaterialTheme.colors.primarySurface,
-        elevation = AppBarDefaults.TopAppBarElevation,
+        elevation = elevation,
         modifier = modifier
     ) {
         MaterialCustomTextField(
