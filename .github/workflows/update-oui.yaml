@@ -25,12 +25,15 @@ jobs:
       - name: Run update script
         run: python update_oui.py
 
+      - uses: burrunan/gradle-cache-action@v1
+        name: Run unit tests
+        with:
+          arguments: |
+            test
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          # Using a Personal Access Token will allow the "build" workflow to be triggered by the pull request
-          # https://github.com/peter-evans/create-pull-request/issues/48#issuecomment-537478081
-          token: ${{ secrets.PULL_REQUEST_TOKEN }}
           author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           commit-message: Update bundled OUIs @ ${{ env.DATE }}
           title: Update bundled OUIs @ ${{ env.DATE }}
