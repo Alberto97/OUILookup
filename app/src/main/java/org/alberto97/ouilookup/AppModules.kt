@@ -38,7 +38,10 @@ abstract class AppModule {
     abstract fun provideParser(parser: OuiCsvParser): IOuiCsvParser
 
     @Binds
-    abstract fun provideWorkUpdateManager(updateManager: UpdateManager): IUpdateManager
+    abstract fun provideUpdateManager(updateManager: UpdateManager): IUpdateManager
+
+    @Binds
+    abstract fun provideAppStoreUtils(appStoreUtils: AppStoreUtils): IAppStoreUtils
 }
 
 @Module

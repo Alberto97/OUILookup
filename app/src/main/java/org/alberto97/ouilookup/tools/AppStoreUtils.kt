@@ -8,8 +8,14 @@ import org.alberto97.ouilookup.BuildConfig
 import javax.inject.Inject
 import javax.inject.Singleton
 
+interface IAppStoreUtils {
+    fun isPlayStoreAvailable(): Boolean
+    fun openForReview()
+    fun openOtherApps()
+}
+
 @Singleton
-class AppStoreUtils @Inject constructor(val app: Application) {
+class AppStoreUtils @Inject constructor(val app: Application) : IAppStoreUtils {
     companion object {
         private const val FDROID_SEARCH_URL = "https://search.f-droid.org/?q="
         private const val FDROID_DEVELOPER_URL = FDROID_SEARCH_URL + "org.alberto97"
@@ -18,7 +24,7 @@ class AppStoreUtils @Inject constructor(val app: Application) {
         private const val PLAY_STORE_DEVELOPER_URL = "http://play.google.com/store/apps/dev?id=${PLAY_STORE_DEVELOPER_ID}"
     }
 
-    fun isPlayStoreAvailable(): Boolean {
+    override fun isPlayStoreAvailable(): Boolean {
         return try {
             app.packageManager.getPackageInfo("com.android.vending", 0)
             true
@@ -27,7 +33,7 @@ class AppStoreUtils @Inject constructor(val app: Application) {
         }
     }
 
-    fun openForReview() {
+    override fun openForReview() {
         val intent = Intent(Intent.ACTION_VIEW).apply {
             data = Uri.parse(PLAY_STORE_APP_URL)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -35,7 +41,7 @@ class AppStoreUtils @Inject constructor(val app: Application) {
         app.startActivity(intent)
     }
 
-    fun openOtherApps() {
+    override fun openOtherApps() {
         val url = if (isPlayStoreAvailable()) PLAY_STORE_DEVELOPER_URL else FDROID_DEVELOPER_URL
         val intent = Intent(Intent.ACTION_VIEW).apply {
             data = Uri.parse(url)

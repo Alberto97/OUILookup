@@ -9,7 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
 import org.alberto97.ouilookup.BuildConfig
 import org.alberto97.ouilookup.repository.IOuiRepository
-import org.alberto97.ouilookup.tools.AppStoreUtils
+import org.alberto97.ouilookup.tools.IAppStoreUtils
 import javax.inject.Inject
 
 enum class AppStore {
@@ -21,7 +21,7 @@ enum class AppStore {
 class AboutViewModel @Inject constructor(
     private val app: Application,
     ouiRepo: IOuiRepository,
-    private val appStoreUtils: AppStoreUtils
+    private val appStoreUtils: IAppStoreUtils
 ) : ViewModel() {
 
     val availableAppStore = if (appStoreUtils.isPlayStoreAvailable()) AppStore.PlayStore else AppStore.Oss
