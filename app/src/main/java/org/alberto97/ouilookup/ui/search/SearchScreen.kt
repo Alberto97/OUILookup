@@ -37,6 +37,7 @@ fun SearchScreen(
     val list: List<Oui> by viewModel.list.collectAsState(listOf())
     val lookupList: List<String> by viewModel.bulkLookupList.collectAsState(listOf())
     val placeholder by viewModel.placeholder.collectAsState(UiSearchPlaceholder.Instructions)
+    val askForReview by viewModel.askForReview.collectAsState(false)
 
     val clipboardPasteScope = rememberCoroutineScope()
     OnResumeEffect(lifecycleOwner) {
@@ -45,6 +46,12 @@ fun SearchScreen(
             delay(500L)
             viewModel.checkClipboard()
         }
+    }
+
+    if (askForReview) {
+        // Account for recomposition and configuration changes
+        viewModel.askedForReview()
+        navController.navigate(Destinations.FEEDBACK_ROUTE)
     }
 
     SearchScreen(

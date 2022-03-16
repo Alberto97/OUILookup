@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.alberto97.ouilookup.repository.IOuiRepository
+import org.alberto97.ouilookup.tools.IFeedbackManager
 import org.alberto97.ouilookup.tools.IUpdateManager
 import org.alberto97.ouilookup.tools.StringInspector
 import javax.inject.Inject
@@ -17,7 +18,8 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val app: Application,
     private val repository: IOuiRepository,
-    private val updateManager: IUpdateManager
+    private val updateManager: IUpdateManager,
+    private val feedbackManager: IFeedbackManager
 ) : ViewModel() {
 
     private val _text = MutableStateFlow("")
@@ -25,6 +27,9 @@ class SearchViewModel @Inject constructor(
 
     private val _bulkLookupList = MutableStateFlow(listOf<String>())
     val bulkLookupList = _bulkLookupList.asStateFlow()
+
+    private val _askForReview = MutableStateFlow(false)
+    val askForReview = _askForReview.asStateFlow()
 
     val list = combine(_text, _bulkLookupList) { text, list ->
         if (text.isNotEmpty())
@@ -44,6 +49,7 @@ class SearchViewModel @Inject constructor(
 
     init {
         shouldUpdateDb()
+        shouldAskForReview()
     }
 
     fun checkClipboard() {
@@ -69,6 +75,17 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch {
             updateManager.shouldUpdate()
         }
+    }
+
+    private fun shouldAskForReview() {
+        viewModelScope.launch {
+            val result = feedbackManager.shouldAskForReview()
+            _askForReview.value = result
+        }
+    }
+
+    fun askedForReview() {
+        _askForReview.value = false
     }
 
     fun onTextChange(text: String) {

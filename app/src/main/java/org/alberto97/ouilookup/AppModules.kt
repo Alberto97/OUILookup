@@ -12,10 +12,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import org.alberto97.ouilookup.datasource.IEEEApi
 import org.alberto97.ouilookup.db.AppDatabase
-import org.alberto97.ouilookup.repository.IOuiRepository
-import org.alberto97.ouilookup.repository.ISettingsRepository
-import org.alberto97.ouilookup.repository.OuiRepository
-import org.alberto97.ouilookup.repository.SettingsRepository
+import org.alberto97.ouilookup.repository.*
 import org.alberto97.ouilookup.tools.*
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -42,6 +39,12 @@ abstract class AppModule {
 
     @Binds
     abstract fun provideAppStoreUtils(appStoreUtils: AppStoreUtils): IAppStoreUtils
+
+    @Binds
+    abstract fun provideFeedbackRepository(feedbackManager: FeedbackRepository): IFeedbackRepository
+
+    @Binds
+    abstract fun provideFeedbackManager(feedbackManager: FeedbackManager): IFeedbackManager
 }
 
 @Module

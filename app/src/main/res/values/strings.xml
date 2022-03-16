@@ -14,6 +14,13 @@
     <string name="oui_update_notification_channel">Database updates</string>
     <string name="oui_update_notification_title">Updating database…</string>
 
+    <!-- Feedback -->
+    <string name="feedback_dialog_title">Leave a review</string>
+    <string name="feedback_dialog_text">Hi, I\'d love to hear what you think about this app.\nWould you like to leave a review?</string>
+    <string name="feedback_dialog_option_never">Don\'t ask again</string>
+    <string name="feedback_dialog_option_later">Maybe later</string>
+    <string name="feedback_dialog_option_yes">Sure</string>
+
     <!-- About -->
     <string name="about_title">About</string>
     <string name="about_category_info">Info</string>
