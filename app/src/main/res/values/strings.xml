@@ -24,6 +24,7 @@
     <!-- About -->
     <string name="about_title">About</string>
     <string name="about_category_info">Info</string>
+    <string name="about_leave_feedback_title">Leave a feedback</string>
     <string name="about_other_apps_title">Take a look at my other apps</string>
     <string name="about_repository_title">Check out the source code!</string>
     <string name="about_author">Author</string>

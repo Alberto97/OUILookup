@@ -41,6 +41,10 @@ class AboutViewModel @Inject constructor(
         app.startActivity(intent)
     }
 
+    fun openAppStoreForReview() {
+        appStoreUtils.openForReview()
+    }
+
     fun openOtherApps() {
         appStoreUtils.openOtherApps()
     }

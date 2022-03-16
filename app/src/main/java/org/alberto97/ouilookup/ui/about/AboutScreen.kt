@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.rounded.Android
+import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
@@ -39,6 +40,7 @@ fun AboutScreen(
         appVersion = appVersion,
         lastDbUpdate = lastDbUpdate,
         openRepository = { viewModel.openRepository() },
+        openAppStoreForReview = { viewModel.openAppStoreForReview() },
         openOtherApps =  { viewModel.openOtherApps() },
         onBackClick = { navController.popBackStack() }
     )
@@ -49,6 +51,7 @@ fun AboutScreen(
 fun AboutScreen(
     onBackClick: () -> Unit,
     openRepository: () -> Unit,
+    openAppStoreForReview: () -> Unit,
     openOtherApps: () -> Unit,
     appStore: AppStore,
     appVersion: String,
@@ -69,6 +72,11 @@ fun AboutScreen(
                 icon = { ListIcon { Icon(painterResource(R.drawable.ic_github), null) } },
                 text = { Text(stringResource(R.string.about_repository_title)) },
                 modifier = Modifier.clickable { openRepository() }
+            )
+            ListItem(
+                icon = { ListIcon { Icon(Icons.Rounded.Favorite, null) } },
+                text = { Text(stringResource(R.string.about_leave_feedback_title)) },
+                modifier = Modifier.clickable { openAppStoreForReview() }
             )
             ListItem(
                 icon = { OtherAppsIcon(appStore) },
@@ -147,7 +155,7 @@ private fun UpdateInfoIcon() {
 private fun Preview() {
     OUILookupTheme {
         Surface {
-            AboutScreen({ }, { }, { }, AppStore.PlayStore, "1.0", "Today")
+            AboutScreen({ }, { }, { }, { }, AppStore.PlayStore, "1.0", "Today")
         }
     }
 }
