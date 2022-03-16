@@ -68,13 +68,11 @@ fun AboutScreen(
             ListItem(
                 icon = { ListIcon { Icon(painterResource(R.drawable.ic_github), null) } },
                 text = { Text(stringResource(R.string.about_repository_title)) },
-                secondaryText = { Text(stringResource(R.string.about_repository_summary)) },
                 modifier = Modifier.clickable { openRepository() }
             )
             ListItem(
                 icon = { OtherAppsIcon(appStore) },
                 text = { Text(stringResource(R.string.about_other_apps_title)) },
-                secondaryText = { OtherAppsSummary(appStore) },
                 modifier = Modifier.clickable { openOtherApps() }
             )
             Divider(color = Color.LightGray)
@@ -122,16 +120,6 @@ private fun OtherAppsIcon(store: AppStore) {
         else
             Icon(Icons.Rounded.Android, null)
     }
-}
-
-@Composable
-private fun OtherAppsSummary(store: AppStore) {
-    val stringResource = if (store == AppStore.PlayStore)
-        R.string.about_other_apps_play_store
-    else
-        R.string.about_other_apps_fdroid
-
-    Text(stringResource(stringResource))
 }
 
 @Composable
