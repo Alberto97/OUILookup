@@ -15,6 +15,8 @@ import javax.inject.Singleton
 interface ISettingsRepository {
     fun getLastDbUpdate(): Flow<Long>
     suspend fun setLastDbUpdate(value: Long)
+    fun getFirstLaunchInstant(): Flow<Long>
+    suspend fun setFirstLaunchInstant(value: Long)
 }
 
 @Singleton
@@ -24,6 +26,7 @@ class SettingsRepository @Inject constructor(
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "oui_settings")
     private val lastDbUpdateKey = longPreferencesKey("last_db_update")
+    private val firstLaunchInstant = longPreferencesKey("first_launch_instant")
 
     override fun getLastDbUpdate(): Flow<Long> {
         return context.dataStore.data
@@ -33,6 +36,17 @@ class SettingsRepository @Inject constructor(
     override suspend fun setLastDbUpdate(value: Long) {
         context.dataStore.edit { settings ->
             settings[lastDbUpdateKey] = value
+        }
+    }
+
+    override fun getFirstLaunchInstant(): Flow<Long> {
+        return context.dataStore.data
+            .map { settings -> settings[firstLaunchInstant] ?: 0 }
+    }
+
+    override suspend fun setFirstLaunchInstant(value: Long) {
+        context.dataStore.edit { settings ->
+            settings[firstLaunchInstant] = value
         }
     }
 }
