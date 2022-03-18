@@ -24,18 +24,30 @@ platform :android do
   desc "Submit a new build to the Google Play Store internal test track"
   lane :internal do
     gradle(task: "clean bundleGmsRelease")
-    upload_to_play_store(track: 'internal')
+    upload_to_play_store(
+      track: 'internal',
+      skip_upload_images: true,
+      skip_upload_screenshots: true
+    )
   end
 
   desc "Submit a new build to the Google Play Store beta track"
   lane :beta do
     gradle(task: "clean bundleGmsRelease")
-    upload_to_play_store(track: 'beta')
+    upload_to_play_store(
+      track: 'beta',
+      skip_upload_images: true,
+      skip_upload_screenshots: true
+    )
   end
 
   desc "Deploy a new version to the Google Play"
   lane :deploy do
     gradle(task: "clean bundleGmsRelease")
-    upload_to_play_store(rollout: "0.2")
+    upload_to_play_store(
+      rollout: "0.2",
+      skip_upload_images: true,
+      skip_upload_screenshots: true
+    )
   end
 end
