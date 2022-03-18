@@ -1,0 +1,4 @@
+* You can paste a list of MAC adresses to perform a multiple lookup.
+* Now the database gets offline updates if the apk-bundled data is newer.
+* Bundled OUI list updated @ 2022-03-15
+* Dependencies update
