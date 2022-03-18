@@ -1,6 +1,7 @@
 # OUI Lookup and Database
 
-[![GitHub release](https://img.shields.io/github/release/Alberto97/OUILookup.svg)](https://github.com/Alberto97/OUILookup/releases/latest)
+[![GitHub release](https://img.shields.io/github/release/Alberto97/OUILookup.svg?logo=github)](https://github.com/Alberto97/OUILookup/releases/latest)
+[![F-Droid](https://img.shields.io/f-droid/v/org.alberto97.ouilookup.svg?logo=F-Droid)](https://f-droid.org/en/packages/org.alberto97.ouilookup/)
 [![GitHub license](https://img.shields.io/github/license/Alberto97/OUILookup)](https://github.com/Alberto97/OUILookup/blob/master/LICENSE)
 
 OUI browser and MAC Address lookup Android application
