@@ -9,6 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.alberto97.ouilookup.repository.ISettingsRepository
 import org.alberto97.ouilookup.tools.IFeedbackManager
 import org.alberto97.ouilookup.ui.theme.OUILookupTheme
@@ -27,8 +28,10 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         super.onCreate(savedInstanceState)
 
-        persistFirstLaunchInstant()
-        askForReview()
+        lifecycleScope.launch {
+            persistFirstLaunchInstant()
+            askForReview()
+        }
 
         setContent {
             OUILookupTheme {
@@ -37,20 +40,16 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun persistFirstLaunchInstant() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            val firstLaunch = settings.getFirstLaunchInstant().first()
-            if (firstLaunch == 0L) {
-                val now = System.currentTimeMillis()
-                settings.setFirstLaunchInstant(now)
-            }
+    private suspend fun persistFirstLaunchInstant() = withContext(Dispatchers.IO) {
+        val firstLaunch = settings.getFirstLaunchInstant().first()
+        if (firstLaunch == 0L) {
+            val now = System.currentTimeMillis()
+            settings.setFirstLaunchInstant(now)
         }
     }
 
-    private fun askForReview() {
-        lifecycleScope.launch {
-            if (feedback.shouldAskForReview())
-                feedback.openReviewWindow(this@MainActivity)
-        }
+    private suspend fun askForReview() {
+        if (feedback.shouldAskForReview())
+            feedback.openReviewWindow(this@MainActivity)
     }
 }
