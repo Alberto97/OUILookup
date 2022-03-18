@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.alberto97.ouilookup.repository.ISettingsRepository
+import org.alberto97.ouilookup.tools.IFeedbackManager
 import org.alberto97.ouilookup.ui.theme.OUILookupTheme
 import javax.inject.Inject
 
@@ -19,11 +20,15 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var settings: ISettingsRepository
 
+    @Inject
+    lateinit var feedback: IFeedbackManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
 
         persistFirstLaunchInstant()
+        askForReview()
 
         setContent {
             OUILookupTheme {
@@ -39,6 +44,13 @@ class MainActivity : ComponentActivity() {
                 val now = System.currentTimeMillis()
                 settings.setFirstLaunchInstant(now)
             }
+        }
+    }
+
+    private fun askForReview() {
+        lifecycleScope.launch {
+            if (feedback.shouldAskForReview())
+                feedback.openReviewWindow(this@MainActivity)
         }
     }
 }

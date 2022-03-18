@@ -56,6 +56,17 @@ android {
             }
         }
     }
+
+    flavorDimensions += "version"
+    productFlavors {
+        create("gms") {
+
+        }
+        create("foss") {
+
+        }
+    }
+
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -92,6 +103,10 @@ dependencies {
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
+
+    // In-app review - Play Services
+    "gmsImplementation"("com.google.android.play:core:1.10.3")
+    "gmsImplementation"("com.google.android.play:core-ktx:1.8.1")
 
     // Kotlin
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10")
