@@ -7,7 +7,7 @@
 OUI browser and MAC Address lookup Android application
 
 ## Screenshots
-<img width="30%" vspace="20" src="fastlane/metadata/android/en-US/images/phoneScreenshots/1_en-US.png" /> <img width="30%" vspace="20" src="fastlane/metadata/android/en-US/images/phoneScreenshots/2_en-US.png" /> <img width="30%" vspace="20" src="fastlane/metadata/android/en-US/images/phoneScreenshots/3_en-US.png" />
+<img width="30%" vspace="20" src="art/1.png" /> <img width="30%" vspace="20" src="art/2.png" /> <img width="30%" vspace="20" src="art/3.png" />
 
 ## Download
 
