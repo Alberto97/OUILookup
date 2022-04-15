@@ -1,7 +1,6 @@
 package org.alberto97.ouilookup.tools
 
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
-import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.io.File
 import java.nio.file.Paths
@@ -15,10 +14,9 @@ class OuiCsvParserTest {
         val data = File(path).readText()
 
         val oui = parser.parse(data)
+        val entries = oui.count()
+        println("Found $entries entries")
 
-        val lines = data.trim().lines()
-        // count the lines and remove the header
-        val lineNumber = lines.count() - 1
-        assertEquals(lineNumber, oui.count())
+        assert(entries > 30000)
     }
 }
