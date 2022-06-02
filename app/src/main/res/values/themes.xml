@@ -1,13 +1,12 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.OUILookup" parent="Theme.AppCompat.DayNight">
-        <item name="colorPrimary">@color/blue_500</item>
-        <item name="colorPrimaryDark">@color/blue_500</item>
+    <style name="Theme.OUILookup" parent="android:Theme.Material.Light">
+        <item name="android:statusBarColor">@color/blue_500</item>
     </style>
 
     <style name="Theme.OUILookup.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="Theme.OUILookup.Splashscreen" parent="Theme.SplashScreen">
