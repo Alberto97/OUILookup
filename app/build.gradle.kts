@@ -109,9 +109,6 @@ dependencies {
     "gmsImplementation"("com.google.android.play:core:1.10.3")
     "gmsImplementation"("com.google.android.play:core-ktx:1.8.1")
 
-    // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10")
-
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.4.2")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
