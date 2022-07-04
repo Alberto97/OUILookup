@@ -1,0 +1,3 @@
+* App size shrunk by removing unneeded dependency
+* Bundled OUI list updated @ 2022-06-15
+* Dependencies update
