@@ -145,7 +145,3 @@ tasks.withType<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
         return@rejectVersionIf candidate.isLessStableThan(current)
     }
 }
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
-}
