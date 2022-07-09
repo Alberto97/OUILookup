@@ -19,8 +19,6 @@ val secureProperties = Properties().apply {
     }
 }
 
-val composeVersion = "1.1.1"
-
 android {
     compileSdk = 31
 
@@ -80,7 +78,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = composeVersion
+        kotlinCompilerExtensionVersion = "1.2.0"
     }
 }
 
@@ -92,6 +90,7 @@ dependencies {
     implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.4.0")
 
     // Compose
+    val composeVersion = "1.1.1"
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.material:material-icons-extended:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling:$composeVersion")
