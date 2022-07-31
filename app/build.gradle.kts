@@ -85,7 +85,7 @@ android {
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.6")
 
-    implementation("androidx.core:core-splashscreen:1.0.0-rc01")
+    implementation("androidx.core:core-splashscreen:1.0.0")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.5.1")
 
@@ -95,10 +95,10 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling:$composeVersion")
     implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation("androidx.activity:activity-compose:1.5.0")
+    implementation("androidx.activity:activity-compose:1.5.1")
 
     // Hilt
-    val hiltVersion = "2.43"
+    val hiltVersion = "2.43.1"
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
