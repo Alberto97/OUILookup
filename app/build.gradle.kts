@@ -87,10 +87,10 @@ dependencies {
 
     implementation("androidx.core:core-splashscreen:1.0.0-rc01")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
-    implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.4.0")
+    implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.5.1")
 
     // Compose
-    val composeVersion = "1.1.1"
+    val composeVersion = "1.2.0"
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.material:material-icons-extended:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling:$composeVersion")
@@ -117,7 +117,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-scalars:$retrofitVersion")
 
     // Room
-    val roomVersion = "2.4.2"
+    val roomVersion = "2.4.3"
     kapt("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
 
