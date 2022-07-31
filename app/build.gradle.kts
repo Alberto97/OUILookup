@@ -87,7 +87,7 @@ dependencies {
 
     implementation("androidx.core:core-splashscreen:1.0.0-rc01")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
-    implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.4.0")
+    implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.5.1")
 
     // Compose
     val composeVersion = "1.1.1"
@@ -98,7 +98,7 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.5.0")
 
     // Hilt
-    val hiltVersion = "2.43"
+    val hiltVersion = "2.43.1"
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
@@ -117,7 +117,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-scalars:$retrofitVersion")
 
     // Room
-    val roomVersion = "2.4.2"
+    val roomVersion = "2.4.3"
     kapt("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
 
