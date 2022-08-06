@@ -20,7 +20,7 @@ val secureProperties = Properties().apply {
 }
 
 android {
-    compileSdk = 31
+    compileSdk = 32
 
     defaultConfig {
         applicationId = "org.alberto97.ouilookup"
