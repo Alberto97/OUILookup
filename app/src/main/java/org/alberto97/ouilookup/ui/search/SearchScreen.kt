@@ -68,12 +68,12 @@ fun SearchScreen(
     lookupList: List<String>,
     placeholder: UiSearchPlaceholder?
 ) {
-    Scaffold {
+    Scaffold { contentPadding ->
         CompositionLocalProvider(
             // Disable overscroll effect
             LocalOverscrollConfiguration provides null
         ) {
-            LazyColumn(Modifier.fillMaxWidth()) {
+            LazyColumn(Modifier.padding(contentPadding).fillMaxWidth()) {
                 item {
                     SearchToolbar(
                         dropdownMenuItems = {

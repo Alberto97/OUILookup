@@ -3,6 +3,7 @@ package org.alberto97.ouilookup.ui.about
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -66,8 +67,8 @@ fun AboutScreen(
                 }
             },
         )
-    }) {
-        Column {
+    }) { contentPadding ->
+        Column(Modifier.padding(contentPadding)) {
             ListItem(
                 icon = { ListIcon { Icon(painterResource(R.drawable.ic_github), null) } },
                 text = { Text(stringResource(R.string.about_repository_title)) },
