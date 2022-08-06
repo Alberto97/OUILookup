@@ -1,7 +1,7 @@
 package org.alberto97.ouilookup.ui.search
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.gestures.LocalOverScrollConfiguration
+import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -71,7 +71,7 @@ fun SearchScreen(
     Scaffold {
         CompositionLocalProvider(
             // Disable overscroll effect
-            LocalOverScrollConfiguration provides null
+            LocalOverscrollConfiguration provides null
         ) {
             LazyColumn(Modifier.fillMaxWidth()) {
                 item {
