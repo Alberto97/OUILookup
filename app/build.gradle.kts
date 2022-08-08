@@ -87,7 +87,7 @@ dependencies {
 
     implementation("androidx.core:core-splashscreen:1.0.0")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
-    implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.5.1")
+    implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.6.0")
 
     // Compose
     val composeVersion = "1.2.0"
