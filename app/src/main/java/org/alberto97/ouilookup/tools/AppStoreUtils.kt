@@ -26,7 +26,7 @@ class AppStoreUtils @Inject constructor(val app: Application) : IAppStoreUtils {
 
     override fun isPlayStoreAvailable(): Boolean {
         return try {
-            app.packageManager.getPackageInfo("com.android.vending", 0)
+            PackageManagerCompat.getPackageInfo(app.packageManager, "com.android.vending")
             true
         } catch (e: PackageManager.NameNotFoundException) {
             false
