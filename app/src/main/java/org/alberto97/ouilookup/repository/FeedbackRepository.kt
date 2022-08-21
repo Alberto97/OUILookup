@@ -16,7 +16,7 @@ interface IFeedbackRepository {
 }
 
 @Singleton
-class FeedbackRepository @Inject constructor(@ApplicationContext private val context: Context,) : IFeedbackRepository {
+class FeedbackRepository @Inject constructor(@ApplicationContext private val context: Context) : IFeedbackRepository {
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "feedback_persist")
     private val lastRequestDate = longPreferencesKey("last_request_date")
 
