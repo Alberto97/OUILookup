@@ -75,7 +75,7 @@ class OuiRepository @Inject constructor(
 
         // There probably was a mistake, exit before clearing the db.
         // It should not happen but you never know...
-        if (entities.count() < 1)
+        if (entities.isEmpty())
             return@withContext
 
         // Clear OUI table
