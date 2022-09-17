@@ -83,7 +83,7 @@ android {
 }
 
 dependencies {
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.6")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.2")
 
     implementation("androidx.core:core-splashscreen:1.0.0")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
