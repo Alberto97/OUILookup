@@ -1,0 +1,3 @@
+* Added monochromatic icon for Android 13
+* Bundled OUI list updated @ 2022-09-15
+* Dependencies update
