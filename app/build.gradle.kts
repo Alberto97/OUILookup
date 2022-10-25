@@ -90,7 +90,7 @@ dependencies {
     implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.6.0")
 
     // Compose
-    val composeVersion = "1.2.1"
+    val composeVersion = "1.3.0"
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.material:material-icons-extended:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling:$composeVersion")
