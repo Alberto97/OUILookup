@@ -4,7 +4,7 @@ plugins {
     id("com.android.application") version agpVersion apply false
     id("com.android.library") version agpVersion apply false
     id("org.jetbrains.kotlin.android") version "1.7.10" apply false
-    id("com.google.dagger.hilt.android") version "2.44" apply false
+    id("com.google.dagger.hilt.android") version "2.44.2" apply false
 }
 
 allprojects {
