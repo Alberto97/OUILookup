@@ -90,11 +90,11 @@ dependencies {
     implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.7.0")
 
     // Compose
-    val composeVersion = "1.3.1"
-    implementation("androidx.compose.material:material:$composeVersion")
-    implementation("androidx.compose.material:material-icons-extended:$composeVersion")
-    implementation("androidx.compose.ui:ui-tooling:$composeVersion")
-    implementation("androidx.compose.ui:ui:$composeVersion")
+    implementation(platform("androidx.compose:compose-bom:2022.11.00"))
+    implementation("androidx.compose.material:material")
+    implementation("androidx.compose.material:material-icons-extended")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    debugImplementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.activity:activity-compose:1.6.1")
 
     // Hilt
