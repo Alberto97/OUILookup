@@ -128,7 +128,7 @@ dependencies {
     // Test
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
-    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.4")
+    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
     androidTestImplementation("com.linkedin.dexmaker:dexmaker-mockito-inline:2.28.3")
     androidTestImplementation("org.mockito:mockito-core:4.10.0")
