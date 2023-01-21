@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 import java.io.FileInputStream
 import java.util.Properties
 import org.alberto97.ouilookup.buildsrc.DependencyUpdates
