@@ -96,24 +96,25 @@ class UpdateManager @Inject constructor(
     override suspend fun shouldUpdate() {
         val bundledUpdateMillis = context.resources.readRawTextFile(R.raw.oui_date_millis).toLong()
         val lastUpdateMillis = settings.getLastDbUpdate().first()
-        when(UpdatePolicyManager.getUpdatePolicy(bundledUpdateMillis, lastUpdateMillis)) {
+        when (UpdatePolicyManager.getUpdatePolicy(bundledUpdateMillis, lastUpdateMillis)) {
             UpdatePolicy.Local -> localUpdate()
             UpdatePolicy.Remote -> remoteUpdate()
             UpdatePolicy.Both -> bothUpdates()
-            else -> {}
+            UpdatePolicy.None -> {}
         }
     }
 
 }
 
 enum class UpdatePolicy {
+    None,
     Local,
     Remote,
     Both
 }
 
 object UpdatePolicyManager {
-    fun getUpdatePolicy(bundledUpdateMillis: Long, lastUpdateMillis: Long): UpdatePolicy? {
+    fun getUpdatePolicy(bundledUpdateMillis: Long, lastUpdateMillis: Long): UpdatePolicy {
         if (bundledUpdateMillis > lastUpdateMillis) {
             return if (isOutdated(bundledUpdateMillis))
                 UpdatePolicy.Both
@@ -124,7 +125,7 @@ object UpdatePolicyManager {
         if (isOutdated(lastUpdateMillis))
             return UpdatePolicy.Remote
 
-        return null
+        return UpdatePolicy.None
     }
 
     fun isOutdated(lastUpdateMillis: Long): Boolean {

@@ -44,7 +44,7 @@ class UpdatePolicyManagerTest {
 
         val result = UpdatePolicyManager.getUpdatePolicy(bundledMillis, lastMillis)
 
-        assertEquals(null, result)
+        assertEquals(UpdatePolicy.None, result)
     }
 
     @Test
