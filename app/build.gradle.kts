@@ -11,6 +11,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.kapt")
     id("com.google.dagger.hilt.android")
+    id("org.gradle.android.cache-fix")
 }
 
 val secureProperties = Properties().apply {
