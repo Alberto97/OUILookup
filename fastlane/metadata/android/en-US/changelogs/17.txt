@@ -1,0 +1,2 @@
+* Bundled OUI list updated @ 2023-03-15
+* Dependencies update
