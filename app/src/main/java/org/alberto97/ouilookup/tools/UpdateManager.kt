@@ -62,11 +62,11 @@ class UpdateManager @Inject constructor(
 
     private fun LiveData<WorkInfo>.notifyUpdateWorkStateChange() {
         observeForever(object : Observer<WorkInfo> {
-            override fun onChanged(workInfo: WorkInfo) {
-                if (workInfo.state == WorkInfo.State.RUNNING)
+            override fun onChanged(value: WorkInfo) {
+                if (value.state == WorkInfo.State.RUNNING)
                     _pendingUpdate.value = true
 
-                if (workInfo.state.isFinished) {
+                if (value.state.isFinished) {
                     _pendingUpdate.value = false
                     removeObserver(this)
                 }
