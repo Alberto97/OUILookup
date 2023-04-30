@@ -101,7 +101,7 @@ dependencies {
     implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.9.0")
 
     // Compose
-    implementation(platform("androidx.compose:compose-bom:2023.03.00"))
+    implementation(platform("androidx.compose:compose-bom:2023.04.01"))
     implementation("androidx.compose.material:material")
     implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.compose.ui:ui-tooling-preview")
