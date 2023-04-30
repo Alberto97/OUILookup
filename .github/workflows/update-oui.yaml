@@ -26,11 +26,17 @@ jobs:
       - name: Run update script
         run: python update_oui.py
 
-      - uses: burrunan/gradle-cache-action@v1
-        name: Run unit tests
+      - name: Configure JDK
+        uses: actions/setup-java@v3
         with:
-          arguments: |
-            test
+          distribution: temurin
+          java-version: 17
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Run unit tests
+        run: ./gradlew build test
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
