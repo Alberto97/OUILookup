@@ -36,7 +36,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    packagingOptions {
+    packaging {
         resources.excludes.add("META-INF/*")
     }
 
