@@ -6779,12 +6779,26 @@ MA-L,D0B2C4,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6 Lawrenceville GA US 30
 MA-L,80C6AB,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6 Lawrenceville GA US 30044 
 MA-L,AC4CA5,Vantiva USA LLC,"4855 Peachtree Industrial Blvd, Suite 20 Norcross GA US 30902 "
 MA-L,00CB7A,Vantiva USA LLC,"4855 Peachtree Industrial Blvd, Suite 20 Norcross GA US 30902 "
+MA-L,203AEB,zte corporation,"12/F.,zte R&D building ,kejinan Road,Shenzhen,P.R.China shenzhen  guangdong CN 518057 "
+MA-L,5876B3,"Ubee Interactive Co., Limited","Flat/RM 1202, 12/F, AT Tower, 180 Electric Road North Point  HK 00000 "
+MA-L,E87072,"Hangzhou BroadLink Technology Co.,Ltd","Room 101,1/F,Unit C,Building 1,No.57 Jiang'er Road,Changhe Street,Binjiang District,Hangzhou,Zhejiang,P.R.China Hangzhou Zhejiang CN 310052 "
+MA-L,60FDA6,"Apple, Inc.",1 Infinite Loop Cupertino CA US 95014 
+MA-L,80A997,"Apple, Inc.",1 Infinite Loop Cupertino CA US 95014 
+MA-L,348C5E,"Apple, Inc.",1 Infinite Loop Cupertino CA US 95014 
 MA-L,40F3B0,Texas Instruments,12500 TI Blvd Dallas TX US 75243 
 MA-L,149CEF,Texas Instruments,12500 TI Blvd Dallas TX US 75243 
 MA-L,80C41B,Texas Instruments,12500 TI Blvd Dallas TX US 75243 
 MA-L,3468B5,Texas Instruments,12500 TI Blvd Dallas TX US 75243 
-MA-L,E87072,"Hangzhou BroadLink Technology Co.,Ltd","Room 101,1/F,Unit C,Building 1,No.57 Jiang'er Road,Changhe Street,Binjiang District,Hangzhou,Zhejiang,P.R.China Hangzhou Zhejiang CN 310052 "
 MA-L,307A57,Accuenergy (CANADA) Inc,22 Howden Road Toronto Ontario CA M1R 3E4 
+MA-L,F0EE7A,"Apple, Inc.",1 Infinite Loop Cupertino CA US 95014 
+MA-L,58AD12,"Apple, Inc.",1 Infinite Loop Cupertino CA US 95014 
+MA-L,481BA4,"Cisco Systems, Inc",80 West Tasman Drive San Jose CA US 94568 
+MA-L,0C01C8,"DENSO Co.,Ltd","Twin21 MIDTower(24th floor),2-1-61 Shiromi,Chuo-ku,Osaka-shi Osaka JP 540-6124 "
+MA-L,040986,Arcadyan Corporation,"No.8, Sec.2, Guangfu Rd. Hsinchu City Hsinchu TW 30071 "
+MA-L,ACD75B,Sagemcom Broadband SAS,"250, route de l'Empereur Rueil Malmaison Cedex hauts de seine FR 92848 "
+MA-L,38398F,Silicon Laboratories,400 West Cesar Chavez Street Austin TX US 78701 
+MA-L,B4C2E0,"Bouffalo Lab (Nanjing) Co., Ltd.","5F, Gongxiang Space, No.100 Tuanjie Road, Nanjing, China Nanjing Jiangsu CN 211800 "
+MA-L,F42E48,zte corporation,"12/F.,zte R&D building ,kejinan Road,Shenzhen,P.R.China shenzhen  guangdong CN 518057 "
 MA-L,4C12E8,VIETNAM POST AND TELECOMMUNICATION INDUSTRY TECHNOLOGY JOIN STOCK COMPANY,"High Tech Industrial Zone I, Hoa Lac High Tech Park, Ha Bang Commune Ha Noi Thach That VN 100000 "
 MA-L,2002FE,"Hangzhou Dangbei Network Technology Co., Ltd","Floor 2, Block C, Wanfu Center, 228 Binkang Road, Binjiang District, Hangzhou zhejiang CN 310051 "
 MA-L,74272C,"Advanced Micro Devices, Inc.",7171 Southwest Pkwy Austin TX US 78735 
@@ -13171,7 +13185,6 @@ MA-L,00A001,DRS Signal Solutions,700 Quince Orchard Road Gaithersburg MD US 2087
 MA-L,002023,T.C. TECHNOLOGIES PTY. LTD,6/60 FAIRFORD RD.   AU  
 MA-L,0020B2,GKD Gesellschaft Fur Kommunikation Und Datentechnik,SAARBURGER RING 10-12  68229 MANNHEIM  DE  
 MA-L,002052,RAGULA SYSTEMS,4540 S. JUPITER DRIVE SALT LAKE CITY UT US 84124 
-MA-L,0020FC,MATROX,"1055 ST. REGIS, DORVAL, QUEBEC  H9P-2T4  CA  "
 MA-L,0020FE,TOPWARE INC. / GRAND COMPUTER,CORPORATION TAIPEI  TW R.O.C. 
 MA-L,002073,FUSION SYSTEMS CORPORATION,7600 STANDISH PLACE ROCKVILLE MD US 20855 
 MA-L,002035,IBM Corp,3039 E Cornwallis Road Research Triangle Park NC US 27709-2195 
@@ -13484,7 +13497,30 @@ MA-L,589630,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6  Lawrenceville GA US 3
 MA-L,C42795,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6 Lawrenceville GA US 30044 
 MA-L,E0885D,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6 Lawrenceville GA US 30044 
 MA-L,802994,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6 Lawrenceville GA US 30044 
+MA-L,888187,"Umeox Innovations Co.,Ltd","Room 1208-09, Research Building, Tsinghua Information Port, No. 1, Xindong Road, Nanshan District, Shenzhen Shenzhen Guangdong CN 518000 "
+MA-L,988F00,"Aruba, a Hewlett Packard Enterprise Company",3333 Scott Blvd Santa Clara CA US 95054 
 MA-L,6CA367,Avlinkpro,380 US Highway 46 Totowa NJ US 07512 
+MA-L,980DAF,"Apple, Inc.",1 Infinite Loop Cupertino CA US 95014 
+MA-L,DC6DBC,"Apple, Inc.",1 Infinite Loop Cupertino CA US 95014 
+MA-L,A4D23E,"Apple, Inc.",1 Infinite Loop Cupertino CA US 95014 
+MA-L,30E04F,"Apple, Inc.",1 Infinite Loop Cupertino CA US 95014 
+MA-L,64E4A5,LG Electronics,"222 LG-ro, JINWI-MYEON Pyeongtaek-si Gyeonggi-do KR 451-713 "
+MA-L,B8FC28,Valeo Vision Systems,Dunmore Road Tuam Co. Galway IE H54 Y276 
+MA-L,D40F9E,"Apple, Inc.",1 Infinite Loop Cupertino CA US 95014 
+MA-L,50482C,IEEE Registration Authority,445 Hoes Lane Piscataway NJ US 08554 
+MA-L,0020FC,Matrox Central Services Inc,1055 ST. REGIS DORVAL QUEBEC CA H9P-2T4 
+MA-L,6C6E07,CE LINK LIMITED,"2/F, Building G, Licheng Tech. Ind. Zone Shenzhen Guangdong CN 518104 "
+MA-L,6C6286,Nokia,600 March Road Kanata Ontario CA K2K 2E6 
+MA-L,602B58,EM Microelectronic,Rue des Sors 3 Marin-Epagnier Neuchatel CH 2074 
+MA-L,109D9C,EM Microelectronic,Rue des Sors 3 Marin-Epagnier Neuchatel CH 2074 
+MA-L,28FF5F,"HG Genuine Intelligent Terminal (Xiaogan) Co.,Ltd.","Building 62, YinHu Technology Industrial Park, No.38 XiaoHan Road,  Xiaonan District, Xiaogan, Hubei P.R. China Xiaogan Hubei CN 432000 "
+MA-L,607623,"Shenzhen E-Superlink Technology Co., Ltd","Floor11, NO.9996 Shen Nan Road, High Tech Park, Nan Shan District, Shen Zhen ShenZhen Guangdong CN 518000 "
+MA-L,78DF72,Shanghai Imilab Technology Co.Ltd,"29F, A Tower, New Caohejing International Business Center, Guiping Road, Xuhui District Shanghai Shanghai CN 200000 "
+MA-L,7492BA,Movesense Ltd,Tammiston kauppatie 7a Vantaa  FI 01510 
+MA-L,0CAE5F,Silicon Laboratories,400 West Cesar Chavez Street Austin TX US 78701 
+MA-L,2C459A,Dixon Technologies (India) Limited,B 14-15 Phase 2 NOIDA GautamBudh Nagar Uttarpradesh IN 201305 
+MA-L,D0484F,Nokia Solutions and Networks GmbH & Co. KG,Werinherstrasse 91 München Bavaria DE D-81541 
+MA-L,BC8529,"Jiangxi Remote lntelligence Technology Co.,Ltd","No. 1, Chemical Avenue, Guixi335400, Yingtan, Jiangxi Yingtan Jiangxi  CN 360600 "
 MA-L,989F1E,"HUAWEI TECHNOLOGIES CO.,LTD","No.2 Xin Cheng Road, Room R6,Songshan Lake Technology Park Dongguan  CN 523808 "
 MA-L,944788,"HUAWEI TECHNOLOGIES CO.,LTD","No.2 Xin Cheng Road, Room R6,Songshan Lake Technology Park Dongguan  CN 523808 "
 MA-L,5412CB,"HUAWEI TECHNOLOGIES CO.,LTD","No.2 Xin Cheng Road, Room R6,Songshan Lake Technology Park Dongguan  CN 523808 "
@@ -15772,7 +15808,6 @@ MA-L,E472E2,"HUAWEI TECHNOLOGIES CO.,LTD","No.2 Xin Cheng Road, Room R6,Songshan
 MA-L,508F4C,Xiaomi Communications Co Ltd,"The Rainbow City of China Resources NO.68, Qinghe Middle Street Haidian District, Beijing CN 100085 "
 MA-L,A47758,"Ningbo Freewings Technologies Co.,Ltd","No.502 Wenshui Road, Shounan Street, Yinzhou District Ningbo Zhejiang CN 315192 "
 MA-L,A08869,Intel Corporate,"Lot 8, Jalan Hi-Tech 2/3  Kulim Kedah MY 09000 "
-MA-L,000CEC,Orolia USA,45 Becker Road  Suite A West Henrietta NY US 14586 
 MA-L,E06089,"Cloudleaf, Inc.","860 Hillview Court, Suite 350 Milpitas CA US 95035 "
 MA-L,00D060,Panasonic Europe Ltd.,LABORATORIES GMBH   DE  
 MA-L,94E36D,Texas Instruments,12500 TI Blvd Dallas TX US 75243 
@@ -20241,12 +20276,27 @@ MA-L,08952A,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6 Lawrenceville GA US 30
 MA-L,FC528D,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6  Lawrenceville  GA US 30044 
 MA-L,28BE9B,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6 Lawrenceville GA US 30044 
 MA-L,4432C8,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6 Lawrenceville GA US 30044 
-MA-L,EC937D,Vantiva USA LLC,"4855 Peachtree Industrial Blvd, Suite 20 Norcross GA US 30902 "
-MA-L,D4E2CB,Vantiva USA LLC,"4855 Peachtree Industrial Blvd, Suite 20 Norcross GA US 30902 "
 MA-L,5C22DA,Vantiva USA LLC,"4855 Peachtree Industrial Blvd, Suite 20 Norcross GA US 30902 "
 MA-L,00651E,Amcrest Technologies,16727 Park Row Houston TX US 77084 
+MA-L,EC937D,Vantiva USA LLC,"4855 Peachtree Industrial Blvd, Suite 20 Norcross GA US 30902 "
+MA-L,D4E2CB,Vantiva USA LLC,"4855 Peachtree Industrial Blvd, Suite 20 Norcross GA US 30902 "
 MA-L,8CD08B,"WuXi Rigosys Technology Co.,LTD","China Sensor Network International Innovation Park,No.200 Linghu Road WuXI  CN 214135 "
 MA-L,B8C065,"Universal Electronics, Inc.",201 E Sandpointe Ave SANTA ANA CA US 927075778 
+MA-L,94F929,"Meta Platforms Technologies, LLC",1601 Willow Rd Menlo Park CA US 94025 
+MA-L,2091DF,"Apple, Inc.",1 Infinite Loop Cupertino CA US 95014 
+MA-L,A89C78,"Apple, Inc.",1 Infinite Loop Cupertino CA US 95014 
+MA-L,7C6130,"Apple, Inc.",1 Infinite Loop Cupertino CA US 95014 
+MA-L,80B989,"Apple, Inc.",1 Infinite Loop Cupertino CA US 95014 
+MA-L,C4524F,"Apple, Inc.",1 Infinite Loop Cupertino CA US 95014 
+MA-L,603E5F,"Apple, Inc.",1 Infinite Loop Cupertino CA US 95014 
+MA-L,C07C90,"Shenzhen YOUHUA Technology Co., Ltd	","Room 407 Shenzhen University-town Business Park,Lishan Road,Taoyuan Street,Nanshan District Shenzhen Guangdong CN 518055 "
+MA-L,003969,Air-Weigh Incorporated,1720 Willow Creek Circle Eugene OR US 97402 
+MA-L,00E63A,Ruckus Wireless,350 West Java Drive Sunnyvale CA US 94089 
+MA-L,848687,weiyuantechnology,"Room 111, Floor 1, Building 8, No. 48, Jiubao Street, Shangcheng District Hangzhou City  CN 310000 "
+MA-L,000CEC,Safran Trusted 4D Inc.,45 Becker Road  Suite A West Henrietta NY US 14586 
+MA-L,58D312,zte corporation,"12/F.,zte R&D building ,kejinan Road,Shenzhen,P.R.China shenzhen  guangdong CN 518057 "
+MA-L,D8097F,zte corporation,"12/F.,zte R&D building ,kejinan Road,Shenzhen,P.R.China shenzhen  guangdong CN 518057 "
+MA-L,3C2D9E,Vantiva - Connected Home,"4855 Peachtree Industrial Blvd, #200 Norcross GA US 30092 "
 MA-L,F02178,"UNIONMAN TECHNOLOGY CO.,LTD","No.5,Huitai Road,Huinan High-Tech Park,Huiao Highway Huizhou Guangdong CN 516025 "
 MA-L,2C3EBF,"HOSIN Global Electronics Co., Ltd.","Room 25,Block 2, Shenzhen New Generation Industrial Park, no.136 ZhongKang Road, Meidu community, Meilin Street, Futian District Shenzhen Guangzhou CN 518000 "
 MA-L,40D563,HANA Electronics,"Av. Abiurana, 450 Manaus Amazonas BR 69075-010 "
@@ -23869,7 +23919,6 @@ MA-L,200E95,IEC – TC9 WG43,"3, rue de Varembé Geneva GE CH 1211 "
 MA-L,D87CDD,SANIX INCORPORATED,"Creation Core Fukuoka 212, 3-2-16 Kamikoga, Chikushino-shi Fukuoka JP 818-0041 "
 MA-L,707C18,"ADATA Technology Co., Ltd","2F, No.258, Lian Cheng Rd. New Taipei City  TW 23553 "
 MA-L,78EC74,Kyland-USA,1107 SE Willow Pl Blue Springs MO US 64014 
-MA-L,98DA92,Vuzix Corporation,2166 Brighton Henrietta Town Line Road Rochester NY US 14623 
 MA-L,C064C6,Nokia Corporation,Joensuunkatu 7 Salo N.A. FI 24101 
 MA-L,14F28E,ShenYang ZhongKe-Allwin Technology Co.LTD,"No.6, Gaoge Road, ShenYang Liaoning CN 110179 "
 MA-L,BC14EF,ITON Technology Limited,"Room 1302,A ablock, Building 4 ShenZhen GuangDong Pronvice CN 518000 "
@@ -25788,7 +25837,6 @@ MA-L,000D50,Galazar Networks,35 Fitzgerald Ave Ottawa ON CA K2H 1E6
 MA-L,000C65,Sunin Telecom,"1025-5 Dokok-Ri, Wabu-Eub Namyangju-City Kyunggi-Do KR 472-900 "
 MA-L,000C6F,"Amtek system co.,LTD.","14F-11,No.79,Sec. 1 ,Hsin Tai Wu Rd., Taipei  TW 221 "
 MA-L,000C6C,Eve Systems GmbH,Rotkreuzplatz 1 Munich  DE 80634 
-MA-L,000CC8,"Xytronix Research & Design, Inc.",1488 East 2300 North North Logan UT US 84341-1627 
 MA-L,000CCA,HGST a Western Digital Company,3403 Yerba Buena Road San Jose CA US 95135 
 MA-L,000CB5,"Premier Technolgies, Inc",PO Box 159 Long Lake MN US 55356 
 MA-L,000CB6,"NANJING SEU MOBILE & INTERNET TECHNOLOGY CO.,LTD","5th floor,Building 5,ChangJiangHou Street No.6 Nanjing Jiangsu CN 210018 "
@@ -27015,9 +27063,7 @@ MA-L,D08A91,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6 Lawrenceville GA US 30
 MA-L,705A9E,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6 Lawrenceville GA US 30044 
 MA-L,74978E,Nova Labs,"2202 S Figueroa St, #408 Los Angeles CA US 90007 "
 MA-L,88F7C7,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6 Lawrenceville GA US 30044 
-MA-L,F4C114,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6  Lawrenceville  GA US 30044 
-MA-L,F83B1D,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6  Lawrenceville  GA US 30044 
-MA-L,E4BFFA,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6  Lawrenceville  GA US 30044 
+MA-L,78465C,CLOUD NETWORK TECHNOLOGY SINGAPORE PTE. LTD.,"B22 Building,NO.51 Tongle Road, Shajing Town, Jiangnan District, Nanning, Guangxi Province, China Nanning Guangxi CN 530007 "
 MA-L,1C9D72,Vantiva USA LLC,"4855 Peachtree Industrial Blvd, Suite 20 Norcross GA US 30902 "
 MA-L,3C82C0,Vantiva USA LLC,"4855 Peachtree Industrial Blvd, Suite 20 Norcross GA US 30902 "
 MA-L,80DAC2,Vantiva USA LLC,"4855 Peachtree Industrial Blvd, Suite 20 Norcross GA US 30902 "
@@ -27025,8 +27071,21 @@ MA-L,481B40,Vantiva USA LLC,"4855 Peachtree Industrial Blvd, Suite 20 Norcross G
 MA-L,B85E71,Vantiva USA LLC,"4855 Peachtree Industrial Blvd, Suite 20 Norcross GA US 30902 "
 MA-L,400FC1,Vantiva USA LLC,"4855 Peachtree Industrial Blvd, Suite 20 Norcross GA US 30902 "
 MA-L,107B93,"Zhen Shi Information Technology (Shanghai) Co., Ltd.","5F, Building 3?No. 401 Caobao Road, Xuhui District, Shanghai, China Shanghai Shanghai CN 200233 "
+MA-L,D0DD7C,zte corporation,"12/F.,zte R&D building ,kejinan Road,Shenzhen,P.R.China shenzhen  guangdong CN 518057 "
+MA-L,843C99,zte corporation,"12/F.,zte R&D building ,kejinan Road,Shenzhen,P.R.China shenzhen  guangdong CN 518057 "
+MA-L,F4C114,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6  Lawrenceville  GA US 30044 
+MA-L,F83B1D,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6  Lawrenceville  GA US 30044 
+MA-L,E4BFFA,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6  Lawrenceville  GA US 30044 
 MA-L,9CF86B,AgiTech Distribution Limited - Linki,"Unit F, 11/F, CNT Tower, 338 Hennessy Road, Wan Chai Hong Kong Hong Kong HK 999077 "
 MA-L,1071FA,"GUANGDONG OPPO MOBILE TELECOMMUNICATIONS CORP.,LTD","NO.18 HAIBIN ROAD, DONG GUAN GUANG DONG CN 523860 "
+MA-L,68E59E,"Cisco Systems, Inc",80 West Tasman Drive San Jose CA US 94568 
+MA-L,F8E5CE,"Apple, Inc.",1 Infinite Loop Cupertino CA US 95014 
+MA-L,4C62CD,Nokia,600 March Road Kanata Ontario CA K2K 2E6 
+MA-L,3C52A1,TP-Link Corporation Limited,"Room 901,9/F.New East Ocean Centre, 9 Science Museum Road  Tsim Sha Tsui Kowloon HK 999077 "
+MA-L,98DA92,Vuzix Corporation,25 Hendrix Rd West Henrietta NY US 14586 
+MA-L,000CC8,"Xytronix Research & Design, Inc.",1681 West 2960 South Nibley UT US 84321 
+MA-L,14C050,"GUANGDONG GENIUS TECHNOLOGY CO., LTD.","No.168, Middle Road Of East Gate Xiaobian Community Chang'an Town CN 523851 "
+MA-L,441A4C,"xFusion Digital Technologies Co.,Ltd.","9th Floor, Building 1, Zensun Boya Square, Longzihu Wisdom Island, Zhendong New District Zhengzhou Henan CN 450000 "
 MA-L,D42787,"Shanghai High-Flying Electronics  Technology Co., Ltd","Room 1002,#1Building,No.3000 Longdong Avenue,Pudong Shanghai Shanghai CN 201202 "
 MA-L,34D4E3,"Atom Power, Inc.","13245 Reese Blvd W
 Suite 130 Huntersville NC US 28078 "
@@ -33769,9 +33828,19 @@ MA-L,BC9B68,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6  Lawrenceville GA US 3
 MA-L,3817E1,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6 Lawrenceville GA US 30044 
 MA-L,CC1AA3,Arista Networks,5453 Great America Parkway Santa Clara CA US 95054 
 MA-L,B0C287,Vantiva USA LLC,5030 Sugarloaf Parkway Bldg 6 Lawrenceville GA US 30044 
-MA-L,407912,Texas Instruments,12500 TI Blvd Dallas TX US 75243 
-MA-L,58A15F,Texas Instruments,12500 TI Blvd Dallas TX US 75243 
-MA-L,10CABF,Texas Instruments,12500 TI Blvd Dallas TX US 75243 
 MA-L,0480A7,ShenZhen TianGang Micro Technology CO.LTD,"3rd floor ,Building20,QingHu Industrial,
 QingHu community,LongHua District
 ShenZhen,China ShenZhen GangDong CN 518100 "
+MA-L,B40AD8,Sony Interactive Entertainment Inc.,1-7-1 Konan Minato-ku Tokyo JP 108-0075 
+MA-L,389CB2,"Apple, Inc.",1 Infinite Loop Cupertino CA US 95014 
+MA-L,583653,"Apple, Inc.",1 Infinite Loop Cupertino CA US 95014 
+MA-L,58A15F,Texas Instruments,12500 TI Blvd Dallas TX US 75243 
+MA-L,10CABF,Texas Instruments,12500 TI Blvd Dallas TX US 75243 
+MA-L,407912,Texas Instruments,12500 TI Blvd Dallas TX US 75243 
+MA-L,84D328,"Apple, Inc.",1 Infinite Loop Cupertino CA US 95014 
+MA-L,687909,"Cisco Systems, Inc",80 West Tasman Drive San Jose CA US 94568 
+MA-L,E4A41C,"Cisco Systems, Inc",80 West Tasman Drive San Jose CA US 94568 
+MA-L,C8A6EF,"Samsung Electronics Co.,Ltd","129, Samsung-ro, Youngtongl-Gu Suwon Gyeonggi-Do KR 16677 "
+MA-L,5CE931,TP-Link Corporation Limited,"Room 901,9/F.New East Ocean Centre, 9 Science Museum Road  Tsim Sha Tsui Kowloon HK 999077 "
+MA-L,E0DF13,"Hangzhou Hikvision Digital Technology Co.,Ltd.",No.555 Qianmo Road  Hangzhou Zhejiang CN 310052 
+MA-L,A42249,Sagemcom Broadband SAS,"250, route de l'Empereur Rueil Malmaison Cedex hauts de seine FR 92848 "
