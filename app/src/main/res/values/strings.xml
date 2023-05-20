@@ -17,6 +17,8 @@
 
     <!-- Settings -->
     <string name="settings_title">Settings</string>
+    <string name="settings_dynamic_theme_title">Use Material You theming</string>
+    <string name="settings_dynamic_theme_text">Follow your system theme (A12+ devices only)</string>
 
     <!-- About -->
     <string name="about_title">About</string>
