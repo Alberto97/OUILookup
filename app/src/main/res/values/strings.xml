@@ -3,6 +3,7 @@
     <string name="about_author_fulfilling_ego" translatable="false">Alberto Pedron</string>
 
     <!-- Search -->
+    <string name="action_search">Search</string>
     <string name="search_toolbar_title">OUI_Lookup</string>
     <string name="search_action_about">@string/about_title</string>
     <string name="search_text_field_placeholder">Type MAC or organization</string>
@@ -13,6 +14,9 @@
     <!-- Notifications -->
     <string name="oui_update_notification_channel">Database updates</string>
     <string name="oui_update_notification_title">Updating database…</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
 
     <!-- About -->
     <string name="about_title">About</string>

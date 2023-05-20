@@ -1,18 +1,29 @@
 package org.alberto97.ouilookup.ui.search
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -56,7 +67,7 @@ fun SearchScreen(
     )
 }
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class)
 @Composable
 fun SearchScreen(
     onInfoClick: () -> Unit,
@@ -66,7 +77,23 @@ fun SearchScreen(
     lookupList: List<String>,
     placeholder: UiSearchPlaceholder?
 ) {
-    Scaffold { contentPadding ->
+    val scrollState = rememberLazyListState()
+    val bottomBarVisible by remember { derivedStateOf { scrollState.firstVisibleItemIndex == 0 } }
+    val focusRequester = remember { FocusRequester() }
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    Scaffold(
+        bottomBar = {
+            NavigationBar(
+                visible = bottomBarVisible,
+                onSettingsClick = onInfoClick,
+                onSearchClick = {
+                    focusRequester.requestFocus()
+                    keyboardController?.show()
+                },
+            )
+        }
+    ) { contentPadding ->
         CompositionLocalProvider(
             // Disable overscroll effect
             LocalOverscrollConfiguration provides null
@@ -74,26 +101,18 @@ fun SearchScreen(
             LazyColumn(
                 Modifier
                     .padding(contentPadding)
-                    .fillMaxWidth()) {
+                    .fillMaxWidth(),
+            state = scrollState,
+            ) {
                 item {
-                    Column {
-                        TopAppBar(
-                            title = { },
-                            actions = {
-                                ActionsDropdown {
-                                    DropdownMenuItem(
-                                        text = { Text(stringResource(R.string.search_action_about)) },
-                                        onClick = onInfoClick
-                                    )
-                                }
-                            }
-                        )
+                    Row(Modifier.padding(top = 26.dp)) {
                         Title()
                     }
                 }
                 stickyHeader {
                     Surface {
                         SearchBar(
+                            modifier = Modifier.focusRequester(focusRequester),
                             text = text,
                             onTextChange = onTextChange,
                             onClear = { onTextChange("") }
@@ -125,9 +144,14 @@ fun SearchScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun SearchBar(text: String, onTextChange: (String) -> Unit, onClear: () -> Unit) {
+private fun SearchBar(
+    modifier: Modifier = Modifier,
+    text: String,
+    onTextChange: (String) -> Unit,
+    onClear: () -> Unit
+) {
     SearchBar(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(14.dp),
         placeholder = { Text(stringResource(R.string.search_text_field_placeholder)) },
@@ -157,6 +181,40 @@ private fun ChipGroup(list: List<String>) {
                 onClick = {},
                 modifier = Modifier.padding(horizontal = 4.dp),
                 label = { Text(item) }
+            )
+        }
+    }
+}
+
+@Composable
+private fun NavigationBar(
+    @Suppress("UNUSED_PARAMETER")
+    visible: Boolean,
+    onSearchClick: () -> Unit,
+    onSettingsClick: () -> Unit,
+) {
+    val density = LocalDensity.current
+    AnimatedVisibility(
+        visible = true,
+        enter = slideInVertically {
+            with(density) { 80.dp.roundToPx() }
+        },
+        exit = slideOutVertically {
+            with(density) { 80.dp.roundToPx() }
+        }
+    ) {
+        NavigationBar {
+            NavigationBarItem(
+                onClick = onSearchClick,
+                selected = true,
+                icon = { Icon(Icons.Outlined.Search, "") },
+                label = { Text(stringResource(R.string.action_search)) },
+            )
+            NavigationBarItem(
+                onClick = onSettingsClick,
+                selected = false,
+                icon = { Icon(Icons.Outlined.Settings, "") },
+                label = { Text(stringResource(R.string.settings_title)) }
             )
         }
     }
