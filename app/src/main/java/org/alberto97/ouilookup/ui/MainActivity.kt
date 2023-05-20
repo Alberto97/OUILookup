@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.alberto97.ouilookup.repository.ISettingsRepository
 import org.alberto97.ouilookup.tools.IFeedbackManager
-import org.alberto97.ouilookup.ui.theme.OUILookupTheme
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -34,9 +33,7 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            OUILookupTheme {
-                NavGraph()
-            }
+            OuiLookupApp(settings)
         }
     }
 

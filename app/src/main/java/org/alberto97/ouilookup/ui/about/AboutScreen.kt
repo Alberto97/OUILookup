@@ -34,6 +34,7 @@ fun AboutScreen(
     val appStore = viewModel.availableAppStore
     val appVersion = viewModel.appVersion
     val lastDbUpdate: String by viewModel.dbVersion.collectAsState("")
+    val useDynamicTheme by viewModel.useDynamicTheme.collectAsState()
 
     AboutScreen(
         appStore = appStore,
@@ -42,6 +43,9 @@ fun AboutScreen(
         openRepository = { viewModel.openRepository() },
         openAppStoreForReview = { viewModel.openAppStoreForReview() },
         openOtherApps =  { viewModel.openOtherApps() },
+        supportedDynamicTheme = viewModel.supportedDynamicTheme,
+        useDynamicTheme = useDynamicTheme,
+        toggleDynamicTheme = { viewModel.toggleUseDynamicTheme() },
         onBackClick = { navController.popBackStack() }
     )
 }
@@ -54,12 +58,15 @@ fun AboutScreen(
     openAppStoreForReview: () -> Unit,
     openOtherApps: () -> Unit,
     appStore: AppStore,
+    supportedDynamicTheme: Boolean,
+    useDynamicTheme: Boolean,
+    toggleDynamicTheme: () -> Unit,
     appVersion: String,
     lastDbUpdate: String
 ) {
     Scaffold(topBar = {
         TopAppBar(
-            title = { Text(stringResource(R.string.about_title)) },
+            title = { Text(stringResource(R.string.settings_title)) },
             navigationIcon = {
                 IconButton(onClick = { onBackClick() }) {
                     Icon(Icons.Filled.ArrowBack, contentDescription = null)
@@ -83,6 +90,10 @@ fun AboutScreen(
                 headlineContent = { Text(stringResource(R.string.about_other_apps_title)) },
                 modifier = Modifier.clickable { openOtherApps() }
             )
+
+            if (supportedDynamicTheme)
+                Settings(useDynamicTheme, toggleDynamicTheme)
+
             Divider(color = Color.LightGray)
             ListItem(
                 leadingContent = {},
@@ -138,6 +149,35 @@ private fun ListIcon(child: @Composable () -> Unit) {
 }
 
 @Composable
+private fun Settings(useDynamicTheme: Boolean, toggleDynamicTheme: () -> Unit) {
+    Column {
+        Divider(color = Color.LightGray)
+        ListItem(
+            leadingContent = {},
+            headlineContent = {
+                Text(
+                    stringResource(R.string.settings_title),
+                    style = MaterialTheme.typography.titleSmall.copy(
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                )
+            }
+        )
+        ListItem(
+            modifier = Modifier.clickable { toggleDynamicTheme() },
+            leadingContent = {},
+            headlineContent = { Text(stringResource(R.string.settings_dynamic_theme_title)) },
+            supportingContent = { Text(stringResource(R.string.settings_dynamic_theme_text)) },
+            trailingContent = {
+                Switch(
+                    checked = useDynamicTheme,
+                    onCheckedChange = { toggleDynamicTheme() })
+            }
+        )
+    }
+}
+
+@Composable
 private fun UpdateInfoIcon() {
     CompositionLocalProvider(LocalContentColor provides LocalContentColor.current.copy(alpha = 0.4f)) {
         ListIcon {
@@ -154,7 +194,18 @@ private fun UpdateInfoIcon() {
 private fun Preview() {
     OUILookupTheme {
         Surface {
-            AboutScreen({ }, { }, { }, { }, AppStore.PlayStore, "1.0", "Today")
+            AboutScreen(
+                onBackClick = { },
+                openRepository = { },
+                openAppStoreForReview = { },
+                openOtherApps = { },
+                appStore = AppStore.PlayStore,
+                supportedDynamicTheme = true,
+                useDynamicTheme = false,
+                toggleDynamicTheme = {},
+                appVersion = "1.0",
+                lastDbUpdate = "Today"
+            )
         }
     }
 }
