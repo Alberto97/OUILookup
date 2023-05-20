@@ -1,7 +1,7 @@
 package org.alberto97.ouilookup.ui
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
@@ -23,7 +23,7 @@ fun FullscreenPlaceholder(text: String, icon: ImageVector) {
 
 @Composable
 fun FullscreenPlaceholder(text: String, content: @Composable () -> Unit) {
-    CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
+    CompositionLocalProvider(LocalContentColor provides LocalContentColor.current.copy(alpha = 0.4f)) {
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -35,7 +35,7 @@ fun FullscreenPlaceholder(text: String, content: @Composable () -> Unit) {
             Text(
                 text = text,
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.subtitle1,
+                style = MaterialTheme.typography.titleMedium,
             )
         }
     }

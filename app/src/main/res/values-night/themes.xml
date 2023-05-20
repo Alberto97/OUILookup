@@ -1,6 +1,4 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.OUILookup" parent="android:Theme.Material">
-        <item name="android:statusBarColor">@color/black</item>
-    </style>
+    <style name="Theme.OUILookup" parent="android:Theme.Material" />
 </resources>

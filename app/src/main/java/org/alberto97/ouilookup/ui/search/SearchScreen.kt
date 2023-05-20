@@ -6,7 +6,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Clear
+import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -23,10 +26,6 @@ import org.alberto97.ouilookup.ui.Destinations
 import org.alberto97.ouilookup.ui.common.OnResumeEffect
 import org.alberto97.ouilookup.ui.theme.OUILookupTheme
 
-@OptIn(
-    ExperimentalFoundationApi::class,
-    ExperimentalMaterialApi::class
-)
 @Composable
 fun SearchScreen(
     viewModel: SearchViewModel,
@@ -57,8 +56,7 @@ fun SearchScreen(
     )
 }
 
-@ExperimentalFoundationApi
-@ExperimentalMaterialApi
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
     onInfoClick: () -> Unit,
@@ -73,25 +71,39 @@ fun SearchScreen(
             // Disable overscroll effect
             LocalOverscrollConfiguration provides null
         ) {
-            LazyColumn(Modifier.padding(contentPadding).fillMaxWidth()) {
+            LazyColumn(
+                Modifier
+                    .padding(contentPadding)
+                    .fillMaxWidth()) {
                 item {
-                    SearchToolbar(
-                        dropdownMenuItems = {
-                            DropdownMenuItem(onClick = { onInfoClick() }) {
-                                Text(stringResource(R.string.search_action_about))
+                    Column {
+                        TopAppBar(
+                            title = { },
+                            actions = {
+                                ActionsDropdown {
+                                    DropdownMenuItem(
+                                        text = { Text(stringResource(R.string.search_action_about)) },
+                                        onClick = onInfoClick
+                                    )
+                                }
                             }
-                        }
-                    )
+                        )
+                        Title()
+                    }
                 }
                 stickyHeader {
-                    SearchbarWithShadow(
-                        text = text,
-                        onTextChange = onTextChange,
-                        onTrailingIconClick = { onTextChange("") }
-                    )
+                    Surface {
+                        SearchBar(
+                            text = text,
+                            onTextChange = onTextChange,
+                            onClear = { onTextChange("") }
+                        )
+                    }
                 }
                 item {
-                    ChipGroup(list = lookupList)
+                    Box(Modifier.padding(horizontal = 14.dp)) {
+                        ChipGroup(list = lookupList)
+                    }
                 }
                 if (placeholder != null)
                     item {
@@ -102,8 +114,8 @@ fun SearchScreen(
                 else
                     items(list) { device ->
                         ListItem(
-                            text = { Text(device.orgName) },
-                            secondaryText = { Text(device.oui) }
+                            headlineContent = { Text(device.orgName) },
+                            supportingContent = { Text(device.oui) }
                         )
                     }
             }
@@ -111,25 +123,45 @@ fun SearchScreen(
     }
 }
 
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun SearchBar(text: String, onTextChange: (String) -> Unit, onClear: () -> Unit) {
+    SearchBar(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(14.dp),
+        placeholder = { Text(stringResource(R.string.search_text_field_placeholder)) },
+        leadingIcon = { Icon(Icons.Rounded.Search, null) },
+        trailingIcon = { if (text.isNotEmpty()) ClearIcon(onClear) },
+        query = text,
+        onQueryChange = onTextChange,
+        onSearch = {},
+        active = false,
+        onActiveChange = {},
+        content = {},
+    )
+}
+
+@Composable
+private fun ClearIcon(onClick: () -> Unit) {
+    IconButton(onClick) {
+        Icon(Icons.Rounded.Clear, contentDescription = "Clear")
+    }
+}
+
 @Composable
 private fun ChipGroup(list: List<String>) {
     LazyRow {
         items(list) { item ->
-            Chip(
+            ElevatedSuggestionChip(
                 onClick = {},
-                border = ChipDefaults.outlinedBorder,
-                colors = ChipDefaults.outlinedChipColors(),
-                modifier = Modifier.padding(horizontal = 4.dp)
-            ) {
-                Text(item)
-            }
+                modifier = Modifier.padding(horizontal = 4.dp),
+                label = { Text(item) }
+            )
         }
     }
 }
 
-@ExperimentalFoundationApi
-@ExperimentalMaterialApi
 @Preview
 @Composable
 fun DefaultPreview() {
@@ -148,8 +180,6 @@ fun DefaultPreview() {
     }
 }
 
-@ExperimentalFoundationApi
-@ExperimentalMaterialApi
 @Preview("Empty list")
 @Composable
 fun EmptyPreview() {

@@ -5,12 +5,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.rounded.Android
 import androidx.compose.material.icons.rounded.Favorite
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
@@ -26,7 +26,6 @@ import androidx.navigation.NavController
 import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.ui.theme.OUILookupTheme
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AboutScreen(
     viewModel: AboutViewModel,
@@ -47,7 +46,7 @@ fun AboutScreen(
     )
 }
 
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AboutScreen(
     onBackClick: () -> Unit,
@@ -70,52 +69,52 @@ fun AboutScreen(
     }) { contentPadding ->
         Column(Modifier.padding(contentPadding)) {
             ListItem(
-                icon = { ListIcon { Icon(painterResource(R.drawable.ic_github), null) } },
-                text = { Text(stringResource(R.string.about_repository_title)) },
+                leadingContent = { ListIcon { Icon(painterResource(R.drawable.ic_github), null) } },
+                headlineContent = { Text(stringResource(R.string.about_repository_title)) },
                 modifier = Modifier.clickable { openRepository() }
             )
             ListItem(
-                icon = { ListIcon { Icon(Icons.Rounded.Favorite, null) } },
-                text = { Text(stringResource(R.string.about_leave_feedback_title)) },
+                leadingContent = { ListIcon { Icon(Icons.Rounded.Favorite, null) } },
+                headlineContent = { Text(stringResource(R.string.about_leave_feedback_title)) },
                 modifier = Modifier.clickable { openAppStoreForReview() }
             )
             ListItem(
-                icon = { OtherAppsIcon(appStore) },
-                text = { Text(stringResource(R.string.about_other_apps_title)) },
+                leadingContent = { OtherAppsIcon(appStore) },
+                headlineContent = { Text(stringResource(R.string.about_other_apps_title)) },
                 modifier = Modifier.clickable { openOtherApps() }
             )
             Divider(color = Color.LightGray)
             ListItem(
-                icon = {},
-                text = {
+                leadingContent = {},
+                headlineContent = {
                     Text(
                         stringResource(R.string.about_category_info),
-                        style = MaterialTheme.typography.subtitle2.copy(
-                            color = MaterialTheme.colors.primary
+                        style = MaterialTheme.typography.titleSmall.copy(
+                            color = MaterialTheme.colorScheme.primary
                         )
                     )
                 }
             )
             ListItem(
-                icon = {},
-                text = { Text(stringResource(R.string.about_version)) },
-                secondaryText = { Text(appVersion) }
+                leadingContent = {},
+                headlineContent = { Text(stringResource(R.string.about_version)) },
+                supportingContent = { Text(appVersion) }
             )
             ListItem(
-                icon = {},
-                text = { Text(stringResource(R.string.about_author)) },
-                secondaryText = { Text(stringResource(R.string.about_author_fulfilling_ego)) }
+                leadingContent = {},
+                headlineContent = { Text(stringResource(R.string.about_author)) },
+                supportingContent = { Text(stringResource(R.string.about_author_fulfilling_ego)) }
             )
             ListItem(
-                icon = { },
-                text = { Text(stringResource(R.string.about_last_db_update)) },
-                secondaryText = { Text(lastDbUpdate) },
+                leadingContent = { },
+                headlineContent = { Text(stringResource(R.string.about_last_db_update)) },
+                supportingContent = { Text(lastDbUpdate) },
             )
             Divider(color = Color.LightGray)
             ListItem(
-                icon = { UpdateInfoIcon() },
-                text = {},
-                secondaryText = { Text(stringResource(R.string.about_db_updates_description)) }
+                leadingContent = { UpdateInfoIcon() },
+                headlineContent = {},
+                supportingContent = { Text(stringResource(R.string.about_db_updates_description)) }
             )
         }
     }
@@ -140,7 +139,7 @@ private fun ListIcon(child: @Composable () -> Unit) {
 
 @Composable
 private fun UpdateInfoIcon() {
-    CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
+    CompositionLocalProvider(LocalContentColor provides LocalContentColor.current.copy(alpha = 0.4f)) {
         ListIcon {
             Icon(
                 imageVector = Icons.Outlined.Info,
@@ -150,7 +149,6 @@ private fun UpdateInfoIcon() {
     }
 }
 
-@ExperimentalMaterialApi
 @Preview
 @Composable
 private fun Preview() {
