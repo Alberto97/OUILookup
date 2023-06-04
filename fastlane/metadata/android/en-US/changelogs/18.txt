@@ -1,0 +1,4 @@
+* Material 3 based redesign
+* Added support for enabling/disabling Material You
+* Bundled OUI list updated @ 2023-05-15
+* Dependencies update
