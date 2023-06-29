@@ -3,7 +3,7 @@ plugins {
     val agpVersion = "8.0.2"
     id("com.android.application") version agpVersion apply false
     id("com.android.library") version agpVersion apply false
-    id("org.jetbrains.kotlin.android") version "1.8.21" apply false
+    id("org.jetbrains.kotlin.android") version "1.8.22" apply false
     id("com.google.dagger.hilt.android") version "2.47" apply false
     id("org.gradle.android.cache-fix") version "2.7.2" apply false
 }
