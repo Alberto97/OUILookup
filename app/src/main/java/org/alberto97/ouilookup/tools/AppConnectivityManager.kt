@@ -5,17 +5,14 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.annotation.RequiresApi
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
-import javax.inject.Singleton
+import org.alberto97.ouilookup.MainApplication
 
 interface IAppConnectivityManager {
     fun isConnected(): Boolean
 }
 
-@Singleton
-class AppConnectivityManager @Inject constructor(
-    @ApplicationContext private val context: Context
+class AppConnectivityManager(
+    private val context: Context = MainApplication.instance
 ): IAppConnectivityManager {
 
     override fun isConnected(): Boolean {

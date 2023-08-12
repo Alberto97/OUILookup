@@ -1,7 +1,7 @@
 package org.alberto97.ouilookup.ui
 
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -21,11 +21,11 @@ fun NavGraph() {
 
     NavHost(navController, startDestination = Destinations.SEARCH_ROUTE) {
         composable(Destinations.SEARCH_ROUTE) {
-            val viewModel: SearchViewModel = hiltViewModel(it)
+            val viewModel: SearchViewModel = viewModel(it)
             SearchScreen(viewModel, navController)
         }
         composable(Destinations.ABOUT_ROUTE) {
-            val viewModel: AboutViewModel = hiltViewModel(it)
+            val viewModel: AboutViewModel = viewModel(it)
             AboutScreen(viewModel, navController)
         }
     }

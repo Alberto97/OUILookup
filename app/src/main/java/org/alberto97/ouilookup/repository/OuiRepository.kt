@@ -1,21 +1,20 @@
 package org.alberto97.ouilookup.repository
 
 import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import okhttp3.Headers
 import org.alberto97.ouilookup.Extensions.readRawTextFile
+import org.alberto97.ouilookup.MainApplication
 import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.datasource.IEEEApi
 import org.alberto97.ouilookup.db.Oui
 import org.alberto97.ouilookup.db.OuiDao
 import org.alberto97.ouilookup.tools.IOuiCsvParser
 import org.alberto97.ouilookup.tools.OctetTool
+import org.alberto97.ouilookup.tools.OuiCsvParser
 import org.alberto97.ouilookup.tools.Rfc1123DateTime
-import javax.inject.Inject
-import javax.inject.Singleton
 
 
 interface IOuiRepository {
@@ -26,13 +25,12 @@ interface IOuiRepository {
     suspend fun updateFromCsv()
 }
 
-@Singleton
-class OuiRepository @Inject constructor(
-    @ApplicationContext private val context: Context,
-    private val ouiCsvParser: IOuiCsvParser,
-    private val api: IEEEApi,
-    private val dao: OuiDao,
-    private val settings: ISettingsRepository
+class OuiRepository(
+    private val context: Context = MainApplication.instance,
+    private val ouiCsvParser: IOuiCsvParser = OuiCsvParser(),
+    private val api: IEEEApi = MainApplication.instance.ieeeApi,
+    private val dao: OuiDao = MainApplication.instance.ouiDao,
+    private val settings: ISettingsRepository = SettingsRepository()
 ) : IOuiRepository {
 
     override suspend fun search(text: String): List<Oui> {

@@ -9,25 +9,22 @@ import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
 import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.repository.IOuiRepository
+import org.alberto97.ouilookup.repository.OuiRepository
 
-@HiltWorker
-class UpdateWorker @AssistedInject constructor(
-    @Assisted private val appContext: Context,
-    @Assisted workerParams: WorkerParameters,
-    private val repository: IOuiRepository
+class UpdateWorker(
+    private val appContext: Context,
+    workerParams: WorkerParameters,
 ) : CoroutineWorker(appContext, workerParams) {
     companion object {
         const val LOG_TAG = "UpdateWorker"
     }
 
+    private val repository: IOuiRepository = OuiRepository()
     private val notificationManager = NotificationManagerCompat.from(appContext)
     private val channelId = "oui_updates"
 

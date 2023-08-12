@@ -5,17 +5,17 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.work.*
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 import org.alberto97.ouilookup.Extensions.readRawTextFile
+import org.alberto97.ouilookup.MainApplication
 import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.repository.IOuiRepository
 import org.alberto97.ouilookup.repository.ISettingsRepository
+import org.alberto97.ouilookup.repository.OuiRepository
+import org.alberto97.ouilookup.repository.SettingsRepository
 import org.alberto97.ouilookup.workers.UpdateWorker
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
@@ -24,12 +24,11 @@ interface IUpdateManager {
     suspend fun shouldUpdate()
 }
 
-@Singleton
-class UpdateManager @Inject constructor(
-    @ApplicationContext private val context: Context,
-    private val repository: IOuiRepository,
-    private val settings: ISettingsRepository,
-    private val workManager: WorkManager
+class UpdateManager(
+    private val context: Context = MainApplication.instance,
+    private val repository: IOuiRepository = OuiRepository(),
+    private val settings: ISettingsRepository = SettingsRepository(),
+    private val workManager: WorkManager = MainApplication.instance.workManager
 ) : IUpdateManager {
     companion object {
         const val WORK_NAME = "updateDb"

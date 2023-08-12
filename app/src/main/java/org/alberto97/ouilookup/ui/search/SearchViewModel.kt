@@ -5,19 +5,19 @@ import android.content.ClipboardManager
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import org.alberto97.ouilookup.MainApplication
 import org.alberto97.ouilookup.repository.IOuiRepository
+import org.alberto97.ouilookup.repository.OuiRepository
 import org.alberto97.ouilookup.tools.IUpdateManager
 import org.alberto97.ouilookup.tools.StringInspector
-import javax.inject.Inject
+import org.alberto97.ouilookup.tools.UpdateManager
 
-@HiltViewModel
-class SearchViewModel @Inject constructor(
-    private val app: Application,
-    private val repository: IOuiRepository,
-    private val updateManager: IUpdateManager
+class SearchViewModel(
+    private val app: Application = MainApplication.instance,
+    private val repository: IOuiRepository = OuiRepository(),
+    private val updateManager: IUpdateManager = UpdateManager()
 ) : ViewModel() {
 
     private val _text = MutableStateFlow("")

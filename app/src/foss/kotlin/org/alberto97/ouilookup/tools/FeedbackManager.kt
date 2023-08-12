@@ -1,12 +1,9 @@
 package org.alberto97.ouilookup.tools
 
 import android.app.Activity
-import javax.inject.Inject
-import javax.inject.Singleton
 
 
-@Singleton
-class FeedbackManager @Inject constructor() : IFeedbackManager {
+class FeedbackManager : IFeedbackManager {
 
     override suspend fun shouldAskForReview(): Boolean {
         // Do not ask for review in the FOSS flavor

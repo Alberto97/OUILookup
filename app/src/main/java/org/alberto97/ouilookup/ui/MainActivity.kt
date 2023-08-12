@@ -5,23 +5,16 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.alberto97.ouilookup.repository.ISettingsRepository
-import org.alberto97.ouilookup.tools.IFeedbackManager
-import javax.inject.Inject
+import org.alberto97.ouilookup.repository.SettingsRepository
+import org.alberto97.ouilookup.tools.FeedbackManager
 
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    @Inject
-    lateinit var settings: ISettingsRepository
-
-    @Inject
-    lateinit var feedback: IFeedbackManager
+    private val settings = SettingsRepository()
+    private val feedback = FeedbackManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()

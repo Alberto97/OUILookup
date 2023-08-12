@@ -7,28 +7,29 @@ import android.os.Build
 import android.text.format.DateUtils
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.alberto97.ouilookup.BuildConfig
+import org.alberto97.ouilookup.MainApplication
 import org.alberto97.ouilookup.repository.IOuiRepository
 import org.alberto97.ouilookup.repository.ISettingsRepository
+import org.alberto97.ouilookup.repository.OuiRepository
+import org.alberto97.ouilookup.repository.SettingsRepository
+import org.alberto97.ouilookup.tools.AppStoreUtils
 import org.alberto97.ouilookup.tools.IAppStoreUtils
-import javax.inject.Inject
 
 enum class AppStore {
     Oss,
     PlayStore
 }
 
-@HiltViewModel
-class AboutViewModel @Inject constructor(
-    private val app: Application,
-    ouiRepo: IOuiRepository,
-    private val appStoreUtils: IAppStoreUtils,
-    private val settings: ISettingsRepository
+class AboutViewModel(
+    private val app: Application = MainApplication.instance,
+    ouiRepo: IOuiRepository = OuiRepository(),
+    private val appStoreUtils: IAppStoreUtils = AppStoreUtils(),
+    private val settings: ISettingsRepository = SettingsRepository()
 ) : ViewModel() {
 
     val availableAppStore = if (appStoreUtils.isPlayStoreAvailable()) AppStore.PlayStore else AppStore.Oss

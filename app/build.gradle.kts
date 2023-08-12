@@ -10,7 +10,6 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.kapt")
-    id("com.google.dagger.hilt.android")
     id("org.gradle.android.cache-fix")
 }
 
@@ -109,19 +108,12 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.activity:activity-compose:1.7.2")
 
-    // Hilt
-    val hiltVersion = "2.47"
-    implementation("com.google.dagger:hilt-android:$hiltVersion")
-    kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
-
     // In-app review - Play Services
     "gmsImplementation"("com.google.android.play:core:1.10.3")
     "gmsImplementation"("com.google.android.play:core-ktx:1.8.1")
 
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.6.0")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
     // Retrofit
     val retrofitVersion = "2.9.0"
@@ -135,7 +127,6 @@ dependencies {
 
     // Work
     implementation("androidx.work:work-runtime-ktx:2.8.1")
-    implementation("androidx.hilt:hilt-work:1.0.0")
 
     // Test
     val mockkVersion = "1.13.3"

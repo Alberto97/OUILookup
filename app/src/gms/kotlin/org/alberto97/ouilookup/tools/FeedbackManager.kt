@@ -1,23 +1,21 @@
 package org.alberto97.ouilookup.tools
 
 import android.app.Activity
-import android.util.Log
 import com.google.android.play.core.ktx.launchReview
 import com.google.android.play.core.ktx.requestReview
 import com.google.android.play.core.review.ReviewManagerFactory
 import kotlinx.coroutines.flow.first
+import org.alberto97.ouilookup.repository.FeedbackRepository
 import org.alberto97.ouilookup.repository.IFeedbackRepository
 import org.alberto97.ouilookup.repository.ISettingsRepository
-import javax.inject.Inject
-import javax.inject.Singleton
+import org.alberto97.ouilookup.repository.SettingsRepository
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
 
-@Singleton
-class FeedbackManager @Inject constructor(
-    private val feedbackRepository: IFeedbackRepository,
-    private val settingsRepository: ISettingsRepository
+class FeedbackManager(
+    private val feedbackRepository: IFeedbackRepository = FeedbackRepository(),
+    private val settingsRepository: ISettingsRepository = SettingsRepository()
 ) : IFeedbackManager {
     companion object {
         const val DAYS_BETWEEN_REQUESTS = 2

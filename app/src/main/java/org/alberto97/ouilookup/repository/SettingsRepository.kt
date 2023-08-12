@@ -1,17 +1,11 @@
 package org.alberto97.ouilookup.repository
 
-import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
-import javax.inject.Singleton
+import org.alberto97.ouilookup.MainApplication
 
 interface ISettingsRepository {
     fun getLastDbUpdate(): Flow<Long>
@@ -22,12 +16,10 @@ interface ISettingsRepository {
     suspend fun setUseDynamicTheme(value: Boolean)
 }
 
-@Singleton
-class SettingsRepository @Inject constructor(
-    @ApplicationContext private val context: Context
+class SettingsRepository(
+    private val context: MainApplication = MainApplication.instance
 ): ISettingsRepository {
 
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "oui_settings")
     private val lastDbUpdateKey = longPreferencesKey("last_db_update")
     private val firstLaunchInstant = longPreferencesKey("first_launch_instant")
     private val useDynamicTheme = booleanPreferencesKey("use_dynamic_theme")
