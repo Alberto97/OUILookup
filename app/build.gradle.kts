@@ -9,7 +9,7 @@ plugins {
     id("com.github.ben-manes.versions") version "0.47.0"
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.kapt")
+    id("com.google.devtools.ksp")
     id("org.gradle.android.cache-fix")
 }
 
@@ -122,7 +122,7 @@ dependencies {
 
     // Room
     val roomVersion = "2.5.2"
-    kapt("androidx.room:room-compiler:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
 
     // Work
