@@ -1,7 +1,6 @@
 package org.alberto97.ouilookup.tools
 
 import android.app.Activity
-import android.util.Log
 import com.google.android.play.core.ktx.launchReview
 import com.google.android.play.core.ktx.requestReview
 import com.google.android.play.core.review.ReviewManagerFactory

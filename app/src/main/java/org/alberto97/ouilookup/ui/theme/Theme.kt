@@ -16,7 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
-private val DarkColorScheme = darkColorScheme(
+private val darkColorScheme = darkColorScheme(
     primary = Blue200,
     secondary = Blue700,
     tertiary = Blue700,
@@ -24,7 +24,7 @@ private val DarkColorScheme = darkColorScheme(
     onSecondaryContainer = Color(0xFFd0e4ff)
 )
 
-private val LightColorScheme = lightColorScheme(
+private val lightColorScheme = lightColorScheme(
     primary = Blue500,
     secondary = Blue500,
     tertiary = Blue200,
@@ -43,8 +43,8 @@ fun OUILookupTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        darkTheme -> darkColorScheme
+        else -> lightColorScheme
     }
 
     val view = LocalView.current
