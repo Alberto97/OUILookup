@@ -55,7 +55,7 @@ object OctetTool {
             val x = value.toInt(16)
             if (x >= 0 || x <= 0xff)
                 return true
-        } catch (e: NumberFormatException) {
+        } catch (_: NumberFormatException) {
         }
         return false
     }
