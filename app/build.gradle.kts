@@ -108,8 +108,8 @@ dependencies {
     // Hilt
     val hiltVersion = "2.48"
     implementation("com.google.dagger:hilt-android:$hiltVersion")
-    kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
+    ksp("com.google.dagger:hilt-android-compiler:$hiltVersion")
+    ksp("androidx.hilt:hilt-compiler:1.1.0-alpha01")
 
     // In-app review - Play Services
     "gmsImplementation"("com.google.android.play:core:1.10.3")
