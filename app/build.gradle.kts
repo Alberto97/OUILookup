@@ -131,7 +131,7 @@ dependencies {
 
     // Room
     val roomVersion = "2.5.2"
-    kapt("androidx.room:room-compiler:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
 
     // Work
