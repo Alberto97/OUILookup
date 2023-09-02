@@ -2,11 +2,8 @@
 
 import java.io.FileInputStream
 import java.util.Properties
-import org.alberto97.ouilookup.buildsrc.DependencyUpdates
-import org.alberto97.ouilookup.buildsrc.ReleaseType
 
 plugins {
-    id("com.github.ben-manes.versions") version "0.47.0"
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.kapt")
@@ -145,16 +142,4 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation("io.mockk:mockk-android:$mockkVersion")
-}
-
-tasks.withType<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask> {
-    rejectVersionIf {
-        val current = DependencyUpdates.versionToRelease(currentVersion)
-        // If we're using a SNAPSHOT, ignore since we must be doing so for a reason.
-        if (current == ReleaseType.SNAPSHOT) return@rejectVersionIf true
-
-        // Otherwise we reject if the candidate is more 'unstable' than our version
-        val candidate = DependencyUpdates.versionToRelease(candidate.version)
-        return@rejectVersionIf candidate.isLessStableThan(current)
-    }
 }
