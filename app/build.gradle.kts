@@ -105,7 +105,7 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.7.2")
 
     // Hilt
-    val hiltVersion = "2.48"
+    val hiltVersion: String by rootProject.extra
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     ksp("com.google.dagger:hilt-android-compiler:$hiltVersion")
     ksp("androidx.hilt:hilt-compiler:1.1.0-alpha01")
