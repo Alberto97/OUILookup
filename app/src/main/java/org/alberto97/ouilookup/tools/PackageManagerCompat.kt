@@ -12,7 +12,6 @@ object PackageManagerCompat {
             getPackageInfoLegacy(packageManager, packageName)
     }
 
-    @Suppress("DEPRECATION")
     private fun getPackageInfoLegacy(packageManager: PackageManager, packageName: String): PackageInfo? {
         return packageManager.getPackageInfo(packageName, 0)
     }
