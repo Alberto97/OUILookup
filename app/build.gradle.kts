@@ -135,7 +135,7 @@ dependencies {
 
     // Work
     implementation("androidx.work:work-runtime-ktx:2.8.1")
-    implementation("androidx.hilt:hilt-work:1.0.0")
+    implementation("androidx.hilt:hilt-work:1.1.0")
 
     // Test
     val mockkVersion = "1.13.8"
