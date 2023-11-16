@@ -1,2 +1,2 @@
-json_key_file("privateConfig/api-project-359314385850-8f47d897749a.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
+json_key_file("privateConfig/wide-world-405309-829868820f77.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
 package_name("org.alberto97.ouilookup") # e.g. com.krausefx.app
