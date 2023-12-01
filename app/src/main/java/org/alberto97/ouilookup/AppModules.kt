@@ -1,7 +1,9 @@
 package org.alberto97.ouilookup
 
 import android.content.Context
+import androidx.hilt.work.HiltWorkerFactory
 import androidx.room.Room
+import androidx.work.Configuration
 import androidx.work.WorkManager
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import dagger.Binds
@@ -89,5 +91,14 @@ object CsvReaderModule {
 object WorkModule {
     @Singleton
     @Provides
-    fun provideWorkManager(@ApplicationContext context: Context) = WorkManager.getInstance(context)
+    fun provideWorkManager(
+        @ApplicationContext context: Context,
+        workerFactory: HiltWorkerFactory
+    ): WorkManager {
+        val workConfig = Configuration.Builder()
+            .setWorkerFactory(workerFactory)
+            .build()
+        WorkManager.initialize(context, workConfig)
+        return WorkManager.getInstance(context)
+    }
 }
