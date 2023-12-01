@@ -2,8 +2,6 @@ package org.alberto97.ouilookup.tools
 
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.work.*
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -57,21 +55,9 @@ class UpdateManager @Inject constructor(
         val workRequest = buildUpdateWorkRequest()
 
         workManager.enqueueUniqueWork(WORK_NAME, ExistingWorkPolicy.REPLACE, workRequest)
-        workManager.getWorkInfoByIdLiveData(workRequest.id).notifyUpdateWorkStateChange()
-    }
-
-    private fun LiveData<WorkInfo>.notifyUpdateWorkStateChange() {
-        observeForever(object : Observer<WorkInfo> {
-            override fun onChanged(value: WorkInfo) {
-                if (value.state == WorkInfo.State.RUNNING)
-                    _pendingUpdate.value = true
-
-                if (value.state.isFinished) {
-                    _pendingUpdate.value = false
-                    removeObserver(this)
-                }
-            }
-        })
+        workManager.getWorkInfoByIdFlow(workRequest.id).collect { value ->
+            _pendingUpdate.value = !value.state.isFinished
+        }
     }
 
     /**
