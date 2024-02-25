@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.rounded.Android
 import androidx.compose.material.icons.rounded.Favorite
@@ -69,7 +69,7 @@ fun AboutScreen(
             title = { Text(stringResource(R.string.settings_title)) },
             navigationIcon = {
                 IconButton(onClick = { onBackClick() }) {
-                    Icon(Icons.Filled.ArrowBack, contentDescription = null)
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
                 }
             },
         )
@@ -94,7 +94,7 @@ fun AboutScreen(
             if (supportedDynamicTheme)
                 Settings(useDynamicTheme, toggleDynamicTheme)
 
-            Divider(color = Color.LightGray)
+            HorizontalDivider(color = Color.LightGray)
             ListItem(
                 leadingContent = {},
                 headlineContent = {
@@ -121,7 +121,7 @@ fun AboutScreen(
                 headlineContent = { Text(stringResource(R.string.about_last_db_update)) },
                 supportingContent = { Text(lastDbUpdate) },
             )
-            Divider(color = Color.LightGray)
+            HorizontalDivider(color = Color.LightGray)
             ListItem(
                 leadingContent = { UpdateInfoIcon() },
                 headlineContent = {},
@@ -151,7 +151,7 @@ private fun ListIcon(child: @Composable () -> Unit) {
 @Composable
 private fun Settings(useDynamicTheme: Boolean, toggleDynamicTheme: () -> Unit) {
     Column {
-        Divider(color = Color.LightGray)
+        HorizontalDivider(color = Color.LightGray)
         ListItem(
             leadingContent = {},
             headlineContent = {
