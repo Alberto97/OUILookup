@@ -25,7 +25,7 @@ android {
     defaultConfig {
         applicationId = "org.alberto97.ouilookup"
         namespace = "org.alberto97.ouilookup"
-        minSdk = 21
+        minSdk = 26
         targetSdk = 34
         versionCode = 22
         versionName = "1.6.4"
