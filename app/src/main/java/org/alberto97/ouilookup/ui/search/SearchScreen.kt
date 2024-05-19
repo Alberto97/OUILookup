@@ -17,7 +17,6 @@ import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -27,14 +26,15 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.alberto97.ouilookup.R
 import org.alberto97.ouilookup.db.Oui
 import org.alberto97.ouilookup.ui.Destinations
-import org.alberto97.ouilookup.ui.common.OnResumeEffect
 import org.alberto97.ouilookup.ui.theme.OUILookupTheme
 
 @Composable
@@ -49,7 +49,7 @@ fun SearchScreen(
     val placeholder by viewModel.placeholder.collectAsState(UiSearchPlaceholder.Instructions)
 
     val clipboardPasteScope = rememberCoroutineScope()
-    OnResumeEffect(lifecycleOwner) {
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME, lifecycleOwner) {
         clipboardPasteScope.launch {
             // Wait for the app to get focus
             delay(500L)
@@ -67,7 +67,7 @@ fun SearchScreen(
     )
 }
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SearchScreen(
     onInfoClick: () -> Unit,
