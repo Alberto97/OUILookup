@@ -1,11 +1,9 @@
 package org.alberto97.ouilookup.workers
 
-import android.annotation.TargetApi
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
-import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -68,11 +66,9 @@ class UpdateWorker @AssistedInject constructor(
             .setOngoing(true)
             .setProgress(100, 0, true)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelName = appContext.getString(R.string.oui_update_notification_channel)
-            createNotificationChannel(channelId, channelName).also {
-                builder.setChannelId(it.id)
-            }
+        val channelName = appContext.getString(R.string.oui_update_notification_channel)
+        createNotificationChannel(channelId, channelName).also {
+            builder.setChannelId(it.id)
         }
 
         return builder.build()
@@ -82,7 +78,6 @@ class UpdateWorker @AssistedInject constructor(
      * Create the required notification channel for O+ devices.
      */
     @Suppress("SameParameterValue")
-    @TargetApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(
         id: String,
         name: String
