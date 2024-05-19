@@ -1,9 +1,9 @@
 package org.alberto97.ouilookup.tools
 
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
-import org.junit.Test
 import java.io.File
 import java.nio.file.Paths
+import kotlin.test.Test
 
 class OuiCsvParserTest {
     private val parser = OuiCsvParser(csvReader())
