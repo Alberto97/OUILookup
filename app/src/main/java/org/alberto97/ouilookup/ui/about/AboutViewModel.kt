@@ -8,7 +8,7 @@ import android.text.format.DateUtils
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -36,17 +36,11 @@ class AboutViewModel @Inject constructor(
     val dbVersion = ouiRepo.getLastDbUpdate().map { millis -> formatLastDbUpdateDate(millis) }
 
     val supportedDynamicTheme = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-    lateinit var useDynamicTheme: StateFlow<Boolean>
-
-    init {
-        viewModelScope.launch {
-            init()
-        }
-    }
-
-    private suspend fun init() {
-        useDynamicTheme = settings.getUseDynamicTheme().stateIn(scope = viewModelScope)
-    }
+    val useDynamicTheme = settings.getUseDynamicTheme().stateIn(
+        viewModelScope,
+        WhileSubscribed(5000L),
+        false,
+    )
 
     private fun formatLastDbUpdateDate(millis: Long): String {
         val options = DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_SHOW_YEAR
