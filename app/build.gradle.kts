@@ -142,6 +142,6 @@ dependencies {
     val mockkVersion = "1.13.11"
     testImplementation(kotlin("test"))
     testImplementation("io.mockk:mockk-android:$mockkVersion")
-    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.5")
+    androidTestImplementation("androidx.test.ext:junit-ktx:1.2.0")
     androidTestImplementation("io.mockk:mockk-android:$mockkVersion")
 }
