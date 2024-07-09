@@ -1,0 +1,2 @@
+* Bundled OUI list updated @ 2024-06-15
+* Fixed crash when opening settings
