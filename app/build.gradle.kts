@@ -117,7 +117,7 @@ dependencies {
     "gmsImplementation"("com.google.android.play:review-ktx:2.0.1")
 
     // Lifecycle
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.3")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.4")
 
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")
