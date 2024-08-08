@@ -134,7 +134,7 @@ dependencies {
     implementation("androidx.room:room-ktx:$roomVersion")
 
     // Work
-    implementation("androidx.work:work-runtime-ktx:2.9.0")
+    implementation("androidx.work:work-runtime-ktx:2.9.1")
     implementation("androidx.hilt:hilt-work:1.2.0")
 
     // Test
