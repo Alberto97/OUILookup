@@ -25,7 +25,7 @@ android {
     defaultConfig {
         applicationId = "org.alberto97.ouilookup"
         namespace = "org.alberto97.ouilookup"
-        minSdk = 21
+        minSdk = 26
         targetSdk = 34
         versionCode = 22
         versionName = "1.6.4"
@@ -70,7 +70,6 @@ android {
     }
 
     compileOptions {
-        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
@@ -93,8 +92,6 @@ android {
 }
 
 dependencies {
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.2")
-
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.datastore:datastore-preferences:1.1.1")
     implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.10.0")
