@@ -86,7 +86,7 @@ android {
 
 dependencies {
     implementation("androidx.core:core-splashscreen:1.0.1")
-    implementation("androidx.datastore:datastore-preferences:1.1.1")
+    implementation("androidx.datastore:datastore-preferences:1.1.6")
     implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.10.0")
 
     // Compose
