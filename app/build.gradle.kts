@@ -104,7 +104,7 @@ dependencies {
     ksp("androidx.hilt:hilt-compiler:1.2.0")
 
     // In-app review - Play Services
-    "gmsImplementation"("com.google.android.play:review-ktx:2.0.1")
+    "gmsImplementation"("com.google.android.play:review-ktx:2.0.2")
 
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.7")
