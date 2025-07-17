@@ -151,18 +151,24 @@ private fun SearchBar(
     onClear: () -> Unit
 ) {
     SearchBar(
+        inputField = {
+            SearchBarDefaults.InputField(
+                query = text,
+                onQueryChange = onTextChange,
+                onSearch = {},
+                expanded = false,
+                onExpandedChange = {},
+                placeholder = { Text(stringResource(R.string.search_text_field_placeholder)) },
+                leadingIcon = { Icon(Icons.Rounded.Search, null) },
+                trailingIcon = { if (text.isNotEmpty()) ClearIcon(onClear) },
+            )
+        },
+        expanded = false,
+        onExpandedChange = {},
         modifier = modifier
             .fillMaxWidth()
             .padding(14.dp),
-        placeholder = { Text(stringResource(R.string.search_text_field_placeholder)) },
-        leadingIcon = { Icon(Icons.Rounded.Search, null) },
-        trailingIcon = { if (text.isNotEmpty()) ClearIcon(onClear) },
-        query = text,
-        onQueryChange = onTextChange,
-        onSearch = {},
-        active = false,
-        onActiveChange = {},
-        content = {},
+        content = {}
     )
 }
 
