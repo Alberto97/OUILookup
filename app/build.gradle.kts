@@ -20,13 +20,13 @@ val secureProperties = Properties().apply {
 }
 
 android {
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "org.alberto97.ouilookup"
         namespace = "org.alberto97.ouilookup"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 22
         versionName = "1.6.4"
 
