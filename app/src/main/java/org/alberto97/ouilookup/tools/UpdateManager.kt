@@ -56,6 +56,7 @@ class UpdateManager @Inject constructor(
 
         workManager.enqueueUniqueWork(WORK_NAME, ExistingWorkPolicy.REPLACE, workRequest)
         workManager.getWorkInfoByIdFlow(workRequest.id).collect { value ->
+            value ?: return@collect
             _pendingUpdate.value = !value.state.isFinished
         }
     }
