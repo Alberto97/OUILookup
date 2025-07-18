@@ -148,30 +148,27 @@ private fun SearchBar(
     onTextChange: (String) -> Unit,
     onClear: () -> Unit
 ) {
-    val colors = SearchBarDefaults.colors()
-
-    Surface(
-        modifier = Modifier
+    SearchBar(
+        inputField = {
+            SearchBarDefaults.InputField(
+                query = text,
+                onQueryChange = onTextChange,
+                onSearch = {},
+                expanded = false,
+                onExpandedChange = {},
+                placeholder = { Text(stringResource(R.string.search_text_field_placeholder)) },
+                leadingIcon = { Icon(Icons.Rounded.Search, null) },
+                trailingIcon = { if (text.isNotEmpty()) ClearIcon(onClear) },
+            )
+        },
+        expanded = false,
+        onExpandedChange = {},
+        modifier = modifier
             .fillMaxWidth()
             .padding(14.dp),
-        shape = SearchBarDefaults.inputFieldShape,
-        color = colors.containerColor,
-        contentColor = contentColorFor(colors.containerColor),
-        tonalElevation = SearchBarDefaults.TonalElevation,
-        shadowElevation = SearchBarDefaults.ShadowElevation,
-    ) {
-        SearchBarDefaults.InputField(
-            modifier = modifier,
-            query = text,
-            onQueryChange = onTextChange,
-            onSearch = {},
-            expanded = false,
-            onExpandedChange = {},
-            placeholder = { Text(stringResource(R.string.search_text_field_placeholder)) },
-            leadingIcon = { Icon(Icons.Rounded.Search, null) },
-            trailingIcon = { if (text.isNotEmpty()) ClearIcon(onClear) },
-        )
-    }
+        windowInsets = WindowInsets(0, 0, 0, 0),
+        content = {},
+    )
 }
 
 @Composable
