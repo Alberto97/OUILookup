@@ -27,8 +27,8 @@ android {
         namespace = "org.alberto97.ouilookup"
         minSdk = 26
         targetSdk = 36
-        versionCode = 22
-        versionName = "1.6.4"
+        versionCode = 23
+        versionName = "1.6.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
