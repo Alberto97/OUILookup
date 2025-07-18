@@ -110,7 +110,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.9.2")
 
     // Navigation
-    implementation("androidx.navigation:navigation-compose:2.8.2")
+    implementation("androidx.navigation:navigation-compose:2.9.2")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     // Retrofit
