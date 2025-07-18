@@ -1,10 +1,10 @@
 package org.alberto97.ouilookup.repository
 
+import android.app.Application
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -16,17 +16,17 @@ interface IFeedbackRepository {
 }
 
 @Singleton
-class FeedbackRepository @Inject constructor(@ApplicationContext private val context: Context) : IFeedbackRepository {
+class FeedbackRepository @Inject constructor(private val app: Application) : IFeedbackRepository {
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "feedback_persist")
     private val lastRequestDate = longPreferencesKey("last_request_date")
 
     override fun getLastRequestInstant(): Flow<Long> {
-        return context.dataStore.data
+        return app.dataStore.data
             .map { settings -> settings[lastRequestDate] ?: 0L }
     }
 
     override suspend fun setLastRequestInstant(value: Long) {
-        context.dataStore.edit { settings ->
+        app.dataStore.edit { settings ->
             settings[lastRequestDate] = value
         }
     }

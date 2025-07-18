@@ -1,9 +1,8 @@
 package org.alberto97.ouilookup.tools
 
-import android.content.Context
+import android.app.Application
 import android.util.Log
 import androidx.work.*
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
@@ -24,7 +23,7 @@ interface IUpdateManager {
 
 @Singleton
 class UpdateManager @Inject constructor(
-    @ApplicationContext private val context: Context,
+    private val app: Application,
     private val repository: IOuiRepository,
     private val settings: ISettingsRepository,
     private val workManager: WorkManager
@@ -81,7 +80,7 @@ class UpdateManager @Inject constructor(
     }
 
     override suspend fun shouldUpdate() {
-        val bundledUpdateMillis = context.resources.readRawTextFile(R.raw.oui_date_millis).toLong()
+        val bundledUpdateMillis = app.resources.readRawTextFile(R.raw.oui_date_millis).toLong()
         val lastUpdateMillis = settings.getLastDbUpdate().first()
         when (UpdatePolicyManager.getUpdatePolicy(bundledUpdateMillis, lastUpdateMillis)) {
             UpdatePolicy.Local -> localUpdate()
