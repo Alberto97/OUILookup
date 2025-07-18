@@ -4,7 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.LocalOverscrollConfiguration
+import androidx.compose.foundation.LocalOverscrollFactory
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -96,7 +96,7 @@ fun SearchScreen(
     ) { contentPadding ->
         CompositionLocalProvider(
             // Disable overscroll effect
-            LocalOverscrollConfiguration provides null
+            LocalOverscrollFactory provides null
         ) {
             LazyColumn(
                 Modifier
