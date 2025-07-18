@@ -1,7 +1,6 @@
 package org.alberto97.ouilookup.repository
 
-import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
+import android.app.Application
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -28,7 +27,7 @@ interface IOuiRepository {
 
 @Singleton
 class OuiRepository @Inject constructor(
-    @ApplicationContext private val context: Context,
+    private val app: Application,
     private val ouiCsvParser: IOuiCsvParser,
     private val api: IEEEApi,
     private val dao: OuiDao,
@@ -63,8 +62,8 @@ class OuiRepository @Inject constructor(
     }
 
     override suspend fun updateFromCsv() {
-        val csvData = context.resources.readRawTextFile(R.raw.oui)
-        val csvMillis = context.resources.readRawTextFile(R.raw.oui_date_millis).toLong()
+        val csvData = app.resources.readRawTextFile(R.raw.oui)
+        val csvMillis = app.resources.readRawTextFile(R.raw.oui_date_millis).toLong()
         saveData(csvData)
         settings.setLastDbUpdate(csvMillis)
     }
