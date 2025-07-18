@@ -2,6 +2,8 @@ package org.alberto97.ouilookup.ui.theme
 
 import android.app.Activity
 import android.os.Build
+import android.view.Window
+import androidx.annotation.ColorInt
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
@@ -51,7 +53,7 @@ fun OUILookupTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.surface.toArgb()
+            window.colorStatusBarPreEdgeToEdge(colorScheme.surface.toArgb())
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
     }
@@ -62,4 +64,12 @@ fun OUILookupTheme(
         shapes = Shapes,
         content = content
     )
+}
+
+// Color the status bar only on Android 14 and lower where edge-to-edge is not enabled
+fun Window.colorStatusBarPreEdgeToEdge(@ColorInt color: Int) {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+        @Suppress("DEPRECATION")
+        statusBarColor = color
+    }
 }
