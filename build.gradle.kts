@@ -6,7 +6,7 @@ plugins {
     id("com.android.library") version agpVersion apply false
     id("org.jetbrains.kotlin.android") version kotlinVersion apply false
     id("org.jetbrains.kotlin.plugin.compose") version kotlinVersion apply false
-    id("com.google.dagger.hilt.android") version "2.57.1" apply false
+    id("com.google.dagger.hilt.android") version "2.57.2" apply false
     id("com.google.devtools.ksp") version "$kotlinVersion-2.0.2" apply false
     id("org.gradle.android.cache-fix") version "3.0.1" apply false
 }
