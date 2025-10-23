@@ -8,7 +8,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
     id("org.gradle.android.cache-fix")
-    id("androidx.room") version "2.8.2"
+    id("androidx.room") version "2.8.3"
 }
 
 val secureProperties = Properties().apply {
