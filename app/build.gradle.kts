@@ -127,7 +127,7 @@ dependencies {
     implementation("androidx.hilt:hilt-work:1.3.0")
 
     // Test
-    val mockkVersion = "1.14.7"
+    val mockkVersion = "1.14.9"
     testImplementation(kotlin("test-junit"))
     testImplementation("io.mockk:mockk-android:$mockkVersion")
     androidTestImplementation("androidx.test.ext:junit-ktx:1.3.0")
