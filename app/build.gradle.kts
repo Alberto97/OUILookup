@@ -123,7 +123,7 @@ dependencies {
     implementation("androidx.room:room-ktx:$roomVersion")
 
     // Work
-    implementation("androidx.work:work-runtime-ktx:2.11.0")
+    implementation("androidx.work:work-runtime-ktx:2.11.1")
     implementation("androidx.hilt:hilt-work:1.3.0")
 
     // Test
