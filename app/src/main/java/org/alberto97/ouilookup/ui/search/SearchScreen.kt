@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.LocalOverscrollFactory
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -46,6 +47,7 @@ fun SearchScreen(
     val list: List<Oui> by viewModel.list.collectAsState(listOf())
     val lookupList: List<String> by viewModel.bulkLookupList.collectAsState(listOf())
     val placeholder by viewModel.placeholder.collectAsState(UiSearchPlaceholder.Instructions)
+    val selectedOui by viewModel.selectedOui.collectAsState()
 
     val clipboardPasteScope = rememberCoroutineScope()
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME, lifecycleOwner) {
@@ -62,7 +64,9 @@ fun SearchScreen(
         onTextChange = { value -> viewModel.onTextChange(value) },
         list = list,
         lookupList = lookupList,
-        placeholder = placeholder
+        placeholder = placeholder,
+        selectedOui = selectedOui,
+        onOuiSelected = { oui -> viewModel.onOuiSelected(oui) }
     )
 }
 
@@ -73,7 +77,9 @@ fun SearchScreen(
     onTextChange: (value: String) -> Unit,
     list: List<Oui>,
     lookupList: List<String>,
-    placeholder: UiSearchPlaceholder?
+    placeholder: UiSearchPlaceholder?,
+    selectedOui: Oui?,
+    onOuiSelected: (Oui?) -> Unit
 ) {
     val scrollState = rememberLazyListState()
     val bottomBarVisible by remember { derivedStateOf { scrollState.firstVisibleItemIndex == 0 } }
@@ -129,14 +135,28 @@ fun SearchScreen(
                         }
                     }
                 else
-                    items(list) { device ->
+                    items(list) { oui ->
                         ListItem(
-                            headlineContent = { Text(device.orgName) },
-                            supportingContent = { Text(device.oui) }
+                            headlineContent = { Text(oui.orgName) },
+                            supportingContent = { Text(oui.oui) },
+                            modifier = Modifier.clickable { onOuiSelected(oui) }
                         )
                     }
             }
         }
+    }
+
+    selectedOui?.let { oui ->
+        AlertDialog(
+            onDismissRequest = { onOuiSelected(null) },
+            title = { Text(oui.orgName) },
+            text = { Text(oui.orgAddress) },
+            confirmButton = {
+                TextButton(onClick = { onOuiSelected(null) }) {
+                    Text(stringResource(android.R.string.ok))
+                }
+            }
+        )
     }
 }
 
@@ -238,7 +258,9 @@ fun DefaultPreview() {
                 Oui("FF:FF:FF", "Google", "")
             ),
             lookupList = listOf("BB:BB:BB"),
-            placeholder = null
+            placeholder = null,
+            selectedOui = null,
+            onOuiSelected = { }
         )
     }
 }
@@ -253,7 +275,9 @@ fun EmptyPreview() {
             onTextChange = { },
             list = emptyList(),
             lookupList = emptyList(),
-            placeholder = UiSearchPlaceholder.NoResults
+            placeholder = UiSearchPlaceholder.NoResults,
+            selectedOui = null,
+            onOuiSelected = { }
         )
     }
 }
