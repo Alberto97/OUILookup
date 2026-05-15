@@ -12,7 +12,8 @@ def get_raw_path() -> str:
 
 
 def get_csv() -> tuple[str, str]:
-    output = requests.get("http://standards-oui.ieee.org/oui/oui.csv")
+    output = requests.get("http://standards-oui.ieee.org/oui/oui.csv", headers={'User-Agent': ''})
+    print(f"Status Code: {output.status_code}")
     last_modified = output.headers["Last-Modified"]
     return (output.text, last_modified)
 
