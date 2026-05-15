@@ -6,7 +6,6 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
-    id("org.gradle.android.cache-fix")
     id("androidx.room") version "2.8.4"
 }
 
