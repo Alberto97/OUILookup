@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import org.alberto97.ouilookup.db.Oui
 import org.alberto97.ouilookup.repository.IOuiRepository
 import org.alberto97.ouilookup.tools.IUpdateManager
 import org.alberto97.ouilookup.tools.StringInspector
@@ -25,6 +26,9 @@ class SearchViewModel @Inject constructor(
 
     private val _bulkLookupList = MutableStateFlow(listOf<String>())
     val bulkLookupList = _bulkLookupList.asStateFlow()
+
+    private val _selectedOui = MutableStateFlow<Oui?>(null)
+    val selectedOui = _selectedOui.asStateFlow()
 
     val list = combine(_text, _bulkLookupList) { text, list ->
         if (text.isNotEmpty())
@@ -69,6 +73,10 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch {
             updateManager.shouldUpdate()
         }
+    }
+
+    fun onOuiSelected(oui: Oui?) {
+        _selectedOui.value = oui
     }
 
     fun onTextChange(text: String) {
