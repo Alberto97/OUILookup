@@ -1,0 +1,4 @@
+* Network db update restored
+* Added organization details on tap
+* Bundled OUI list updated @ 2026-05-15
+* Dependencies update
