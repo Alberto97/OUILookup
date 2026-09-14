@@ -117,7 +117,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-scalars:$retrofitVersion")
 
     // Room
-    val roomVersion = "2.8.4"
+    val roomVersion = "2.8.5"
     ksp("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
 
