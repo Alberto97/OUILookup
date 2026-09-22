@@ -6,7 +6,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
-    id("androidx.room") version "2.8.4"
+    id("androidx.room") version "2.8.5"
 }
 
 val secureProperties = Properties().apply {
