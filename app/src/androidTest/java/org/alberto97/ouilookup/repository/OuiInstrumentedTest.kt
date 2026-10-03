@@ -1,10 +1,11 @@
 package org.alberto97.ouilookup.repository
 
+import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
+import com.jsoizo.kotlincsv.csvReader
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.alberto97.ouilookup.db.AppDatabase
@@ -23,7 +24,7 @@ class OuiInstrumentedTest {
 
     @Before
     fun createDb() {
-        val context = ApplicationProvider.getApplicationContext<Context>()
+        val context = ApplicationProvider.getApplicationContext<Application>()
         val ouiDao = setupDao(context)
         val csvParser = OuiCsvParser(csvReader())
         ouiRepository = OuiRepository(context, csvParser, mockk(), ouiDao, mockk())
