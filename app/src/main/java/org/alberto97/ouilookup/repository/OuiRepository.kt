@@ -77,10 +77,6 @@ class OuiRepository @Inject constructor(
         if (entities.isEmpty())
             return@withContext
 
-        // Clear OUI table
-        dao.deleteAll()
-
-        // Insert all the records
-        dao.insert(entities)
+        dao.replaceAll(entities)
     }
 }
