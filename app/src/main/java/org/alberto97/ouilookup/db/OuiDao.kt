@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 
 @Dao
 interface OuiDao {
@@ -22,6 +23,13 @@ interface OuiDao {
 
     @Query("DELETE FROM oui")
     suspend fun deleteAll()
+
+    @Transaction
+    suspend fun replaceAll(entities: List<Oui>) {
+        require(entities.isNotEmpty()) { "Cannot replace OUI database with an empty dataset" }
+        deleteAll()
+        insert(entities)
+    }
 
     @Query("SELECT NOT EXISTS(SELECT 1 FROM oui LIMIT 1)")
     fun isEmpty(): Boolean
