@@ -1,0 +1,4 @@
+* Made the data update process more reliable
+* Fixed an issue with data updates on devices using non-English languages
+* Updated the built-in manufacturer database (October 4, 2026)
+* Improved compatibility with Android 17
